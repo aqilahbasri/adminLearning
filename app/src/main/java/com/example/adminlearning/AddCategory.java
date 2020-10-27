@@ -86,8 +86,8 @@ public class AddCategory extends AppCompatActivity {
 
                                     String url = uri.toString();
                                     UploadCategory imageUploadInfo = new UploadCategory(url, categoryname);
-                                    String categoryimage = databaseReference.push().getKey();
-                                    databaseReference.child(categoryimage).setValue(imageUploadInfo);
+                                    //String categoryname = databaseReference.push().getKey();
+                                    databaseReference.child(categoryname).setValue(imageUploadInfo);
 
                                 }
                             });

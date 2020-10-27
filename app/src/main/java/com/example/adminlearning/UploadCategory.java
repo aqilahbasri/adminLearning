@@ -1,14 +1,16 @@
 package com.example.adminlearning;
 
 public class UploadCategory {
-    public String categoryimage;
     public String categoryname;
+    public String categoryimage;
+
 
     public UploadCategory(){}
 
-    public UploadCategory(String name, String url) {
-        this.categoryimage = name;
-        this.categoryname = url;
+    public UploadCategory(String url, String name) {
+        this.categoryname = name;
+        this.categoryimage = url;
+
     }
 
     public String getCategoryname() {

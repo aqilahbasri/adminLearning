@@ -1,6 +1,6 @@
 package com.example.adminlearning;
 
-public class Category {
+public class  Category {
     private String categoryname;
     private String categoryimage;
 

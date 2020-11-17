@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="#d584cd"
+        android:layout_margin="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/learnSL"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundbtn"
+                android:layout_gravity="center"
+                android:text="LEARN SIGN LANGUAGE"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/challengeSL"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundbtn"
+                android:layout_gravity="center"
+                android:text="CHALLENGE SIGN LANGUAGE"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,7 +32,8 @@ public class AddCategory extends AppCompatActivity {
 
     Button uploadimgbtn, submitcatbtn;
     TextInputEditText addcategoryname;
-    ImageView catimg;
+    ImageView delbtn;
+    WebView catimg;
     public Uri imguri;
     DatabaseReference databaseReference;
     StorageReference mStorageRef;
@@ -43,10 +46,11 @@ public class AddCategory extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference("LearningCategory/");
         databaseReference = FirebaseDatabase.getInstance().getReference("LEARNING");
 
-        catimg = (ImageView) findViewById(R.id.catimg);
+        catimg = (WebView) findViewById(R.id.catimg);
         submitcatbtn = (Button) findViewById(R.id.submitcatbtn);
         uploadimgbtn = (Button) findViewById(R.id.uploadimgbtn);
         addcategoryname = (TextInputEditText) findViewById(R.id.addcategoryname);
+
 
         uploadimgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +90,7 @@ public class AddCategory extends AppCompatActivity {
 
                                     String url = uri.toString();
                                     UploadCategory imageUploadInfo = new UploadCategory(url, categoryname);
-                                    //String categoryname = databaseReference.push().getKey();
+//                                    String categorykey = databaseReference.push().getKey();
                                     databaseReference.child(categoryname).setValue(imageUploadInfo);
 
                                 }
@@ -116,7 +120,10 @@ public class AddCategory extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
             imguri = data.getData();
-            catimg.setImageURI(imguri);
+            catimg.loadUrl(String.valueOf(imguri));
+            catimg.getSettings().setLoadWithOverviewMode(true);
+            catimg.getSettings().setUseWideViewPort(true);
+//            catimg.setImageURI(imguri);
 
         }
     }

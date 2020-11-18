@@ -3,7 +3,6 @@ package com.example.adminlearning;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -25,16 +24,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHolder> {
+public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter.MyViewHolder> {
 
     Context context;
-    ArrayList<LearnSLlist> learnSLlists;
-    private DatabaseReference addslRef;
+    ArrayList<ChallengeSLlist> challengeSLlist;
+    private DatabaseReference addquesRef;
     String refchild;
 
-    public LearnSLadapter (Context c, ArrayList<LearnSLlist> p, String data){
+    public  ChallengeSLadapter (Context c, ArrayList<ChallengeSLlist> p, String data){
         context =c;
-        learnSLlists =p;
+        challengeSLlist =p;
         refchild = data;
     }
 
@@ -42,17 +41,16 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
 
     @NonNull
     @Override
-    public LearnSLadapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LearnSLadapter.MyViewHolder(LayoutInflater.from(context).inflate(R.layout.cardview,parent,false));
+    public ChallengeSLadapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ChallengeSLadapter.MyViewHolder(LayoutInflater.from(context).inflate(R.layout.cardquesview,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.categoryname.setText(learnSLlists.get(position).getSldescription());
-        holder.categoryimage.loadUrl(learnSLlists.get(position).getImgurl());
-        holder.categoryimage.getSettings().setUseWideViewPort(true);
-        holder.categoryimage.getSettings().setLoadWithOverviewMode(true);
+        holder.slimage.loadUrl(challengeSLlist.get(position).getQuestion());
+        holder.slimage.getSettings().setUseWideViewPort(true);
+        holder.slimage.getSettings().setLoadWithOverviewMode(true);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -74,39 +72,36 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return learnSLlists.size();
+        return challengeSLlist.size();
     }
 
     class  MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView categoryname;
-        WebView categoryimage;
+        WebView slimage;
         ImageButton deletebtn;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            categoryname = (TextView) itemView.findViewById(R.id.categoryname);
-            categoryimage = (WebView) itemView.findViewById(R.id.categoryimage);
+            slimage = (WebView) itemView.findViewById(R.id.slimage);
             deletebtn = (ImageButton) itemView.findViewById(R.id.delbtn);
 
-            addslRef = FirebaseDatabase.getInstance().getReference().child("SignLanguage").child(refchild);
+            addquesRef = FirebaseDatabase.getInstance().getReference().child("Question").child(refchild);
 
 
             deletebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    final LearnSLlist cat = learnSLlists.get(position);
-                    addslRef.addValueEventListener(new ValueEventListener() {
+                    final ChallengeSLlist cat = challengeSLlist.get(position);
+                    addquesRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String imgurl = cat.getImgurl();
-                            String sldescriptionname= cat.getSldescription();
+                            String question= cat.getQuestion();
 
-                            LearnSLlist delcat = new LearnSLlist(sldescriptionname, imgurl);
-                            addslRef.child(sldescriptionname).removeValue();
+//                            ChallengeSLlist delcat = new ChallengeSLlist(question);
+//                            addquesRef.child(pushkey).removeValue();
 
                         }
 
@@ -130,4 +125,5 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
 
 
 }
+
 

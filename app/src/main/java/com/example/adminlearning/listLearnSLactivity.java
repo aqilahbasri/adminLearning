@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class listLearnSLactivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView texttoolbar;
     DatabaseReference reference;
     RecyclerView recyclerView;
     ArrayList<LearnSLlist> learnSLlists;
@@ -43,11 +42,10 @@ public class listLearnSLactivity extends AppCompatActivity {
         data = extras.getString("catTitle");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        texttoolbar = (TextView) findViewById(R.id.texttoolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(data);
         addslbtn = (Button)findViewById(R.id.addslbtn);
-;
+
         addslbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +92,7 @@ public class listLearnSLactivity extends AppCompatActivity {
 
     private void addnewSL() {
         Intent intent = new Intent(this, AddSLactivity.class );
+        intent.putExtra("catTitle", data);
         startActivity(intent);
     }
 }

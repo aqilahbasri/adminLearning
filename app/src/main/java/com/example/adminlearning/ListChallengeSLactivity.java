@@ -91,7 +91,7 @@ public class ListChallengeSLactivity extends AppCompatActivity {
     }
 
     private void addnewQ() {
-        Intent intent = new Intent(this, AddSLactivity.class );
+        Intent intent = new Intent(this, AddQactivity.class );
         intent.putExtra("catTitle", data);
         startActivity(intent);
     }

@@ -73,7 +73,7 @@ public class AddSLactivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
     }
 
-    //upload photo and category name
+    //upload photo and sign language description
     private void Fileuploader() {
         if (imguri != null) {
 

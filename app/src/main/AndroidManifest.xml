@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.adminlearning">
 
     <application
@@ -9,8 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddQactivity"></activity>
-        <activity android:name=".AddSLactivity" />
+        <activity android:name=".EditQuestion"></activity>
+        <activity android:name=".EditSL" />
+        <activity
+            android:name=".AddQactivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AddSLactivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ListChallengeSLactivity" />
         <activity android:name=".listLearnSLactivity" />
         <activity android:name=".AddCategory" />

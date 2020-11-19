@@ -30,7 +30,7 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
     Context context;
     ArrayList<LearnSLlist> learnSLlists;
     private DatabaseReference addslRef;
-    String refchild;
+    String refchild, refchildd;
 
     public LearnSLadapter (Context c, ArrayList<LearnSLlist> p, String data){
         context =c;
@@ -47,7 +47,7 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         holder.categoryname.setText(learnSLlists.get(position).getSldescription());
         holder.categoryimage.loadUrl(learnSLlists.get(position).getImgurl());
@@ -58,13 +58,11 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
 
             @Override
             public void onClick(View v) {
-//                final Dialog catDialog = new Dialog(context);
-//                catDialog.setContentView(R.layout.learn_question_choose);
-//                Button learncat = (Button) catDialog.findViewById(R.id.learnSL);
-//                Button challcat = (Button) catDialog.findViewById(R.id.challengeSL);
-//
-//                catDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                catDialog.show();
+                refchildd = learnSLlists.get(position).getSldescription();
+                Intent intent = new Intent(context, EditSL.class);
+                intent.putExtra("catTitle", refchild);
+                intent.putExtra("childTitle", refchildd);
+                context.startActivity(intent);
 
             }
 

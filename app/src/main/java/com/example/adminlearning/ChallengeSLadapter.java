@@ -46,7 +46,7 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChallengeSLadapter.MyViewHolder holder, int position) {
 
         holder.slimage.loadUrl(challengeSLlist.get(position).getQuestion());
         holder.slimage.getSettings().setUseWideViewPort(true);
@@ -56,21 +56,21 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
 
             @Override
             public void onClick(View v) {
-                final Dialog catDialog = new Dialog(context);
-                catDialog.setContentView(R.layout.learn_question_choose);
-                Button learncat = (Button) catDialog.findViewById(R.id.learnSL);
-                Button challcat = (Button) catDialog.findViewById(R.id.challengeSL);
+//                final Dialog catDialog = new Dialog(context);
+//                catDialog.setContentView(R.layout.learn_question_choose);
+//                Button learncat = (Button) catDialog.findViewById(R.id.learnSL);
+//                Button challcat = (Button) catDialog.findViewById(R.id.challengeSL);
+//
+//                catDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                catDialog.show();
+//
+//            }
 
-                catDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                catDialog.show();
-
-            }
-
-        });
+        }
+    });
     }
 
 
-    @Override
     public int getItemCount() {
         return challengeSLlist.size();
     }
@@ -99,9 +99,15 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String question= cat.getQuestion();
+                            int correctAnswer = cat.getCorrectAnswer();
+                            String option1 = cat.getOption1();
+                            String option2 = cat.getOption2();
+                            String option3 = cat.getOption3();
+                            String option4 = cat.getOption4();
+                            String desc = cat.getDesc();
 
-//                            ChallengeSLlist delcat = new ChallengeSLlist(question);
-//                            addquesRef.child(pushkey).removeValue();
+                            ChallengeSLlist delcat = new ChallengeSLlist(question, correctAnswer, option1, option2, option3, option4, desc);
+                            addquesRef.child(desc).removeValue();
 
                         }
 
@@ -125,5 +131,4 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
 
 
 }
-
 

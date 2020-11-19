@@ -46,7 +46,7 @@
         tools:ignore="MissingConstraints,WebViewLayout">
 
         <WebView
-            android:id="@+id/catimg"
+            android:id="@+id/slimg"
             android:layout_width="287dp"
             android:layout_height="300dp"
             android:layout_margin="10dp"
@@ -70,27 +70,27 @@
         android:text="Upload Sign Language Image/GIF"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/addcategoryname"
+        app:layout_constraintBottom_toTopOf="@+id/addsldesc"
         tools:ignore="NotSibling" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/addcategoryname"
+        android:id="@+id/addsldesc"
         android:layout_width="333dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:hint="Add category name"
+        android:hint="Add sign language description "
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/uploadimgbtn"
-        app:layout_constraintBottom_toTopOf="@+id/submitcatbtn"
+        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
         />
 
     <Button
-        android:id="@+id/submitcatbtn"
+        android:id="@+id/submitslbtn"
         android:layout_width="193dp"
         android:layout_height="39dp"
         android:background="#32ACBA"
         android:text="Submit"
-        android:layout_below="@+id/addcategoryname"
+        android:layout_below="@+id/addsldesc"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:layout_margin="50dp"

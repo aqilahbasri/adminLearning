@@ -7,18 +7,28 @@ public class ChallengeSLlist {
     String option2;
     String option3;
     String option4;
+    String desc;
 
     public ChallengeSLlist(){
 
     }
 
-    public ChallengeSLlist(String question, int correctAnswer, String option1, String option2, String option3, String option4){
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public ChallengeSLlist(String question, int correctAnswer, String option1, String option2, String option3, String option4 , String desc){
         this.question = question;
         this.correctAnswer = correctAnswer;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
+        this.desc = desc;
 
     }
 

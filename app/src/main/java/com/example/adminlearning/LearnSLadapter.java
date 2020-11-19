@@ -58,13 +58,13 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
 
             @Override
             public void onClick(View v) {
-                final Dialog catDialog = new Dialog(context);
-                catDialog.setContentView(R.layout.learn_question_choose);
-                Button learncat = (Button) catDialog.findViewById(R.id.learnSL);
-                Button challcat = (Button) catDialog.findViewById(R.id.challengeSL);
-
-                catDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                catDialog.show();
+//                final Dialog catDialog = new Dialog(context);
+//                catDialog.setContentView(R.layout.learn_question_choose);
+//                Button learncat = (Button) catDialog.findViewById(R.id.learnSL);
+//                Button challcat = (Button) catDialog.findViewById(R.id.challengeSL);
+//
+//                catDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                catDialog.show();
 
             }
 

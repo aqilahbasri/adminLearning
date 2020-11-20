@@ -8,6 +8,8 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
@@ -70,6 +72,7 @@ public class EditSL extends AppCompatActivity {
 
             }
         });
+
         slimg = (WebView) findViewById(R.id.slimg);
         updateslbtn = (Button) findViewById(R.id.updateslbtn);
         uploadimgbtn = (Button) findViewById(R.id.uploadimgbtn);
@@ -124,9 +127,8 @@ public class EditSL extends AppCompatActivity {
                                     public void onSuccess(Uri uri) {
                                         String url = uri.toString();
                                         UploadSL imageUploadInfo = new UploadSL(url, sldescription);
-                                        String categorykey = databaseReference.push().getKey();
+//                                        String categorykey = databaseReference.push().getKey();
                                         dbref.child(sldescription).setValue(imageUploadInfo);
-                                        String oldimgsl = slimage;
                                         String oldsldesc = description;
                                         dbref.child(oldsldesc).removeValue();
 
@@ -137,6 +139,15 @@ public class EditSL extends AppCompatActivity {
 
                             }
                         });
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplication(), listLearnSLactivity.class);
+                        intent.putExtra("catTitle", data);
+                        startActivity(intent);
+                    }
+                }, 3000);
             } else if (imguri == null) {
                 String oldimgsl = slimage;
                 UploadSL imageUploadInfo = new UploadSL(oldimgsl, sldescription);
@@ -144,6 +155,18 @@ public class EditSL extends AppCompatActivity {
 
                 String oldsldesc = description;
                 dbref.child(oldsldesc).removeValue();
+
+                Toast.makeText(getApplicationContext(), "Sign language GIF edited successfully!", Toast.LENGTH_LONG).show();
+
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplication(), listLearnSLactivity.class);
+                        intent.putExtra("catTitle", data);
+                        startActivity(intent);
+                    }
+                }, 3000);
 
             }
         }else{
@@ -169,6 +192,15 @@ public class EditSL extends AppCompatActivity {
 
                         }
                     });
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(getApplication(), listLearnSLactivity.class);
+                    intent.putExtra("catTitle", data);
+                    startActivity(intent);
+                }
+            }, 3000);
 
         }
     }

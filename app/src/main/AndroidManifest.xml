@@ -10,8 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditQuestion"></activity>
-        <activity android:name=".EditSL" />
+        <activity android:name=".EditQuestion"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".EditSL"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".AddQactivity"
             android:windowSoftInputMode="adjustPan" />
@@ -20,7 +22,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ListChallengeSLactivity" />
         <activity android:name=".listLearnSLactivity" />
-        <activity android:name=".AddCategory" />
+        <activity android:name=".AddCategory"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

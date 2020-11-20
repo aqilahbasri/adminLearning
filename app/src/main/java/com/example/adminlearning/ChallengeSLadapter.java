@@ -3,6 +3,7 @@ package com.example.adminlearning;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
     Context context;
     ArrayList<ChallengeSLlist> challengeSLlist;
     private DatabaseReference addquesRef;
-    String refchild;
+    String refchild, refchildd;
 
     public  ChallengeSLadapter (Context c, ArrayList<ChallengeSLlist> p, String data){
         context =c;
@@ -46,7 +47,7 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChallengeSLadapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChallengeSLadapter.MyViewHolder holder, final int position) {
 
         holder.slimage.loadUrl(challengeSLlist.get(position).getQuestion());
         holder.slimage.getSettings().setUseWideViewPort(true);
@@ -56,15 +57,11 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
 
             @Override
             public void onClick(View v) {
-//                final Dialog catDialog = new Dialog(context);
-//                catDialog.setContentView(R.layout.learn_question_choose);
-//                Button learncat = (Button) catDialog.findViewById(R.id.learnSL);
-//                Button challcat = (Button) catDialog.findViewById(R.id.challengeSL);
-//
-//                catDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                catDialog.show();
-//
-//            }
+                refchildd = challengeSLlist.get(position).getDesc();
+                Intent intent = new Intent(context, EditQuestion.class);
+                intent.putExtra("catTitle", refchild);
+                intent.putExtra("childTitle", refchildd);
+                context.startActivity(intent);
 
         }
     });

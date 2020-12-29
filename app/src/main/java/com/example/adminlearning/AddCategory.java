@@ -102,7 +102,7 @@ public class AddCategory extends AppCompatActivity {
 
                                     }
                                 });
-                                Toast.makeText(getApplicationContext(), "Category Added successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Category Added successfully! Please add at least one sign language into this category!", Toast.LENGTH_LONG).show();
 
                             }
                         });

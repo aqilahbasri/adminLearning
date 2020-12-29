@@ -7,6 +7,8 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
@@ -32,7 +34,7 @@ public class AddSLactivity extends AppCompatActivity {
     public Uri imguri;
     DatabaseReference databaseReference;
     StorageReference mStorageRef;
-    String data;
+    String data ,sldescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,13 @@ public class AddSLactivity extends AppCompatActivity {
 
     //upload photo and sign language description
     private void Fileuploader() {
+        sldescription = addsldesc.getText().toString();
         if (imguri != null) {
+            if(sldescription.equals("") ){
+                Toast.makeText(AddSLactivity.this, "Please add sign language description!", Toast.LENGTH_LONG).show();
+            }
+            else{
+
 
             final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
             Ref.putFile(imguri)
@@ -99,9 +107,19 @@ public class AddSLactivity extends AppCompatActivity {
 
                         }
                     });
+             final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                    intent.putExtra("catTitle", data);
+                    startActivity(intent);
+                }
+            }, 3000);
+            }
         } else {
 
-            Toast.makeText(AddSLactivity.this, "Please Select sign language Image or Add sign language description", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddSLactivity.this, "Please Select sign language Image and/or Add sign language description", Toast.LENGTH_LONG).show();
 
         }
     }

@@ -119,21 +119,19 @@ public class EditQuestion extends AppCompatActivity {
 
     //upload photo and question
     private void Update() {
-        desc = addsldesc.getText().toString();
+        final String optionA = option1.getText().toString().trim();
+        final String optionB = option2.getText().toString().trim();
+        final String optionC = option3.getText().toString().trim();
+        final String optionD = option4.getText().toString().trim();
+        final String correctAns = correctAnswer.getText().toString().trim();
 
-        if(!desc.equals("")){
-            if (imguri != null) {
+            if (imguri != null) { //change gambo
 
                 final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
                 Ref.putFile(imguri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                final String optionA = option1.getText().toString().trim();
-                                final String optionB = option2.getText().toString().trim();
-                                final String optionC = option3.getText().toString().trim();
-                                final String optionD = option4.getText().toString().trim();
-                                final String correctAns = correctAnswer.getText().toString().trim();
 
                                 if(correctAns.equals("A")){
                                     correctanswer = 1;
@@ -149,13 +147,11 @@ public class EditQuestion extends AppCompatActivity {
                                 firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
-
-                                        String url = uri.toString();
-                                        ChallengeSLlist imageUploadInfo = new ChallengeSLlist(url, correctanswer, optionA, optionB, optionC, optionD, desc);
-                                        dbref.child(desc).setValue(imageUploadInfo);
-
                                         String oldsldesc = description;
-                                        dbref.child(oldsldesc).removeValue();
+                                        String url = uri.toString();
+                                        ChallengeSLlist imageUploadInfo = new ChallengeSLlist(url, correctanswer, optionA, optionB, optionC, optionD, oldsldesc);
+                                        dbref.child(oldsldesc).setValue(imageUploadInfo);
+
 
                                     }
                                 });
@@ -173,27 +169,29 @@ public class EditQuestion extends AppCompatActivity {
                     }
                 }, 3000);
 
-        }else if(imguri == null){
-                final String optionA = option1.getText().toString().trim();
-                final String optionB = option2.getText().toString().trim();
-                final String optionC = option3.getText().toString().trim();
-                final String optionD = option4.getText().toString().trim();
-                final String correctAns = correctAnswer.getText().toString().trim();
+        }else {
+                //both slimg and option null
+                if(optionA.equals("") && optionB.equals("") && optionC.equals("") && optionD.equals("") && correctAns.equals("")){
+                    Toast.makeText(getApplicationContext(), "Nothing was edited!", Toast.LENGTH_LONG).show();
+                }else {
+
                 String oldimgsl = ques;
-                if(correctAns.equals("A")){
+                if(correctAns.equals("A") || correctAns.equals("a")){
                     correctanswer = 1;
-                }else if(correctAns.equals("B")){
+                }else if(correctAns.equals("B") || correctAns.equals("b")){
                     correctanswer = 2;
-                }else if(correctAns.equals("C")){
+                }else if(correctAns.equals("C") || correctAns.equals("c")){
                     correctanswer = 3;
-                }else{
+                }else if(correctAns.equals("D") || correctAns.equals("d")){
                     correctanswer = 4;
                 }
-                ChallengeSLlist imageUploadInfo = new ChallengeSLlist(oldimgsl, correctanswer, optionA, optionB, optionC, optionD, desc);
-                dbref.child(desc).setValue(imageUploadInfo);
-
+                else{
+                    Toast.makeText(getApplicationContext(), "Please choose A/B/C/D only!", Toast.LENGTH_LONG).show();
+                }
                 String oldsldesc = description;
-                dbref.child(oldsldesc).removeValue();
+                ChallengeSLlist imageUploadInfo = new ChallengeSLlist(oldimgsl, correctanswer, optionA, optionB, optionC, optionD, oldsldesc);
+                dbref.child(oldsldesc).setValue(imageUploadInfo);
+
 
                 Toast.makeText(getApplicationContext(), "Question edited successfully!", Toast.LENGTH_LONG).show();
                 final Handler handler = new Handler(Looper.getMainLooper());
@@ -205,61 +203,14 @@ public class EditQuestion extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }, 3000);
-            }
-
-
-        } else {
-            final String oldsldesc = description;
-            final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
-            Ref.putFile(imguri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            final String optionA = option1.getText().toString().trim();
-                            final String optionB = option2.getText().toString().trim();
-                            final String optionC = option3.getText().toString().trim();
-                            final String optionD = option4.getText().toString().trim();
-                            final String correctAns = correctAnswer.getText().toString().trim();
-
-                            if(correctAns.equals("A")){
-                                correctanswer = 1;
-                            }else if(correctAns.equals("B")){
-                                correctanswer = 2;
-                            }else if(correctAns.equals("C")){
-                                correctanswer = 3;
-                            }else{
-                                correctanswer = 4;
-                            }
-
-                            Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
-                            firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-
-                                    String url = uri.toString();
-                                    ChallengeSLlist imageUploadInfo = new ChallengeSLlist(url, correctanswer, optionA, optionB, optionC, optionD, oldsldesc);
-                                    dbref.child(oldsldesc).setValue(imageUploadInfo);
-
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(), "Question edited successfully!", Toast.LENGTH_LONG).show();
-
-
-                        }
-                    });
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(getApplication(), ListChallengeSLactivity.class);
-                    intent.putExtra("catTitle", data);
-                    startActivity(intent);
-                }
-            }, 3000);
+            }}
 
 
         }
-    }
+
+
+
+
 
     //choose category photo
     private void Filechooser(){
@@ -287,7 +238,7 @@ public class EditQuestion extends AppCompatActivity {
         slimg.loadUrl(ques);
         slimg.getSettings().setLoadWithOverviewMode(true);
         slimg.getSettings().setUseWideViewPort(true);
-        addsldesc.setHint(description);
+//        addsldesc.setHint(description);
         option1.setText(opt1);
         option2.setText(opt2);
         option3.setText(opt3);

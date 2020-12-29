@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="0dp"
         android:orientation="vertical">
 
@@ -24,9 +24,18 @@
             android:id="@+id/slimage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="15dp"
             android:layout_gravity="center_horizontal"
             tools:ignore="WebViewLayout" />
+
+        <TextView
+            android:id="@+id/slanswer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:autoSizeTextType="uniform"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
 
         <ImageButton

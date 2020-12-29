@@ -1,11 +1,13 @@
 package com.example.adminlearning;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.TestLooperManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +55,8 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
         holder.slimage.getSettings().setUseWideViewPort(true);
         holder.slimage.getSettings().setLoadWithOverviewMode(true);
 
+        holder.slanswer.setText(challengeSLlist.get(position).desc);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -76,6 +80,8 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
 
         WebView slimage;
         ImageButton deletebtn;
+        TextView slanswer;
+        Button yes,no;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {
@@ -83,6 +89,7 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
 
             slimage = (WebView) itemView.findViewById(R.id.slimage);
             deletebtn = (ImageButton) itemView.findViewById(R.id.delbtn);
+            slanswer = (TextView) itemView.findViewById(R.id.slanswer);
 
             addquesRef = FirebaseDatabase.getInstance().getReference().child("Question").child(refchild);
 
@@ -90,34 +97,57 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
             deletebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    final ChallengeSLlist cat = challengeSLlist.get(position);
-                    addquesRef.addValueEventListener(new ValueEventListener() {
+                   final Dialog deleteDialog = new Dialog(view.getContext());
+                    deleteDialog.setContentView(R.layout.deleteconfirmation);
+                     yes = (Button) deleteDialog.findViewById(R.id.delete);
+                    no = (Button) deleteDialog.findViewById(R.id.dontdelete);
+
+                    yes.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String question= cat.getQuestion();
-                            int correctAnswer = cat.getCorrectAnswer();
-                            String option1 = cat.getOption1();
-                            String option2 = cat.getOption2();
-                            String option3 = cat.getOption3();
-                            String option4 = cat.getOption4();
-                            String desc = cat.getDesc();
+                        public void onClick(View view) {
+                            int position = getAdapterPosition();
+                            final ChallengeSLlist cat = challengeSLlist.get(position);
+                            addquesRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String question= cat.getQuestion();
+                                    int correctAnswer = cat.getCorrectAnswer();
+                                    String option1 = cat.getOption1();
+                                    String option2 = cat.getOption2();
+                                    String option3 = cat.getOption3();
+                                    String option4 = cat.getOption4();
+                                    String desc = cat.getDesc();
 
-                            ChallengeSLlist delcat = new ChallengeSLlist(question, correctAnswer, option1, option2, option3, option4, desc);
-                            addquesRef.child(desc).removeValue();
+                                    ChallengeSLlist delcat = new ChallengeSLlist(question, correctAnswer, option1, option2, option3, option4, desc);
+                                    addquesRef.child(desc).removeValue();
+                                    deleteDialog.dismiss();
 
-                        }
+                                }
 
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
+                                }
+                            });
 
                         }
                     });
 
+                    no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            deleteDialog.dismiss();
+                        }
+                    });
+
+                    deleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    deleteDialog.show();
+
                 }
-            });
+                });
+            }
         }
 
 
@@ -127,5 +157,5 @@ public class ChallengeSLadapter extends RecyclerView.Adapter< ChallengeSLadapter
 
 
 
-}
+
 

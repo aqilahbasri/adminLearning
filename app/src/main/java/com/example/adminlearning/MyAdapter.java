@@ -71,6 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 catDialog.setContentView(R.layout.learn_question_choose);
                 Button learncat = (Button) catDialog.findViewById(R.id.learnSL);
                 Button challcat = (Button) catDialog.findViewById(R.id.challengeSL);
+                Button editcat = (Button) catDialog.findViewById(R.id.editCat);
                 final String catname = categories.get(position).getCategoryname();
 
                 learncat.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +88,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, ListChallengeSLactivity.class);
+                        intent.putExtra("catTitle", catname);
+                        context.startActivity(intent);
+                    }
+                });
+
+                editcat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, EditCategory.class);
                         intent.putExtra("catTitle", catname);
                         context.startActivity(intent);
                     }
@@ -115,6 +125,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView categoryname;
         WebView categoryimage;
         ImageButton deletebtn;
+        Button yes,no;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {
@@ -130,25 +141,48 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             deletebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    final Category cat = categories.get(position);
-                    addcatRef.addValueEventListener(new ValueEventListener() {
+                    final Dialog deleteDialog = new Dialog(view.getContext());
+                    deleteDialog.setContentView(R.layout.deleteconfirmation);
+                    yes = (Button) deleteDialog.findViewById(R.id.delete);
+                    no = (Button) deleteDialog.findViewById(R.id.dontdelete);
+
+                    yes.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String categoryimage = cat.getCategoryimage();
-                            String categoryname= cat.getCategoryname();
+                        public void onClick(View view) {
+                            int position = getAdapterPosition();
+                            final Category cat = categories.get(position);
+                            addcatRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String categoryimage = cat.getCategoryimage();
+                                    String categoryname= cat.getCategoryname();
 
-                            Category delcat = new Category(categoryname, categoryimage);
-                            addcatRef.child(categoryname).removeValue();
+                                    Category delcat = new Category(categoryname, categoryimage);
+                                    addcatRef.child(categoryname).removeValue();
+                                    deleteDialog.dismiss();
 
-                        }
+                                }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+                                }
+                            });
 
                         }
                     });
+
+                    no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            deleteDialog.dismiss();
+                        }
+                    });
+
+                    deleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    deleteDialog.show();
 
                 }
             });

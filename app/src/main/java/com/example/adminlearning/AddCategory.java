@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
@@ -37,6 +39,7 @@ public class AddCategory extends AppCompatActivity {
     public Uri imguri;
     DatabaseReference databaseReference;
     StorageReference mStorageRef;
+    String catname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,30 +78,44 @@ public class AddCategory extends AppCompatActivity {
 
     //upload photo and category name
     private void Fileuploader() {
+        catname = addcategoryname.getText().toString();
         if (imguri != null) {
+            if(catname.equals("") ){
+                Toast.makeText(AddCategory.this, "Please add category name!", Toast.LENGTH_LONG).show();
+            }else {
 
-            final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
-            Ref.putFile(imguri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            final String categoryname = addcategoryname.getText().toString().trim();
-                            Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
-                            firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
+                final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
+                Ref.putFile(imguri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                final String categoryname = addcategoryname.getText().toString().trim();
+                                Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                                firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
 
-                                    String url = uri.toString();
-                                    UploadCategory imageUploadInfo = new UploadCategory(url, categoryname);
+                                        String url = uri.toString();
+                                        UploadCategory imageUploadInfo = new UploadCategory(url, categoryname);
 //                                    String categorykey = databaseReference.push().getKey();
-                                    databaseReference.child(categoryname).setValue(imageUploadInfo);
+                                        databaseReference.child(categoryname).setValue(imageUploadInfo);
 
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(), "Category Added successfully!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                Toast.makeText(getApplicationContext(), "Category Added successfully!", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
+                            }
+                        });
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplication(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                }, 3000);
+            }
+
         } else {
 
             Toast.makeText(AddCategory.this, "Please Select Image or Add Category Name", Toast.LENGTH_LONG).show();

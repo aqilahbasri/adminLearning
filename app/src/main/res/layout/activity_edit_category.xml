@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddQactivity">
-
+    tools:context=".EditSL">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -23,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="ADD SIGN LANGUAGE QUESTION"
+            android:text="EDIT SIGN LANGUAGE"
             android:textAlignment="center"
             android:layout_marginRight="16dp"
             android:textColor="#FFFFFF"
@@ -37,7 +36,7 @@
         android:id="@+id/lin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="44dp"
         android:background="@drawable/border"
         android:layout_centerHorizontal="true"
         android:foregroundGravity="center_horizontal"
@@ -47,8 +46,8 @@
 
         <WebView
             android:id="@+id/slimg"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="287dp"
+            android:layout_height="300dp"
             android:layout_margin="10dp"
             android:layout_marginHorizontal="50dp"
             android:layout_marginVertical="50sp"
@@ -58,7 +57,7 @@
 
     <Button
         android:id="@+id/uploadimgbtn"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lin"
         android:layout_centerHorizontal="true"
@@ -75,76 +74,27 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/addsldesc"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
+        android:layout_width="333dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
         android:hint="Add sign language description "
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/uploadimgbtn"
-        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
+        app:layout_constraintBottom_toTopOf="@+id/updateslbtn"
         />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/option1"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:hint="Add option for A"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/addsldesc"
-        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
-        />
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/option2"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:hint="Add option for B"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/option1"
-        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
-        />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/option3"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:hint="Add option for C"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/option2"
-        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
-        />
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/option4"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:hint="Add option for D"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/option3"
-        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
-        />
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/correctAnswer"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:hint="Add correct answer (A/B/C/D)"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/option4"
-        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
-        />
     <Button
-        android:id="@+id/submitqbtn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/updatecatbtn"
+        android:layout_width="193dp"
+        android:layout_height="39dp"
         android:background="#32ACBA"
-        android:text="Submit"
-        android:layout_below="@+id/correctAnswer"
+        android:text="Update"
+        android:layout_below="@+id/addsldesc"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:layout_margin="10dp"
+        android:layout_margin="50dp"
         android:layout_centerHorizontal="true" />
+
+
 
 </RelativeLayout>

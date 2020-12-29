@@ -29,9 +29,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
+public class EditCategory extends AppCompatActivity {
 
-public class EditSL extends AppCompatActivity {
     String data, childdata, sldescription;
     Button uploadimgbtn, updateslbtn;
     TextInputEditText addsldesc;
@@ -45,7 +44,7 @@ public class EditSL extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_s_l);
+        setContentView(R.layout.activity_edit_category);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -53,14 +52,14 @@ public class EditSL extends AppCompatActivity {
         childdata = extras.getString("childTitle");
 
         mStorageRef = FirebaseStorage.getInstance().getReference("LearningCategory/");
-        dbref = FirebaseDatabase.getInstance().getReference("SignLanguage").child(data);
-        databaseReference = FirebaseDatabase.getInstance().getReference("SignLanguage").child(data).child(childdata);
+        dbref = FirebaseDatabase.getInstance().getReference("LEARNING");
+        databaseReference = FirebaseDatabase.getInstance().getReference("LEARNING").child(data);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        description = dataSnapshot.child("sldescription").getValue().toString();
-                       slimage = dataSnapshot.child("imgurl").getValue().toString();
-                       loadData();
+                description = dataSnapshot.child("categoryname").getValue().toString();
+                slimage = dataSnapshot.child("categoryimage").getValue().toString();
+                loadData();
 
                 databaseReference.removeEventListener(this);
 
@@ -68,13 +67,13 @@ public class EditSL extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(EditSL.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditCategory.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
         slimg = (WebView) findViewById(R.id.slimg);
-        updateslbtn = (Button) findViewById(R.id.updateslbtn);
+        updateslbtn = (Button) findViewById(R.id.updatecatbtn);
         uploadimgbtn = (Button) findViewById(R.id.uploadimgbtn);
         addsldesc = (TextInputEditText) findViewById(R.id.addsldesc);
 
@@ -91,7 +90,6 @@ public class EditSL extends AppCompatActivity {
                 Update();
             }
         });
-
     }
 
     private void loadData() {
@@ -124,7 +122,7 @@ public class EditSL extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         String url = uri.toString();
-                                        UploadSL imageUploadInfo = new UploadSL(url, sldescription);
+                                        Category imageUploadInfo = new Category(sldescription, url);
 //                                        String categorykey = databaseReference.push().getKey();
                                         dbref.child(sldescription).setValue(imageUploadInfo);
                                         String oldsldesc = description;
@@ -132,7 +130,7 @@ public class EditSL extends AppCompatActivity {
 
                                     }
                                 });
-                                Toast.makeText(getApplicationContext(), "Sign language GIF edited successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Sign language category edited successfully!", Toast.LENGTH_LONG).show();
 
 
                             }
@@ -141,26 +139,26 @@ public class EditSL extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(getApplication(), listLearnSLactivity.class);
+                        Intent intent = new Intent(getApplication(), MainActivity.class);
                         intent.putExtra("catTitle", data);
                         startActivity(intent);
                     }
                 }, 3000);
             } else if (imguri == null) { //change description but not change gif
                 String oldimgsl = slimage;
-                UploadSL imageUploadInfo = new UploadSL(oldimgsl, sldescription);
+                Category imageUploadInfo = new Category(sldescription, oldimgsl);
                 dbref.child(sldescription).setValue(imageUploadInfo);
 
                 String oldsldesc = description;
                 dbref.child(oldsldesc).removeValue();
 
-                Toast.makeText(getApplicationContext(), "Sign language GIF edited successfully!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Sign language category edited successfully!", Toast.LENGTH_LONG).show();
 
                 final Handler handler = new Handler(Looper.getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(getApplication(), listLearnSLactivity.class);
+                        Intent intent = new Intent(getApplication(), MainActivity.class);
                         intent.putExtra("catTitle", data);
                         startActivity(intent);
                     }
@@ -176,38 +174,38 @@ public class EditSL extends AppCompatActivity {
             if(imguri==null){
                 Toast.makeText(getApplicationContext(), "Nothing was edited!", Toast.LENGTH_LONG).show();
             }else
-                {
-                     final String oldsldesc = description;
-                     final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
-                     Ref.putFile(imguri)
-                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            {
+                final String oldsldesc = description;
+                final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
+                Ref.putFile(imguri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
-                            firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String url = uri.toString();
-                                    UploadSL imageUploadInfo = new UploadSL(url, oldsldesc);
-                                    dbref.child(oldsldesc).setValue(imageUploadInfo);
+                                Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                                firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String url = uri.toString();
+                                        Category imageUploadInfo = new Category(oldsldesc, url);
+                                        dbref.child(oldsldesc).setValue(imageUploadInfo);
 
 
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(), "Sign language GIF edited successfully!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                Toast.makeText(getApplicationContext(), "Sign language category edited successfully!", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(getApplication(), listLearnSLactivity.class);
-                    intent.putExtra("catTitle", data);
-                    startActivity(intent);
-                }
-            }, 3000);}
+                            }
+                        });
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplication(), MainActivity.class);
+                        intent.putExtra("catTitle", data);
+                        startActivity(intent);
+                    }
+                }, 3000);}
 
         }
     }
@@ -233,4 +231,6 @@ public class EditSL extends AppCompatActivity {
 
         }
     }
+
+
 }

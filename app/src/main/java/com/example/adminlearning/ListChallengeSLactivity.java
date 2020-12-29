@@ -95,4 +95,11 @@ public class ListChallengeSLactivity extends AppCompatActivity {
         intent.putExtra("catTitle", data);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 }

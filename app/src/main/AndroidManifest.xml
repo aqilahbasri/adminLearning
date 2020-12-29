@@ -5,15 +5,18 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_masks"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditQuestion"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".EditSL"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".EditCategory"></activity>
+        <activity
+            android:name=".EditQuestion"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditSL"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AddQactivity"
             android:windowSoftInputMode="adjustPan" />
@@ -22,8 +25,9 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ListChallengeSLactivity" />
         <activity android:name=".listLearnSLactivity" />
-        <activity android:name=".AddCategory"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".AddCategory"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

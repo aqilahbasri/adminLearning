@@ -7,6 +7,8 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
@@ -32,7 +34,7 @@ public class AddQactivity extends AppCompatActivity {
     public Uri imguri;
     DatabaseReference databaseReference;
     StorageReference mStorageRef;
-    String data;
+    String data, sldescription;
     int correctanswer;
 
     @Override
@@ -82,46 +84,75 @@ public class AddQactivity extends AppCompatActivity {
 
     //upload photo and question
     private void Fileuploader() {
+        final String optionA = option1.getText().toString().trim();
+        final String optionB = option2.getText().toString().trim();
+        final String optionC = option3.getText().toString().trim();
+        final String optionD = option4.getText().toString().trim();
+        final String correctAns = correctAnswer.getText().toString().trim();
+        sldescription = addsldesc.getText().toString();
         if (imguri != null) {
+            if(sldescription.equals("") ){
+                Toast.makeText(AddQactivity.this, "Please add sign language description!", Toast.LENGTH_LONG).show();
+            }
+            else {
+                if (optionA.equals("") || optionB.equals("") || optionC.equals("") || optionD.equals("") || correctAns.equals("")) {
+                    Toast.makeText(AddQactivity.this, "Please dont leave any part blank!", Toast.LENGTH_LONG).show();
 
-            final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
-            Ref.putFile(imguri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            final String sldescription = addsldesc.getText().toString().trim();
-                            final String optionA = option1.getText().toString().trim();
-                            final String optionB = option2.getText().toString().trim();
-                            final String optionC = option3.getText().toString().trim();
-                            final String optionD = option4.getText().toString().trim();
-                            final String correctAns = correctAnswer.getText().toString().trim();
+                }else {
+                    if (correctAns.equals("A") ||correctAns.equals("a") || correctAns.equals("B") || correctAns.equals("b") || correctAns.equals("C") || correctAns.equals("c")|| correctAns.equals("D") || correctAns.equals("d")) {
 
-                            if(correctAns.equals("A")){
-                                correctanswer = 1;
-                            }else if(correctAns.equals("B")){
-                                correctanswer = 2;
-                            }else if(correctAns.equals("C")){
-                                correctanswer = 3;
-                            }else{
-                                correctanswer = 4;
-                            }
+                        final StorageReference Ref = mStorageRef.child(System.currentTimeMillis() + getExtention(imguri));
+                        Ref.putFile(imguri)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        final String sldescription = addsldesc.getText().toString().trim();
 
-                            Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
-                            firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
 
-                                    String url = uri.toString();
-                                    ChallengeSLlist imageUploadInfo = new ChallengeSLlist(url, correctanswer, optionA, optionB, optionC, optionD, sldescription);
+                                        if (correctAns.equals("A") || correctAns.equals("a")) {
+                                            correctanswer = 1;
+                                        } else if (correctAns.equals("B") || correctAns.equals("b")) {
+                                            correctanswer = 2;
+                                        } else if (correctAns.equals("C") || correctAns.equals("c")) {
+                                            correctanswer = 3;
+                                        } else if (correctAns.equals("D") || correctAns.equals("d")) {
+                                            correctanswer = 4;
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Please choose A/B/C/D only!", Toast.LENGTH_LONG).show();
+                                        }
+
+                                        Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                                        firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+
+                                                String url = uri.toString();
+                                                ChallengeSLlist imageUploadInfo = new ChallengeSLlist(url, correctanswer, optionA, optionB, optionC, optionD, sldescription);
 //                                    String categorykey = databaseReference.push().getKey();
-                                    databaseReference.child(sldescription).setValue(imageUploadInfo);
+                                                databaseReference.child(sldescription).setValue(imageUploadInfo);
 
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(), "Question Added successfully!", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                        Toast.makeText(getApplicationContext(), "Question Added successfully!", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
+                                    }
+                                });
+                        final Handler handler = new Handler(Looper.getMainLooper());
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getApplication(), ListChallengeSLactivity.class);
+                                intent.putExtra("catTitle", data);
+                                startActivity(intent);
+                            }
+                        }, 3000);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please choose A/B/C/D only for the correct answer!", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            }
         } else {
 
             Toast.makeText(AddQactivity.this, "Please Select sign language Image or don't leave any empty blank", Toast.LENGTH_LONG).show();

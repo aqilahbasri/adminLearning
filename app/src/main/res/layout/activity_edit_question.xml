@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="ADD SIGN LANGUAGE"
+            android:text="EDIT SIGN LANGUAGE"
             android:textAlignment="center"
             android:layout_marginRight="16dp"
             android:textColor="#FFFFFF"
@@ -72,16 +72,16 @@
         app:layout_constraintBottom_toTopOf="@+id/addsldesc"
         tools:ignore="NotSibling" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/addsldesc"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:hint="Add sign language description "
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/uploadimgbtn"
-        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
-        />
+<!--    <com.google.android.material.textfield.TextInputEditText-->
+<!--        android:id="@+id/addsldesc"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_margin="5dp"-->
+<!--        android:hint="Add sign language description "-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_below="@+id/uploadimgbtn"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/submitslbtn"-->
+<!--        />-->
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/option1"
@@ -90,7 +90,7 @@
         android:layout_margin="5dp"
         android:hint="Add option for A"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/addsldesc"
+        android:layout_below="@+id/uploadimgbtn"
         app:layout_constraintBottom_toTopOf="@+id/submitslbtn"
         />
     <com.google.android.material.textfield.TextInputEditText
@@ -143,7 +143,7 @@
         android:layout_below="@+id/correctAnswer"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:layout_margin="10dp"
+        android:layout_margin="50dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -80,6 +80,7 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
         TextView categoryname;
         WebView categoryimage;
         ImageButton deletebtn;
+        Button yes,no;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {
@@ -95,26 +96,48 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
             deletebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    final LearnSLlist cat = learnSLlists.get(position);
-                    addslRef.addValueEventListener(new ValueEventListener() {
+                    final Dialog deleteDialog = new Dialog(view.getContext());
+                    deleteDialog.setContentView(R.layout.deleteconfirmation);
+                    yes = (Button) deleteDialog.findViewById(R.id.delete);
+                    no = (Button) deleteDialog.findViewById(R.id.dontdelete);
+
+                    yes.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String imgurl = cat.getImgurl();
-                            String sldescriptionname= cat.getSldescription();
+                        public void onClick(View view) {
+                            int position = getAdapterPosition();
+                            final LearnSLlist cat = learnSLlists.get(position);
+                            addslRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String imgurl = cat.getImgurl();
+                                    String sldescriptionname= cat.getSldescription();
 
-                            LearnSLlist delcat = new LearnSLlist(sldescriptionname, imgurl);
-                            addslRef.child(sldescriptionname).removeValue();
+                                    LearnSLlist delcat = new LearnSLlist(sldescriptionname, imgurl);
+                                    addslRef.child(sldescriptionname).removeValue();
+                                    deleteDialog.dismiss();
 
-                        }
+                                }
 
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
+                                }
+                            });
 
                         }
                     });
+
+                    no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            deleteDialog.dismiss();
+                        }
+                    });
+
+                    deleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    deleteDialog.show();
 
                 }
             });

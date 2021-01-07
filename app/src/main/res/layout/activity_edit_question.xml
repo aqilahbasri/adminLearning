@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="EDIT SIGN LANGUAGE"
+            android:text="EDIT SIGN LANGUAGE QUESTION"
             android:textAlignment="center"
             android:layout_marginRight="16dp"
             android:textColor="#FFFFFF"

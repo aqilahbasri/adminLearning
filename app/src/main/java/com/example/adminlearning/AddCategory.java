@@ -102,7 +102,7 @@ public class AddCategory extends AppCompatActivity {
 
                                     }
                                 });
-                                Toast.makeText(getApplicationContext(), "Category Added successfully! Please add at least one sign language into this category!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Category added successfully! Please add at least one sign language image/gif into this category!", Toast.LENGTH_LONG).show();
 
                             }
                         });
@@ -118,7 +118,7 @@ public class AddCategory extends AppCompatActivity {
 
         } else {
 
-            Toast.makeText(AddCategory.this, "Please Select Image or Add Category Name", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddCategory.this, "Please select image/gif or add category name!", Toast.LENGTH_LONG).show();
 
         }
     }

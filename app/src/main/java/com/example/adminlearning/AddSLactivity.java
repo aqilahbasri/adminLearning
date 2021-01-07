@@ -103,7 +103,7 @@ public class AddSLactivity extends AppCompatActivity {
 
                                 }
                             });
-                            Toast.makeText(getApplicationContext(), "Sign language Added successfully!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Sign language added successfully!", Toast.LENGTH_LONG).show();
 
                         }
                     });
@@ -119,7 +119,7 @@ public class AddSLactivity extends AppCompatActivity {
             }
         } else {
 
-            Toast.makeText(AddSLactivity.this, "Please Select sign language Image and/or Add sign language description", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddSLactivity.this, "Please select sign language image/gif and/or add sign language description", Toast.LENGTH_LONG).show();
 
         }
     }

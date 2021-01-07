@@ -96,7 +96,7 @@ public class AddQactivity extends AppCompatActivity {
             }
             else {
                 if (optionA.equals("") || optionB.equals("") || optionC.equals("") || optionD.equals("") || correctAns.equals("")) {
-                    Toast.makeText(AddQactivity.this, "Please dont leave any part blank!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddQactivity.this, "Please don't leave any part blank!", Toast.LENGTH_LONG).show();
 
                 }else {
                     if (correctAns.equals("A") ||correctAns.equals("a") || correctAns.equals("B") || correctAns.equals("b") || correctAns.equals("C") || correctAns.equals("c")|| correctAns.equals("D") || correctAns.equals("d")) {
@@ -155,7 +155,7 @@ public class AddQactivity extends AppCompatActivity {
             }
         } else {
 
-            Toast.makeText(AddQactivity.this, "Please Select sign language Image or don't leave any empty blank", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddQactivity.this, "Please Select sign language image/gif or don't leave any part blank", Toast.LENGTH_LONG).show();
 
         }
     }

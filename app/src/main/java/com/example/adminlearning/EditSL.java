@@ -132,7 +132,7 @@ public class EditSL extends AppCompatActivity {
 
                                     }
                                 });
-                                Toast.makeText(getApplicationContext(), "Sign language GIF edited successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Sign language edited successfully!", Toast.LENGTH_LONG).show();
 
 
                             }
@@ -154,7 +154,7 @@ public class EditSL extends AppCompatActivity {
                 String oldsldesc = description;
                 dbref.child(oldsldesc).removeValue();
 
-                Toast.makeText(getApplicationContext(), "Sign language GIF edited successfully!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Sign language edited successfully!", Toast.LENGTH_LONG).show();
 
                 final Handler handler = new Handler(Looper.getMainLooper());
                 handler.postDelayed(new Runnable() {
@@ -195,7 +195,7 @@ public class EditSL extends AppCompatActivity {
 
                                 }
                             });
-                            Toast.makeText(getApplicationContext(), "Sign language GIF edited successfully!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Sign language edited successfully!", Toast.LENGTH_LONG).show();
 
                         }
                     });

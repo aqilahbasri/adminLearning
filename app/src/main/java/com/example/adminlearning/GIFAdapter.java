@@ -75,13 +75,57 @@ public class GIFAdapter extends RecyclerView.Adapter<com.example.adminlearning.G
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GIFViewHolder gifViewHolder, int i) {
+    public void onBindViewHolder(@NonNull GIFViewHolder gifViewHolder, final int i) {
 
         gifViewHolder.gifPicture.loadUrl(gifList.get(i).getGifPicture());
         gifViewHolder.gifPicture.getSettings().setLoadWithOverviewMode(true);
         gifViewHolder.gifPicture.getSettings().setUseWideViewPort(true);
         gifViewHolder.engCaption.setText(gifList.get(i).getEngCaption());
         gifViewHolder.malayCaption.setText(gifList.get(i).getMalayCaption());
+
+        gifViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            String gif = gifList.get(i).getGifPicture();
+            String engCaption = gifList.get(i).getEngCaption();
+            String malayCaption = gifList.get(i).getMalayCaption();
+            String category = gifList.get(i).getCategory();
+            //
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(t, GIFDetailsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("gifurl", gif);
+                intent.putExtra("engCaption", engCaption);
+                intent.putExtra("malayCaption", malayCaption);
+                intent.putExtra("category", category);
+                v.getContext().startActivity(intent);
+
+
+
+//                final Dialog gifDialog = new Dialog(t);
+//                gifDialog.setContentView(R.layout.enlarge_gif);
+//                WebView wb = (WebView) gifDialog.findViewById(R.id.bigGif);
+//                ImageView sharebtn = (ImageView) gifDialog.findViewById(R.id.sharebtn);
+//
+//                wb.loadUrl(gif);
+//                wb.getSettings().setLoadWithOverviewMode(true);
+//                wb.getSettings().setUseWideViewPort(true);
+//
+//                sharebtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(t, ContactsToSendGIf.class);
+//                        intent.putExtra("gifurl", gif);
+//                        t.startActivity(intent);
+//                    }
+//                });
+//
+//
+//                gifDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                gifDialog.show();
+//
+            }
+
+        });
     }
 
     @Override

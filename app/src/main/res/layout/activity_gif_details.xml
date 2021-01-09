@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GIFDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/communication_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <include layout="@layout/basic_toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/gifDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eng Description"
+        android:layout_below="@+id/communication_toolbar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="50dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/gifDescription2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Malay Description"
+        android:layout_below="@+id/gifDescription"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        />
+
+
+    <WebView
+        android:id="@+id/gifImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="42dp"
+        android:maxHeight="42dp"
+        android:scaleType="fitCenter"
+        android:layout_below="@+id/gifDescription2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/profile_image"
+        />
+
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gifImage"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:textColor="@android:color/background_light"
+        android:background="@drawable/button"
+        android:textSize="20sp"
+        android:text="Edit"
+        android:textAllCaps="false"
+        />
+
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editButton"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:textColor="@android:color/background_light"
+        android:background="@drawable/delete_button"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="Delete"
+        android:textAllCaps="false"
+        />
+
+</RelativeLayout>

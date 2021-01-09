@@ -87,11 +87,12 @@ public class PendingGIFAdapter extends RecyclerView.Adapter<PendingGIFAdapter.Pe
         gifViewHolder.engCaption.setText(gifList.get(position).getEngCaption());
         gifViewHolder.malayCaption.setText(gifList.get(position).getMalayCaption());
 
-//        //click to enlarge gif n send
-//        gifViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        //click to enlarge gif n send
+        gifViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 //
-//            @Override
-//            public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
+
 //                String gif = gifList.get(position).getImageUrl();
 //                final Dialog gifDialog = new Dialog(t);
 //                gifDialog.setContentView(R.layout.enlarge_gif);
@@ -115,9 +116,9 @@ public class PendingGIFAdapter extends RecyclerView.Adapter<PendingGIFAdapter.Pe
 //                gifDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 //                gifDialog.show();
 //
-//            }
-//
-//        });
+            }
+
+        });
 
     }
 

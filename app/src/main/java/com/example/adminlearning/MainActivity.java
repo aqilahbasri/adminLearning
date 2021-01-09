@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth mAuth;
     private DatabaseReference RootRef;
 
+
     DatabaseReference reference;
     RecyclerView recyclerView;
     ArrayList<Category> list;

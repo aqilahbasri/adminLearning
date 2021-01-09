@@ -45,6 +45,8 @@ public class GIFDetailsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         gifPicture.loadUrl(getIntent().getStringExtra("gifurl"));
+        gifPicture.getSettings().setUseWideViewPort(true);
+        gifPicture.getSettings().setLoadWithOverviewMode(true);
         engDescription.setText(getIntent().getStringExtra("engCaption"));
         malayDescription.setText(getIntent().getStringExtra("malayCaption"));
     }

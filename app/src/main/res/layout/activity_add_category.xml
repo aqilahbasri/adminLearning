@@ -84,6 +84,7 @@
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:hint="Add category name"
+        android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/uploadimgbtn"
         app:layout_constraintBottom_toTopOf="@+id/submitcatbtn"

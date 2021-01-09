@@ -118,7 +118,7 @@ public class AddCategory extends AppCompatActivity {
 
         } else {
 
-            Toast.makeText(AddCategory.this, "Please select image/gif or add category name!", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddCategory.this, "Please select category image or add category name!", Toast.LENGTH_LONG).show();
 
         }
     }

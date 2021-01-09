@@ -1,20 +1,27 @@
 package com.example.adminlearning;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -25,16 +32,20 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+
 public class AddSLactivity extends AppCompatActivity {
 
     Button uploadimgbtn, submitslbtn;
     TextInputEditText addsldesc;
     ImageView delbtn;
     WebView slimg;
+    VideoView videoView;
     public Uri imguri;
     DatabaseReference databaseReference;
     StorageReference mStorageRef;
     String data ,sldescription;
+    String checker="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +63,6 @@ public class AddSLactivity extends AppCompatActivity {
         slimg = (WebView) findViewById(R.id.slimg);
         submitslbtn = (Button) findViewById(R.id.submitslbtn);
         uploadimgbtn = (Button) findViewById(R.id.uploadimgbtn);
-        addsldesc = (TextInputEditText) findViewById(R.id.addsldesc);
-
 
         uploadimgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,12 +135,39 @@ public class AddSLactivity extends AppCompatActivity {
 
     //choose category photo
     private void Filechooser(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
+
+        CharSequence options[] = new CharSequence[]{"Images/GIF", "Video"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select the File");
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == 0){
+                    checker = "image/gif";
+                    Intent galleryIntent = new Intent();
+                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                    galleryIntent.setType("image/*");
+                    startActivityForResult(galleryIntent, 1);
+
+                }
+                if(which == 1){
+                    checker = "video";
+                    Intent galleryIntent = new Intent();
+                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                    galleryIntent.setType("video/*");
+                    startActivityForResult(galleryIntent, 2);
+
+                }
+            }
+        });
+        builder.show();
+
 
     }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -142,6 +178,38 @@ public class AddSLactivity extends AppCompatActivity {
             slimg.getSettings().setLoadWithOverviewMode(true);
             slimg.getSettings().setUseWideViewPort(true);
 
+        }
+        if(requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imguri = data.getData();
+
+            final StorageReference Ref = mStorageRef.child("upload/" + System.currentTimeMillis()+ getExtention(imguri));
+            Ref.putFile(imguri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                            firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                    String downloadurl = uri.toString();
+//                                    slimg.loadUrl(String.valueOf(url));
+                                    slimg.loadUrl("https://firebasestorage.googleapis.com/v0/b/mute-deaf-communication-tool.appspot.com/o/Pending%20GIF%2F-MQXDWyu_S3wsfeoVc_V.gif?alt=media&token=bab3c6a7-1035-4105-b7cc-67d8e2ab14f3");
+                                    slimg.getSettings().setLoadWithOverviewMode(true);
+                                    slimg.getSettings().setUseWideViewPort(true);
+
+
+
+                                }
+                            });
+                            Toast.makeText(getApplicationContext(), "upload successfully!", Toast.LENGTH_LONG).show();
+                            slimg.loadUrl("https://firebasestorage.googleapis.com/v0/b/mute-deaf-communication-tool.appspot.com/o/Pending%20GIF%2F-MQXDWyu_S3wsfeoVc_V.gif?alt=media&token=bab3c6a7-1035-4105-b7cc-67d8e2ab14f3");
+//                            slimg.getSettings().setLoadWithOverviewMode(true);
+//                            slimg.getSettings().setUseWideViewPort(true);
+
+                        }
+                    });
 
         }
     }

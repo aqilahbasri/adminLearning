@@ -3,6 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.adminlearning">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--
+ Make sure the device has a camera. If you use android.hardware.camera without .any,
+ it will not work if you have a device without a back camera, such as most Chromebooks.
+    -->
+    <uses-feature android:name="android.hardware.camera.any" /> <!-- Specifying that the app will need camera permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_masks"

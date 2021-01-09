@@ -7,49 +7,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity"
+    tools:context=".MainCommunicationActivity"
     tools:openDrawer="end">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
-        tools:context=".MainActivity">
+        >
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/main_page_toolbar"
+            android:id="@+id/communication_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <include layout="@layout/custom_toolbar" />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="724dp"
-            android:layout_above="@+id/addbtn"
-            android:layout_below="@+id/main_page_toolbar"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="26dp"
-            tools:layout_editor_absoluteX="0dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
         <Button
-            android:id="@+id/addbtn"
-            android:layout_width="match_parent"
+            android:id="@+id/gifLibrary"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
             android:background="#32ACBA"
-            android:text="Add new Category"
+            android:text="GIF Library"
             android:textColor="@android:color/white"
             android:textSize="20dp"
-            android:textStyle="bold">
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/ic_baseline_gif_24"
+            />
+        <Button
+            android:id="@+id/pendingLibrary"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:background="#32ACBA"
+            android:layout_below="@+id/gifLibrary"
+            android:text="Pending Library"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/ic_baseline_gif_24">
 
         </Button>
 
@@ -65,5 +63,5 @@
         app:itemIconTint="?attr/colorPrimary"
         app:menu="@menu/nav_drawer_menu"
         app:headerLayout="@layout/nav_drawer_header"
-        android:id="@+id/nav_view"/>
+        android:id="@+id/com_nav_view"/>
 </androidx.drawerlayout.widget.DrawerLayout>

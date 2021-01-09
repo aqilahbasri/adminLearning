@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Communication"
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"/>
+
+        <item
+            android:id="@+id/nav_learning"
+            android:icon="@drawable/ic_school"
+            android:title="Learning"/>
+
+        <item
+            android:id="@+id/nav_assessment"
+            android:icon="@drawable/ic_viewresults"
+            android:title="Assessment"/>
+
+        <!--        <item-->
+        <!--            android:id="@+id/nav_administration"-->
+        <!--            android:icon="@drawable/ic_notifications_none_black_24dp"-->
+        <!--            android:title="Administration" />-->
+    </group>
+
+</menu>

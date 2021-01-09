@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".GIFLibraryActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/communication_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <include layout="@layout/basic_toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/communication_toolbar"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/inputs"
+        android:layoutDirection="rtl"
+        android:padding="10dp"
+        app:queryHint="Search"/>
+
+    <ImageButton
+        android:id="@+id/voice_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/communication_toolbar"
+        android:background="@drawable/microphone"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="33dp"
+        android:layout_marginRight="50dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
+        android:id="@+id/gif_list"
+        android:layout_below="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"/>
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/no_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar"
+        android:text="No result found."
+        android:padding="10sp"
+        android:textAlignment="center"/>
+
+    <!--    <TextView-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:id="@+id/category_header"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@+id/no_result"-->
+    <!--        android:text="Similar category"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:padding="10sp"-->
+    <!--        android:textAlignment="center"/>-->
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:id="@+id/gif_recommendation_category_list"-->
+    <!--        android:layout_below="@+id/category_header"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="5dp"-->
+    <!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+    <!--        android:orientation="horizontal"/>-->
+
+    <!--    <TextView-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:id="@+id/word_header"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:layout_below="@+id/gif_recommendation_category_list"-->
+    <!--        android:text="Other recommendation"-->
+    <!--        android:padding="10sp"-->
+    <!--        android:textAlignment="center"/>-->
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:id="@+id/gif_recommendation_word_list"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@+id/word_header"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
+
+</RelativeLayout>

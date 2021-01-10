@@ -1,9 +1,11 @@
 package com.example.adminlearning;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +38,8 @@ public class AddQactivity extends AppCompatActivity {
     StorageReference mStorageRef;
     String data, sldescription;
     int correctanswer;
+    String checker="";
+    String downloadurl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,17 +159,39 @@ public class AddQactivity extends AppCompatActivity {
             }
         } else {
 
-            Toast.makeText(AddQactivity.this, "Please Select sign language image/gif or don't leave any part blank", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddQactivity.this, "Please select sign language material or/and don't leave any part blank", Toast.LENGTH_LONG).show();
 
         }
     }
 
     //choose category photo
     private void Filechooser(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
+        CharSequence options[] = new CharSequence[]{"Images/GIF", "Video"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select the File");
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == 0){
+                    checker = "image/gif";
+                    Intent galleryIntent = new Intent();
+                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                    galleryIntent.setType("image/*");
+                    startActivityForResult(galleryIntent, 1);
+
+                }
+                if(which == 1){
+                    checker = "video";
+                    Intent galleryIntent = new Intent();
+                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                    galleryIntent.setType("video/*");
+                    startActivityForResult(galleryIntent, 2);
+
+                }
+            }
+        });
+        builder.show();
 
     }
 
@@ -178,6 +204,35 @@ public class AddQactivity extends AppCompatActivity {
             slimg.getSettings().setLoadWithOverviewMode(true);
             slimg.getSettings().setUseWideViewPort(true);
 
+        }
+        if(requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imguri = data.getData();
+
+            final StorageReference Ref = mStorageRef.child("upload/" + System.currentTimeMillis()+ getExtention(imguri));
+            Ref.putFile(imguri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                            firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                    downloadurl = uri.toString();
+                                    slimg.loadUrl(downloadurl);
+                                    slimg.getSettings().setLoadWithOverviewMode(true);
+                                    slimg.getSettings().setUseWideViewPort(true);
+
+
+
+                                }
+                            });
+//                            Toast.makeText(getApplicationContext(), "upload successfully!", Toast.LENGTH_LONG).show();
+
+
+                        }
+                    });
 
         }
     }

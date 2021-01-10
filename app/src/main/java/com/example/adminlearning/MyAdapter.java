@@ -59,9 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.categoryname.setText(categories.get(position).getCategoryname());
-        holder.categoryimage.loadUrl(categories.get(position).getCategoryimage());
-        holder.categoryimage.getSettings().setUseWideViewPort(true);
-        holder.categoryimage.getSettings().setLoadWithOverviewMode(true);
+        Picasso.get().load(categories.get(position).getCategoryimage()).into(holder.categoryimage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -123,7 +121,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     class  MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView categoryname;
-        WebView categoryimage;
+        ImageView categoryimage;
         ImageButton deletebtn;
         Button yes,no;
 
@@ -132,7 +130,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
 
             categoryname = (TextView) itemView.findViewById(R.id.categoryname);
-            categoryimage = (WebView) itemView.findViewById(R.id.categoryimage);
+            categoryimage = (ImageView) itemView.findViewById(R.id.categoryimage);
             deletebtn = (ImageButton) itemView.findViewById(R.id.delbtn);
 
             addcatRef = FirebaseDatabase.getInstance().getReference().child("LEARNING");

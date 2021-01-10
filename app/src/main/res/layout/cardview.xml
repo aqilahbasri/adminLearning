@@ -15,16 +15,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp"
         android:orientation="vertical">
 
-        <WebView
+        <ImageView
             android:id="@+id/categoryimage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            tools:ignore="WebViewLayout" />
+            android:layout_marginVertical="10dp"
+
+            />
 
         <TextView
             android:id="@+id/categoryname"

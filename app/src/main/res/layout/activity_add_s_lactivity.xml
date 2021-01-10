@@ -53,7 +53,8 @@
             android:layout_marginHorizontal="50dp"
             android:layout_marginVertical="50sp"
             android:layout_weight="1"
-            android:paddingVertical="15dp" />
+            android:paddingVertical="15dp"
+            android:overScrollMode="ifContentScrolls"/>
 
 
     </LinearLayout>
@@ -69,7 +70,7 @@
         android:layout_marginEnd="20dp"
         android:background="#BA32AC"
         android:layout_marginBottom="20dp"
-        android:text="Upload Sign Language Material"
+        android:text="Select Sign Language Material"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/addsldesc"

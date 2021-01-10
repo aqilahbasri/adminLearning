@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="170dp"
-    android:layout_height="170dp"
+    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     android:clickable="true"
@@ -13,28 +13,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="WebViewLayout">
 
         <WebView
             android:id="@+id/slimage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:layout_gravity="center_horizontal"
-            tools:ignore="WebViewLayout" />
+            android:overScrollMode="ifContentScrolls"
+ />
 
         <TextView
             android:id="@+id/slanswer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="20dp"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:autoSizeTextType="uniform"
             android:textSize="16sp"
+            android:layout_marginBottom="5dp"
             android:textStyle="bold" />
 
 
@@ -50,3 +55,4 @@
 
 
 </androidx.cardview.widget.CardView>
+

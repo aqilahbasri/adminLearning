@@ -46,6 +46,7 @@ public class AddSLactivity extends AppCompatActivity {
     StorageReference mStorageRef;
     String data ,sldescription;
     String checker="";
+    String downloadurl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class AddSLactivity extends AppCompatActivity {
         slimg = (WebView) findViewById(R.id.slimg);
         submitslbtn = (Button) findViewById(R.id.submitslbtn);
         uploadimgbtn = (Button) findViewById(R.id.uploadimgbtn);
+        addsldesc = (TextInputEditText) findViewById(R.id.addsldesc);
 
         uploadimgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +130,7 @@ public class AddSLactivity extends AppCompatActivity {
             }
         } else {
 
-            Toast.makeText(AddSLactivity.this, "Please select sign language image/gif and/or add sign language description", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddSLactivity.this, "Please select sign language material and/or add sign language description", Toast.LENGTH_LONG).show();
 
         }
     }
@@ -193,9 +195,8 @@ public class AddSLactivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
 
-                                    String downloadurl = uri.toString();
-//                                    slimg.loadUrl(String.valueOf(url));
-                                    slimg.loadUrl("https://firebasestorage.googleapis.com/v0/b/mute-deaf-communication-tool.appspot.com/o/Pending%20GIF%2F-MQXDWyu_S3wsfeoVc_V.gif?alt=media&token=bab3c6a7-1035-4105-b7cc-67d8e2ab14f3");
+                                    downloadurl = uri.toString();
+                                    slimg.loadUrl(downloadurl);
                                     slimg.getSettings().setLoadWithOverviewMode(true);
                                     slimg.getSettings().setUseWideViewPort(true);
 
@@ -203,10 +204,8 @@ public class AddSLactivity extends AppCompatActivity {
 
                                 }
                             });
-                            Toast.makeText(getApplicationContext(), "upload successfully!", Toast.LENGTH_LONG).show();
-                            slimg.loadUrl("https://firebasestorage.googleapis.com/v0/b/mute-deaf-communication-tool.appspot.com/o/Pending%20GIF%2F-MQXDWyu_S3wsfeoVc_V.gif?alt=media&token=bab3c6a7-1035-4105-b7cc-67d8e2ab14f3");
-//                            slimg.getSettings().setLoadWithOverviewMode(true);
-//                            slimg.getSettings().setUseWideViewPort(true);
+//                            Toast.makeText(getApplicationContext(), "upload successfully!", Toast.LENGTH_LONG).show();
+
 
                         }
                     });

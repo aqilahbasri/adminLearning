@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -43,16 +44,17 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
     @NonNull
     @Override
     public LearnSLadapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LearnSLadapter.MyViewHolder(LayoutInflater.from(context).inflate(R.layout.cardview,parent,false));
+        return new LearnSLadapter.MyViewHolder(LayoutInflater.from(context).inflate(R.layout.cardquesview,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
-        holder.categoryname.setText(learnSLlists.get(position).getSldescription());
-        holder.categoryimage.loadUrl(learnSLlists.get(position).getImgurl());
-        holder.categoryimage.getSettings().setUseWideViewPort(true);
-        holder.categoryimage.getSettings().setLoadWithOverviewMode(true);
+        holder.sldesc.setText(learnSLlists.get(position).getSldescription());
+        holder.slimage.getSettings().setAppCacheEnabled(true);
+        holder.slimage.loadUrl(learnSLlists.get(position).getImgurl());
+        holder.slimage.getSettings().setUseWideViewPort(true);
+        holder.slimage.getSettings().setLoadWithOverviewMode(true);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -77,17 +79,17 @@ public class LearnSLadapter extends RecyclerView.Adapter<LearnSLadapter.MyViewHo
 
     class  MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView categoryname;
-        WebView categoryimage;
+        WebView slimage;
         ImageButton deletebtn;
+        TextView sldesc;
         Button yes,no;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            categoryname = (TextView) itemView.findViewById(R.id.categoryname);
-            categoryimage = (WebView) itemView.findViewById(R.id.categoryimage);
+            sldesc = (TextView) itemView.findViewById(R.id.slanswer);
+            slimage = (WebView) itemView.findViewById(R.id.slimage);
             deletebtn = (ImageButton) itemView.findViewById(R.id.delbtn);
 
             addslRef = FirebaseDatabase.getInstance().getReference().child("SignLanguage").child(refchild);

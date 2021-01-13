@@ -3,4 +3,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="view_application">View new application</string>
+    <string name="title_activity_manage_online_interview">ManageOnlineInterviewActivity</string>
+    <string name="title_activity_manage_coursework">ManageCourseworkActivity</string>
 </resources>

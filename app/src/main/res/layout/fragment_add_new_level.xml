@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+    <!--    For level name-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Level name" />
+
+    <EditText
+        android:id="@+id/editText_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_border"
+        android:hint="Enter level name..."
+        android:inputType="text" />
+
+    <!--    For question type-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Test duration" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText_2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_border"
+            android:hint="hours"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editText_3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_gap"
+            android:background="@drawable/rectangle_border"
+            android:hint="minutes"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <!--    For icon-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Level image icon" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/selectedPicName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/default_gap"
+            android:layout_weight="65"
+            android:background="#DCDCDC"
+            android:padding="4dp" />
+
+        <Button
+            android:id="@+id/select_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="35"
+            android:background="@drawable/btn_turquoise_rounded"
+            android:text="Upload image"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardview_id"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        cardview:cardCornerRadius="4dp">
+
+        <ImageView
+            android:id="@+id/level_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--    For overall passing grade-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Overall passing mark" />
+
+    <EditText
+        android:id="@+id/editText_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_border"
+        android:hint="Enter overall passing mark..."
+        android:inputType="number" />
+
+    <!--    Buttons-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="end"
+        android:weightSum="100">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_gap"
+            android:background="@android:color/holo_red_dark"
+            android:text="Cancel"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/btn_turquoise_rounded"
+            android:text="Confirm"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

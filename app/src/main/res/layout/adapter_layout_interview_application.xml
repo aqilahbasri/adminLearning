@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="100"
+    android:id="@+id/adapterViewLayout">
+
+    <TextView
+        android:gravity="start"
+        android:textAlignment="textStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_weight="20"/>
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_weight="15"/>
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_weight="25"/>
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_weight="25"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/review_button"
+        android:padding="2dp"
+        android:layout_weight="15"
+        android:layout_marginLeft="@dimen/default_gap"
+        android:layout_marginVertical="@dimen/default_gap"
+        android:text="Review"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_turquoise_rounded"/>
+
+</LinearLayout>

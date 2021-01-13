@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToMainAssessmentModule() {
-        Intent mainAssessmentModule = new Intent(com.example.adminlearning.MainActivity.this, MainAssessmentActivity.class);
+        Intent mainAssessmentModule = new Intent(com.example.adminlearning.MainActivity.this, com.example.adminlearning.assessment.MainActivity.class);
         startActivity(mainAssessmentModule);
     }
 

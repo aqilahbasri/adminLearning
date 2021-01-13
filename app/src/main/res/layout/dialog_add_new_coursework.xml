@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    android:orientation="vertical">
+
+    <!--    For name-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coursework name" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/coursework_name"
+        android:inputType="text"
+        android:background="@drawable/rectangle_border"
+        android:hint="Enter name..."/>
+
+    <!--    For question-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Coursework question" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/coursework_question"
+        android:background="@drawable/rectangle_border"
+        android:hint="Enter question..."
+        android:inputType="text"/>
+
+    <!--    For upload file-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Upload related file" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100">
+        <TextView
+            android:layout_weight="70"
+            android:id="@+id/notification"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_border"
+            android:layout_marginEnd="@dimen/default_gap"
+            android:gravity="center_vertical"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/upload_btn"
+            android:background="@drawable/btn_turquoise_rounded"
+            android:text="Upload file"
+            android:textColor="@android:color/white"
+            android:layout_weight="30"
+            android:layout_marginStart="@dimen/default_gap"/>
+
+    </LinearLayout>
+
+    <!--    For due date-->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/default_gap"-->
+<!--        android:text="Due date" />-->
+<!--    <EditText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/interview_time"-->
+<!--        android:background="@drawable/rectangle_border"-->
+<!--        android:hint="Set date..."-->
+<!--        android:clickable="true"-->
+<!--        android:longClickable="false"-->
+<!--        android:focusable="false"/> -->
+    <!--must have focusable=false to prevent user entering data -->
+
+</LinearLayout>

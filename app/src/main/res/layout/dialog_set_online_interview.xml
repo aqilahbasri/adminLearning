@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    android:orientation="vertical">
+
+<!--    For interviewer name, later change to spinner-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interviewer" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/interviewer_name"
+        android:inputType="text"
+        android:background="@drawable/rectangle_border"
+        android:hint="Enter name..."/>
+
+<!--    For date-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_output"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Interview Date" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/interview_date"
+        android:background="@drawable/rectangle_border"
+        android:hint="Set date..."
+        android:clickable="true"
+        android:longClickable="false"
+        android:focusable="false"/> <!--must have focusable=false to prevent user entering data -->
+
+    <!--    For time-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Interview Time" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/interview_time"
+        android:background="@drawable/rectangle_border"
+        android:hint="Set time..."
+        android:clickable="true"
+        android:longClickable="false"
+        android:focusable="false"/> <!--must have focusable=false to prevent user entering data -->
+
+</LinearLayout>

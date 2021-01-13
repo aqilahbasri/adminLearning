@@ -179,6 +179,7 @@ public class AddSLactivity extends AppCompatActivity {
             slimg.loadUrl(String.valueOf(imguri));
             slimg.getSettings().setLoadWithOverviewMode(true);
             slimg.getSettings().setUseWideViewPort(true);
+            Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_LONG).show();
 
         }
         if(requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null){
@@ -204,7 +205,7 @@ public class AddSLactivity extends AppCompatActivity {
 
                                 }
                             });
-//                            Toast.makeText(getApplicationContext(), "upload successfully!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_LONG).show();
 
 
                         }

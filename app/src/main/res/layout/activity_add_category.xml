@@ -44,7 +44,7 @@
         android:layout_below="@+id/toolbar"
         tools:ignore="MissingConstraints,WebViewLayout">
 
-        <WebView
+        <ImageView
             android:id="@+id/catimg"
             android:layout_width="287dp"
             android:layout_height="300dp"
@@ -61,8 +61,8 @@
 
     <Button
         android:id="@+id/uploadimgbtn"
-        android:layout_width="235dp"
-        android:layout_height="34dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:background="#BA32AC"
         android:layout_centerHorizontal="true"
         android:text="Upload Category Image"
@@ -85,6 +85,7 @@
         android:layout_margin="20dp"
         android:hint="Add category name"
         android:textAlignment="center"
+        app:backgroundTint="@android:color/black"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/uploadimgbtn"
         app:layout_constraintBottom_toTopOf="@+id/submitcatbtn"

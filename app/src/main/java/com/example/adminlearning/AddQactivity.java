@@ -122,7 +122,7 @@ public class AddQactivity extends AppCompatActivity {
                                         } else if (correctAns.equals("D") || correctAns.equals("d")) {
                                             correctanswer = 4;
                                         } else {
-                                            Toast.makeText(getApplicationContext(), "Please choose A/B/C/D only!", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(), "Please type A or B or C or D only!", Toast.LENGTH_LONG).show();
                                         }
 
                                         Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
@@ -152,14 +152,14 @@ public class AddQactivity extends AppCompatActivity {
                         }, 3000);
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "Please choose A/B/C/D only for the correct answer!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Please type A or B or C or D for the correct answer!", Toast.LENGTH_LONG).show();
 
                     }
                 }
             }
         } else {
 
-            Toast.makeText(AddQactivity.this, "Please select sign language material or/and don't leave any part blank", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddQactivity.this, "Please select and upload sign language material or/and don't leave any part blank", Toast.LENGTH_LONG).show();
 
         }
     }
@@ -203,6 +203,7 @@ public class AddQactivity extends AppCompatActivity {
             slimg.loadUrl(String.valueOf(imguri));
             slimg.getSettings().setLoadWithOverviewMode(true);
             slimg.getSettings().setUseWideViewPort(true);
+            Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_LONG).show();
 
         }
         if(requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null){
@@ -228,7 +229,7 @@ public class AddQactivity extends AppCompatActivity {
 
                                 }
                             });
-//                            Toast.makeText(getApplicationContext(), "upload successfully!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_LONG).show();
 
 
                         }

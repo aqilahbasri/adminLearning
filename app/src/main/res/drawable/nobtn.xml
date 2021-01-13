@@ -5,10 +5,10 @@
     <corners android:radius="10dp"/>
 
     <!-- View border color and width -->
-    <stroke
-        android:width="5dp"
-        android:color="#99ff99" >
-    </stroke>
+<!--    <stroke-->
+<!--        android:width="5dp"-->
+<!--        android:color="#99ff99" >-->
+<!--    </stroke>-->
 
 
 </shape>

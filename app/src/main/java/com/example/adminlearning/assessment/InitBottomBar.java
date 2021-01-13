@@ -27,7 +27,7 @@ public class InitBottomBar {
                 Fragment selectedFragment = null;
                 switch (item.getItemId()) {
                     case R.id.nav_home:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new AdministrationMenuFragment();
                         break;
                     case R.id.nav_profile:
                         selectedFragment = new ProfileFragment();
@@ -37,7 +37,7 @@ public class InitBottomBar {
                         break;
                 }
 
-                ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack(null).commit();
+                ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack(null).commit();
                 return true;
             }
         });

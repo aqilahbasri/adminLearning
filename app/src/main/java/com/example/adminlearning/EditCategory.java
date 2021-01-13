@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -227,6 +228,7 @@ public class EditCategory extends AppCompatActivity {
             slimg.loadUrl(String.valueOf(imguri));
             slimg.getSettings().setLoadWithOverviewMode(true);
             slimg.getSettings().setUseWideViewPort(true);
+            Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_LONG).show();
 
 
         }

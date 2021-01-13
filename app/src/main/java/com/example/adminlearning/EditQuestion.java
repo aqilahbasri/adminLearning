@@ -190,7 +190,7 @@ public class EditQuestion extends AppCompatActivity {
                     correctanswer = 4;
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Please choose A/B/C/D only!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Please type A or B or C or D only!", Toast.LENGTH_LONG).show();
                 }
                 String oldsldesc = description;
                 ChallengeSLlist imageUploadInfo = new ChallengeSLlist(oldimgsl, correctanswer, optionA, optionB, optionC, optionD, oldsldesc);
@@ -255,6 +255,7 @@ public class EditQuestion extends AppCompatActivity {
             slimg.loadUrl(String.valueOf(imguri));
             slimg.getSettings().setLoadWithOverviewMode(true);
             slimg.getSettings().setUseWideViewPort(true);
+            Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_LONG).show();
 
         }
         if(requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null){
@@ -280,7 +281,7 @@ public class EditQuestion extends AppCompatActivity {
 
                                 }
                             });
-//                            Toast.makeText(getApplicationContext(), "upload successfully!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_LONG).show();
 
 
                         }

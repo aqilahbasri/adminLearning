@@ -35,7 +35,7 @@ public class AddCategory extends AppCompatActivity {
     Button uploadimgbtn, submitcatbtn;
     TextInputEditText addcategoryname;
     ImageView delbtn;
-    WebView catimg;
+    ImageView catimg;
     public Uri imguri;
     DatabaseReference databaseReference;
     StorageReference mStorageRef;
@@ -49,7 +49,7 @@ public class AddCategory extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference("LearningCategory/");
         databaseReference = FirebaseDatabase.getInstance().getReference("LEARNING");
 
-        catimg = (WebView) findViewById(R.id.catimg);
+        catimg = (ImageView) findViewById(R.id.catimg);
         submitcatbtn = (Button) findViewById(R.id.submitcatbtn);
         uploadimgbtn = (Button) findViewById(R.id.uploadimgbtn);
         addcategoryname = (TextInputEditText) findViewById(R.id.addcategoryname);
@@ -118,7 +118,7 @@ public class AddCategory extends AppCompatActivity {
 
         } else {
 
-            Toast.makeText(AddCategory.this, "Please select category image or add category name!", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddCategory.this, "Please select and upload category image or add category name!", Toast.LENGTH_LONG).show();
 
         }
     }
@@ -137,10 +137,11 @@ public class AddCategory extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
             imguri = data.getData();
-            catimg.loadUrl(String.valueOf(imguri));
-            catimg.getSettings().setLoadWithOverviewMode(true);
-            catimg.getSettings().setUseWideViewPort(true);
-//            catimg.setImageURI(imguri);
+//            catimg.loadUrl(String.valueOf(imguri));
+//            catimg.getSettings().setLoadWithOverviewMode(true);
+//            catimg.getSettings().setUseWideViewPort(true);
+            catimg.setImageURI(imguri);
+            Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_LONG).show();
 
         }
     }

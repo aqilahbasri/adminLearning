@@ -25,7 +25,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_baseline_add_24"
-        android:id="@+id/add_coursework_btn"/>
+        android:id="@+id/add_coursework_btn"
+        android:backgroundTint="@color/colorPrimary"/>
 
     <LinearLayout
         android:id="@+id/adapterViewHeader"

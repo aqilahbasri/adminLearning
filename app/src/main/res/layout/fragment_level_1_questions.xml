@@ -101,6 +101,7 @@ android:padding="16dp">
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_baseline_add_24"
-        android:id="@+id/add_questions_btn"/>
+        android:id="@+id/add_questions_btn"
+        android:backgroundTint="@color/colorPrimary"/>
 
 </RelativeLayout>

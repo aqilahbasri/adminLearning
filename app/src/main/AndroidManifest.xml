@@ -53,7 +53,7 @@
 
 <!--        Yvonne punya activity-->
         <activity
-            android:name=".assessment.MainActivity" />
+            android:name=".assessment.MainActivity"/>
 <!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity android:name=".assessment.ManageQuestionsActivity"
             android:parentActivityName=".assessment.MainActivity" />

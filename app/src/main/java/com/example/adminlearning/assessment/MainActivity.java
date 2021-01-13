@@ -1,5 +1,6 @@
 package com.example.adminlearning.assessment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new HomeFragment()).commit();
+                    new AdministrationMenuFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -56,20 +57,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment selectedFragment = null;
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                selectedFragment = new HomeFragment();
+                goToMainCommunicationModule();
                 break;
-//            case R.id.nav_assessment:
-//                selectedFragment = new AssessmentMenu_Fragment();
-//                break;
+            case R.id.nav_learning:
+                goToMainLearningModule();
+                break;
             case R.id.nav_assessment:
-                selectedFragment = new AdministrationMenuFragment();
+                goToMainAssessmentModule();
                 break;
         }
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack(null).commit();
         drawer.closeDrawer(GravityCompat.END);
         return true;
     }
@@ -80,32 +78,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
-        }
-
-        else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
-        }
-
-        else if (isTaskRoot()) {    //Only can exit from Home fragment
+        } else if (isTaskRoot()) {    //Only can exit from Home fragment
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
-            }
-            else {
+            } else {
                 doubleBackToExitPressedOnce = true;
                 Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        doubleBackToExitPressedOnce=false;
+                        doubleBackToExitPressedOnce = false;
                     }
                 }, 2000);
             }
-        }
-
-        else {
+        } else {
             super.onBackPressed();
         }
+    }
+
+    private void goToMainLearningModule() {
+        Intent mainLearningModule = new Intent(com.example.adminlearning.assessment.MainActivity.this, com.example.adminlearning.MainActivity.class);
+        startActivity(mainLearningModule);
+    }
+
+    private void goToMainAssessmentModule() {
+        Intent mainAssessmentModule = new Intent(com.example.adminlearning.assessment.MainActivity.this, com.example.adminlearning.assessment.MainActivity.class);
+        startActivity(mainAssessmentModule);
+    }
+
+    private void goToMainCommunicationModule() {
+        Intent mainCommunicationModule = new Intent(com.example.adminlearning.assessment.MainActivity.this, com.example.adminlearning.MainCommunicationActivity.class);
+        startActivity(mainCommunicationModule);
     }
 
     @Override

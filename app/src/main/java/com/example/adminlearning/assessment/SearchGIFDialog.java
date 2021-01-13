@@ -49,7 +49,7 @@ public class SearchGIFDialog extends AppCompatDialogFragment {
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomMaterialDialog);
         builder.setTitle("Search GIF");
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -63,7 +63,6 @@ public class SearchGIFDialog extends AppCompatDialogFragment {
         mAuth = FirebaseAuth.getInstance();
 
         GIFRef = FirebaseDatabase.getInstance().getReference().child("SignLanguageGIF");
-
         builder.setView(GIFView);
 
         init();
@@ -80,7 +79,7 @@ public class SearchGIFDialog extends AppCompatDialogFragment {
                             if (getFragContext() == AddNewQuestionsFragment.getInstance().getContext()) {
                                 final AddNewQuestionsFragment context = AddNewQuestionsFragment.getInstance();
                                 context.selectedGifTxt.setText("You have selected GIF of \"" + adapter.getMalayCaption() + "/" + adapter.getEngCaption() + "\"");
-                                context.selectedGifTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+                                context.selectedGifTxt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 context.gifView.setVisibility(View.VISIBLE);
                                 context.gifPicture.loadUrl(adapter.gifUrl);
                                 context.gifPicture.getSettings().setLoadWithOverviewMode(true);
@@ -91,7 +90,7 @@ public class SearchGIFDialog extends AppCompatDialogFragment {
                             } else if (getFragContext() == EditLevel1QuestionFragment.getInstance().getContext()) {
                                 final EditLevel1QuestionFragment context = EditLevel1QuestionFragment.getInstance();
                                 context.selectedGifTxt.setText("You have selected GIF of \"" + adapter.getMalayCaption() + "/" + adapter.getEngCaption() + "\"");
-                                context.selectedGifTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+                                context.selectedGifTxt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 context.gifPicture.loadUrl(adapter.gifUrl);
                                 context.gifPicture.getSettings().setLoadWithOverviewMode(true);
                                 context.gifPicture.getSettings().setUseWideViewPort(true);

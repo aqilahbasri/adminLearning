@@ -186,7 +186,7 @@ public class AddTestLevelFragment extends Fragment {
         if (requestCode == 20 && resultCode == RESULT_OK && data != null) {
             filepath = data.getData(); //return uri of selected file
             selectedPicTxt.setText("File selected: " + data.getData().getLastPathSegment());
-            selectedPicTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+            selectedPicTxt.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
             iconCardView.setVisibility(View.VISIBLE);
             levelIcon.invalidate();

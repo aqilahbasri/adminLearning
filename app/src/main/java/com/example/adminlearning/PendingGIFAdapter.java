@@ -35,7 +35,6 @@ public class PendingGIFAdapter extends RecyclerView.Adapter<PendingGIFAdapter.Pe
 
     private List<PendingGIF> gifList;
     private FirebaseAuth mAuth;
-    private DatabaseReference GIFRef, favlistRef;
     private String userID;
     Context t;
 
@@ -57,10 +56,6 @@ public class PendingGIFAdapter extends RecyclerView.Adapter<PendingGIFAdapter.Pe
         public PendingGIFViewHolder(@NonNull View itemView)
         {
             super(itemView);
-
-
-            GIFRef = FirebaseDatabase.getInstance().getReference().child("SignLanguageGIF");
-            favlistRef = FirebaseDatabase.getInstance().getReference("FavouriteGIF");
 
             gifPicture = (WebView) itemView.findViewById(R.id.gifPicture);
             engCaption = (TextView) itemView.findViewById(R.id.engCaption);

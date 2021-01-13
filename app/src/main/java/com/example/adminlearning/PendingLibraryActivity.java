@@ -57,7 +57,7 @@ public class PendingLibraryActivity extends AppCompatActivity {
         searchView = (SearchView) findViewById(R.id.search_bar);
         noResult = (TextView) findViewById(R.id.no_result);
         voiceButton = (ImageButton) findViewById(R.id.voice_button);
-        GIFRef = FirebaseDatabase.getInstance().getReference("PendingGIF");
+        GIFRef = FirebaseDatabase.getInstance().getReference().child("/PendingGIFLibrary");
 
     }
 

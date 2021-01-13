@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GIFDetailsActivity"></activity>
+        <activity android:name=".EditGIFDetailsActivity"></activity>
+        <activity android:name=".GIFDetailsActivity"
+            android:parentActivityName=".GIFLibraryActivity"/>
         <activity android:name=".PendingLibraryActivity" />
         <activity android:name=".GIFLibraryActivity" />
         <activity android:name=".MainCommunicationActivity" />

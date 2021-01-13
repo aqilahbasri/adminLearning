@@ -31,7 +31,7 @@ public class GIFLibraryActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView actionBarTitle;
 
-    private RecyclerView myGIFList, myGIFRecommendationList;
+    private RecyclerView myGIFList;
     private SearchView searchView;
     private TextView noResult;
 
@@ -39,9 +39,7 @@ public class GIFLibraryActivity extends AppCompatActivity {
     private DatabaseReference GIFRef;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
 
-
     ArrayList<GIF> list;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +56,7 @@ public class GIFLibraryActivity extends AppCompatActivity {
         searchView = (SearchView) findViewById(R.id.search_bar);
         noResult = (TextView) findViewById(R.id.no_result);
         voiceButton = (ImageButton) findViewById(R.id.voice_button);
-        GIFRef = FirebaseDatabase.getInstance().getReference().child("SignLanguageGIF");
-
-
+        GIFRef = FirebaseDatabase.getInstance().getReference().child("/SignLanguageGIF");
     }
 
     @Override

@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_gap"
         android:text="Scheduled interview details"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:layout_below="@id/new_application_btn"/>
 

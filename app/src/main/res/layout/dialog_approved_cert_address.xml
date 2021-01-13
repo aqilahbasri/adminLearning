@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Address"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimary"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap"
         android:text="City"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimary"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap"
         android:text="Postcode"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimary"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap"
         android:text="State"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimary"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

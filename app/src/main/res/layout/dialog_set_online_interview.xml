@@ -11,7 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Interviewer" />
+        android:text="Interviewer"
+        android:textColor="@color/colorPrimary"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -27,7 +28,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/test_output"
         android:layout_marginTop="@dimen/default_gap"
-        android:text="Interview Date" />
+        android:text="Interview Date"
+        android:textColor="@color/colorPrimary"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap"
-        android:text="Interview Time" />
+        android:text="Interview Time"
+        android:textColor="@color/colorPrimary"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

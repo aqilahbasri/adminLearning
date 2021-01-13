@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_gap"
         android:text="@string/view_application"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp" />
 
     <!--    develop search feature here!!-->

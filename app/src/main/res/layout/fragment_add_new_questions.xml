@@ -11,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap"
-        android:text="Question" />
+        android:text="Question"
+        android:textColor="@color/colorPrimary"/>
 
     <EditText
         android:id="@+id/question_detail"
@@ -26,7 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap"
-        android:text="Question type" />
+        android:text="Question type"
+        android:textColor="@color/colorPrimary"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -46,7 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap"
-        android:text="Question GIF" />
+        android:text="Question GIF"
+        android:textColor="@color/colorPrimary"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -124,7 +127,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap"
-        android:text="Correct answer" />
+        android:text="Correct answer"
+        android:textColor="@color/colorPrimary"/>
 
     <EditText
         android:id="@+id/question_answer"
@@ -146,7 +150,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_gap"
-            android:background="@android:color/holo_red_dark"
+            android:background="@drawable/btn_red_rounded"
             android:text="Cancel"
             android:textColor="@android:color/white" />
 

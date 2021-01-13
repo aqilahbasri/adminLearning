@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/page_title"
         android:text="Coursework List"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:layout_marginBottom="@dimen/default_gap"/>
 

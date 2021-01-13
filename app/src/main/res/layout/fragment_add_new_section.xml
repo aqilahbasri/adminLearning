@@ -66,7 +66,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_gap"
-            android:background="@android:color/holo_red_dark"
+            android:background="@drawable/btn_red_rounded"
             android:text="Cancel"
             android:textColor="@android:color/white" />
 

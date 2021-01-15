@@ -29,7 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PendingGIFAdapter extends RecyclerView.Adapter<PendingGIFAdapter.PendingGIFViewHolder> {
 
@@ -73,7 +75,7 @@ public class PendingGIFAdapter extends RecyclerView.Adapter<PendingGIFAdapter.Pe
     }
 
     @Override
-    public void onBindViewHolder(PendingGIFViewHolder gifViewHolder, int position) {
+    public void onBindViewHolder(PendingGIFViewHolder gifViewHolder, final int position) {
 
         gifViewHolder.gifPicture.loadUrl(gifList.get(position).getImageUrl());
         gifViewHolder.gifPicture.getSettings().setLoadWithOverviewMode(true);
@@ -84,9 +86,34 @@ public class PendingGIFAdapter extends RecyclerView.Adapter<PendingGIFAdapter.Pe
 
         //click to enlarge gif n send
         gifViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//
+            String gif = gifList.get(position).getImageUrl();
+            String engCaption = gifList.get(position).getEngCaption();
+            String malayCaption = gifList.get(position).getMalayCaption();
+            String messagePushID = gifList.get(position).getMessagePushID();
+            String receiver = gifList.get(position).getReceiver();
+            String sender = gifList.get(position).getSender();
+            String uri = gifList.get(position).getUri();
+
             @Override
             public void onClick(View v) {
+                HashMap<String, String> messagePictureBody = new HashMap<>();
+                messagePictureBody.put("message", gif);
+                messagePictureBody.put("type", "gif");
+                messagePictureBody.put("from", sender);
+                messagePictureBody.put("to", receiver);
+                messagePictureBody.put("messageID", messagePushID);
+
+                Intent intent = new Intent(t, EditGIFDetailsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("uri", uri);
+                intent.putExtra("gifurl", gif);
+                intent.putExtra("engCaption", engCaption);
+                intent.putExtra("malayCaption", malayCaption);
+                intent.putExtra("category", "");
+                intent.putExtra("messageDetails", messagePictureBody);
+                intent.putExtra("type", "Pending");
+                v.getContext().startActivity(intent);
+
 
 //                String gif = gifList.get(position).getImageUrl();
 //                final Dialog gifDialog = new Dialog(t);

@@ -58,6 +58,39 @@
         android:src="@drawable/profile_image"
         />
 
+    <Button
+        android:id="@+id/approveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gifImage"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:textColor="@android:color/background_light"
+        android:background="@drawable/button"
+        android:textSize="20sp"
+        android:text="Approve"
+        android:textAllCaps="false"
+        android:visibility="invisible"
+        />
+
+    <Button
+        android:id="@+id/rejectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/approveButton"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:textColor="@android:color/background_light"
+        android:background="@drawable/delete_button"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="Reject"
+        android:textAllCaps="false"
+        android:visibility="invisible"
+        />
+
 
     <Button
         android:id="@+id/editButton"

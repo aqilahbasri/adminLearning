@@ -32,9 +32,11 @@ public class GIFDetailsActivity extends AppCompatActivity {
 
     private WebView gifPicture;
     private TextView engDescription, malayDescription, warningDialog, warningDescriptionDialog;
-    private Button editButton, deleteButton, cancelDialog, confirmDialog;
+    private Button editButton, deleteButton, cancelDialog, confirmDialog, approveButton, rejectButton;
     private Dialog dialogBox;
     private ImageView warningImage;
+
+    private String type;
 
     private DatabaseReference RootRef;
 
@@ -44,6 +46,7 @@ public class GIFDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gif_details);
 
         RootRef = FirebaseDatabase.getInstance().getReference();
+        type = getIntent().getStringExtra("type");
 
         dialogBox = new Dialog(this);
 
@@ -58,6 +61,8 @@ public class GIFDetailsActivity extends AppCompatActivity {
         malayDescription = (TextView) findViewById(R.id.gifDescription2);
         editButton = (Button) findViewById(R.id.editButton);
         deleteButton = (Button) findViewById(R.id.deleteButton);
+        approveButton = (Button) findViewById(R.id.approveButton);
+        rejectButton = (Button) findViewById(R.id.rejectButton);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +72,7 @@ public class GIFDetailsActivity extends AppCompatActivity {
                 intent.putExtra("engCaption", getIntent().getStringExtra("engCaption"));
                 intent.putExtra("malayCaption", getIntent().getStringExtra("malayCaption"));
                 intent.putExtra("category", getIntent().getStringExtra("category"));
+                intent.putExtra("type", "GIF");
                 startActivity(intent);
             }
         });
@@ -87,6 +93,7 @@ public class GIFDetailsActivity extends AppCompatActivity {
         gifPicture.getSettings().setLoadWithOverviewMode(true);
         engDescription.setText(getIntent().getStringExtra("engCaption"));
         malayDescription.setText(getIntent().getStringExtra("malayCaption"));
+
 
 
     }

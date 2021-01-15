@@ -9,6 +9,7 @@ public class PendingGIF {
     private String sender;
     private String time;
     private String messagePushID;
+    private String uri;
 
     public PendingGIF() {
     }
@@ -82,4 +83,12 @@ public class PendingGIF {
     public String getMessagePushID() { return messagePushID; }
 
     public void setMessagePushID(String messagePushID) { this.messagePushID = messagePushID; }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 }

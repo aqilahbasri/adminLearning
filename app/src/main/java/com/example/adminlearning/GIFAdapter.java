@@ -97,6 +97,8 @@ public class GIFAdapter extends RecyclerView.Adapter<com.example.adminlearning.G
                 intent.putExtra("engCaption", engCaption);
                 intent.putExtra("malayCaption", malayCaption);
                 intent.putExtra("category", category);
+                intent.putExtra("type", "GIF");
+
                 v.getContext().startActivity(intent);
 
 

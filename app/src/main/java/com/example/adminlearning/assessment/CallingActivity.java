@@ -112,13 +112,8 @@ public class CallingActivity extends AppCompatActivity {
                                 ref.child(senderUserId).child("Calling").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                startActivity(new Intent(CallingActivity.this, com.example.adminlearning.assessment.MainActivity.class));
-                                                finish();
-                                            }}, 500);
+                                        startActivity(new Intent(CallingActivity.this, com.example.adminlearning.assessment.MainActivity.class));
+                                        finish();
                                     }
                                 });
                             }
@@ -131,7 +126,8 @@ public class CallingActivity extends AppCompatActivity {
                         public void run() {
                             startActivity(new Intent(CallingActivity.this, com.example.adminlearning.assessment.MainActivity.class));
                             finish();
-                        }}, 500);
+                        }
+                    }, 500);
                 }
             }
 
@@ -157,13 +153,8 @@ public class CallingActivity extends AppCompatActivity {
                                 ref.child(senderUserId).child("Ringing").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                startActivity(new Intent(CallingActivity.this, com.example.adminlearning.assessment.MainActivity.class));
-                                                finish();
-                                            }}, 500);
+                                        startActivity(new Intent(CallingActivity.this, com.example.adminlearning.assessment.MainActivity.class));
+                                        finish();
                                     }
                                 });
                             }
@@ -176,7 +167,8 @@ public class CallingActivity extends AppCompatActivity {
                         public void run() {
                             startActivity(new Intent(CallingActivity.this, com.example.adminlearning.assessment.MainActivity.class));
                             finish();
-                        }}, 500);
+                        }
+                    }, 500);
                 }
             }
 
@@ -263,7 +255,7 @@ public class CallingActivity extends AppCompatActivity {
                     acceptCallBtn.setVisibility(View.VISIBLE);
                 }
 
-                if(snapshot.child(receiverUserId).child("Ringing").hasChild("picked")) {
+                if (snapshot.child(receiverUserId).child("Ringing").hasChild("picked")) {
                     mediaPlayer.stop();
                     Intent intent = new Intent(CallingActivity.this, VideoCallActivity.class);
                     startActivity(intent);

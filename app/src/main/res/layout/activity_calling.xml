@@ -7,6 +7,15 @@
     tools:context=".assessment.CallingActivity"
     android:background="@drawable/background_meeting_invitation">
 
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_videocam_24"
+        app:tint="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/cameraIcon"
+        android:layout_marginTop="120dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,16 +24,8 @@
         android:textColor="@android:color/white"
         android:layout_centerHorizontal="true"
         android:id="@+id/invitation_title"
-        android:layout_marginTop="150dp"/>
-
-    <!--    <ImageView-->
-    <!--        android:layout_width="@dimen/fab_size_normal"-->
-    <!--        android:layout_height="@dimen/fab_size_normal"-->
-    <!--        android:id="@+id/imageMeetingType"-->
-    <!--        android:layout_centerVertical="true"-->
-    <!--        android:layout_centerHorizontal="true"-->
-    <!--        android:background="@android:color/white"-->
-    <!--        android:layout_below="@+id/invitation_title" />-->
+        android:layout_below="@+id/cameraIcon"
+        android:layout_marginTop="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_below="@id/invitation_title"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:id="@+id/userLayout">
@@ -54,32 +55,36 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/acceptButton"
-        android:background="@drawable/roundbtn"
-        android:src="@drawable/ic_accept_interview"
-        android:padding="10dp"
-        app:tint="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="100dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
-        android:elevation="8dp"/>
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/rejectButton"
-        android:background="@drawable/bg_reject_interview"
-        android:src="@drawable/ic_reject_interview"
-        android:padding="10dp"
-        app:tint="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="100dp"
-        android:elevation="8dp"/>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/rejectButton"
+            android:background="@drawable/bg_reject_interview"
+            android:src="@drawable/ic_reject_interview"
+            android:padding="10dp"
+            app:tint="@android:color/white"
+            android:elevation="8dp"
+            android:layout_marginHorizontal="40dp"/>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/acceptButton"
+            android:background="@drawable/bg_accept_interview"
+            android:src="@drawable/ic_accept_interview"
+            android:padding="10dp"
+            app:tint="@android:color/white"
+            android:elevation="8dp"
+            android:visibility="gone"
+            android:layout_marginHorizontal="40dp"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

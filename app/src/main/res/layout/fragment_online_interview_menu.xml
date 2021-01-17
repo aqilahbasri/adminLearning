@@ -60,7 +60,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="25"
             android:text="Date"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -78,7 +78,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="15"
             android:text="Action"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -134,7 +134,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="25"
             android:text="Date"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -152,7 +152,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="15"
             android:text="Marks"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -164,7 +164,6 @@
         android:id="@+id/list_name_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/adapterViewHeader"
         android:layout_marginBottom="@dimen/default_gap" />
 
 </LinearLayout>

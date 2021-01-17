@@ -80,12 +80,28 @@ public class AdministrationMenuFragment extends Fragment implements View.OnClick
         Intent i;
 
         switch (v.getId()) {
-            case R.id.manageSettings : i = new Intent(getActivity(), ManageTestSettingsActivity.class);startActivity(i); break;
-            case R.id.manageQuestionBank : i = new Intent(getActivity(), ManageQuestionsActivity.class);startActivity(i); break;
-            case R.id.manageCoursework : i = new Intent(getActivity(), ManageCourseworkActivity.class);startActivity(i); break;
-            case R.id.manageOnlineInterview : i = new Intent(getActivity(), ManageOnlineInterviewActivity.class);startActivity(i); break;
-            case R.id.manageCertification : i = new Intent(getActivity(), ManageCertificationActivity.class);startActivity(i); break;
-            default:break;
+            case R.id.manageSettings:
+                i = new Intent(getActivity(), ManageTestSettingsActivity.class);
+                startActivity(i);
+                break;
+            case R.id.manageQuestionBank:
+                i = new Intent(getActivity(), ManageQuestionsActivity.class);
+                startActivity(i);
+                break;
+            case R.id.manageCoursework:
+                i = new Intent(getActivity(), ManageCourseworkActivity.class);
+                startActivity(i);
+                break;
+            case R.id.manageOnlineInterview:
+                i = new Intent(getActivity(), ManageOnlineInterviewActivity.class);
+                startActivity(i);
+                break;
+            case R.id.manageCertification:
+                i = new Intent(getActivity(), ManageCertificationActivity.class);
+                startActivity(i);
+                break;
+            default:
+                break;
         }
     }
 
@@ -93,6 +109,6 @@ public class AdministrationMenuFragment extends Fragment implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).setTitle("Administration");
+        ((MainActivity) getActivity()).setTitle("Assessment");
     }
 }

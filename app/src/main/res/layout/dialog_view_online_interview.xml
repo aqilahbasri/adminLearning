@@ -60,7 +60,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/interviewMark"
+        android:id="@+id/interviewMarkTxt"
         android:background="@drawable/rectangle_border"
         android:hint="Set mark..."
         android:inputType="number"/>
@@ -80,6 +80,7 @@
         android:buttonTint="@android:color/holo_red_light"
         android:textColor="@android:color/holo_red_light"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:id="@+id/isCompleteBox"/>
 
 </LinearLayout>

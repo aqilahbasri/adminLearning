@@ -11,8 +11,10 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -28,21 +30,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class ViewOnlineInterviewDialog extends AppCompatDialogFragment {
 
     FirebaseDatabase database;
     DatabaseReference detailsRef;
-    EditText interviewerField;
-    EditText interviewDate;
-    EditText interviewTime;
-    Calendar calendar;
+    TextView interviewerTxt, dateTxt, timeTxt;
+    EditText markTxt;
+    CheckBox isCompleteBox;
 
     String applicantName, applicantId, interviewerId;
+    Toast successMessage, failMessage;
 
-    private static final String TAG = "UpdateInterviewDialog";
+    private static final String TAG = "ViewInterviewDialog";
 
     public ViewOnlineInterviewDialog(String applicantName, String applicantId) {
         this.applicantName = applicantName;
@@ -52,109 +58,36 @@ public class ViewOnlineInterviewDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Set Interview Details");
-        builder.setMessage("Update interview details for " + applicantName);
+        builder.setMessage("View interview details for " + applicantName);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.dialog_view_online_interview, null);
-        calendar = Calendar.getInstance();
 
-        interviewerField = view.findViewById(R.id.interviewer_name);
-        interviewDate = view.findViewById(R.id.interview_date);
-        interviewTime = view.findViewById(R.id.interview_time);
+        interviewerTxt = view.findViewById(R.id.interviewNameTxt);
+        dateTxt = view.findViewById(R.id.interviewDateTxt);
+        timeTxt = view.findViewById(R.id.interviewTimeTxt);
+        markTxt = view.findViewById(R.id.interviewMarkTxt);
+        isCompleteBox = view.findViewById(R.id.isCompleteBox);
 
-        final Toast successMessage = Toast.makeText(builder.getContext(), "Interview details updated successfully", Toast.LENGTH_SHORT);
-        final Toast failMessage = Toast.makeText(builder.getContext(), "Database update failed", Toast.LENGTH_SHORT);
-
-        //TODO: Spinner for interviewer field, find out about Onfocuschangelistener
-
-        //Dialog box for date
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            }
-        };
-        interviewDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(getActivity(), date,
-                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        //Dialog box for time
-        final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                calendar.set(Calendar.MINUTE, minute);
-            }
-        };
-
-        interviewTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new TimePickerDialog(getActivity(), time,
-                        calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-                        DateFormat.is24HourFormat(getActivity())).show();
-            }
-        });
+        successMessage = Toast.makeText(builder.getContext(), "Interview has been completed", Toast.LENGTH_SHORT);
+        failMessage = Toast.makeText(builder.getContext(), "Database update failed", Toast.LENGTH_SHORT);
 
         database = FirebaseDatabase.getInstance();
         detailsRef = database.getReference().child("ManageOnlineInterview").child("ScheduledInterview");
         detailsRef.keepSynced(true);
 
+        getInfoFromDatabase();
+
         builder.setView(view);
 
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                detailsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild(applicantId)) {
-
-                            String interviewerName = interviewerField.getText().toString();
-                            Long interviewTime = calendar.getTimeInMillis();
-
-                            getInterviewerId(interviewerName);
-
-                            HashMap<String, Object> values = new HashMap<>();
-                            values.put("interviewerName", interviewerName);
-                            values.put("interviewTime", interviewTime);
-                            values.put("interviewerId", interviewerId);
-
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    snapshot.child(applicantId).getRef().updateChildren(values)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isComplete()) {
-                                                        successMessage.show();
-                                                    } else {
-                                                        failMessage.show();
-                                                    }
-                                                }
-                                            });
-
-                                }
-                            }, 800);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("error", error.getMessage());
-                    }
-                });
+                if (!(markTxt.getText().length() == 0) && isCompleteBox.isChecked()) {
+                    sendValuesToDatabase();
+                } else {
+                    Toast.makeText(getContext(), "Please complete all details and check the box", Toast.LENGTH_SHORT).show();
+                }
             }
 
         });
@@ -169,22 +102,85 @@ public class ViewOnlineInterviewDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    private void getInterviewerId(final String interviewerName) {
-        Log.e(TAG, interviewerName);
+    private void sendValuesToDatabase() {
+        Long mark = Long.parseLong(markTxt.getText().toString());
+        Long completedTime = new Date().getTime();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
-        reference.addValueEventListener(new ValueEventListener() {
+        detailsRef.child(applicantId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                snapshot.child("interviewMark").getRef().setValue(mark);
+                snapshot.child("isCompleteInterview").getRef().setValue(true);
+                snapshot.child("completedTime").getRef().setValue(completedTime);
 
-                    Log.e(TAG, snapshot.getValue().toString());
-                    if (snapshot1.child("fullName").getValue().equals(interviewerName)) {
-                        interviewerId = snapshot1.getKey();
-                    } else {
-                        Log.e(TAG, "Error getting interviewerID");
-                    }
-                }
+                sendValuesAfterReview();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        });
+    }
+
+    private void getInfoFromDatabase() {
+
+        detailsRef.child(applicantId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String interviewerName = snapshot.child("interviewerName").getValue().toString();
+                Long interviewDate = Long.valueOf(snapshot.child("interviewTime").getValue().toString());
+                updateDateTimeLabel(interviewDate);
+
+                interviewerTxt.setText(interviewerName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("error", error.getMessage());
+            }
+        });
+
+    }
+
+    private void updateDateTimeLabel(Long interviewTime) {
+
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+
+        String timeFormat = "hh.mm aa"; //In which you need put here
+        SimpleDateFormat sdf2 = new SimpleDateFormat(timeFormat, Locale.getDefault());
+        sdf2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+
+        String dateStr = sdf.format(interviewTime);
+        String timeStr = sdf2.format(interviewTime);
+
+        dateTxt.setText(dateStr);
+        timeTxt.setText(timeStr);
+    }
+
+    private void sendValuesAfterReview() {
+        database = FirebaseDatabase.getInstance();
+        final DatabaseReference toPath = database.getReference().child("ManageOnlineInterview").child("CompletedInterview");
+
+        //Ref yang dapat ialah ref with applicant id
+        detailsRef.child(applicantId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull final DataSnapshot snapshot) {
+                toPath.child(applicantId).setValue(snapshot.getValue())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isComplete()) {
+                                    snapshot.getRef().removeValue();
+                                    successMessage.show();
+                                } else {
+                                    failMessage.show();
+                                }
+                            }
+                        });
             }
 
             @Override

@@ -32,7 +32,6 @@ public class GetScheduledInterviewAdapter extends RecyclerView.Adapter<GetSchedu
     private final Activity activity;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    private String calledBy = "";
 
     private static final String TAG = "ScheduledInterviewAptr";
 
@@ -44,7 +43,7 @@ public class GetScheduledInterviewAdapter extends RecyclerView.Adapter<GetSchedu
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(activity).inflate(R.layout.adapter_layout_scheduled_interview, parent, false));
+        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_layout_scheduled_interview, parent, false));
     }
 
     @Override

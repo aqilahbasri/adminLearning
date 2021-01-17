@@ -174,8 +174,6 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-
-                    Log.e(TAG, snapshot.getValue().toString());
                     if (snapshot1.child("fullName").getValue().equals(interviewerName)) {
                         interviewerId = snapshot1.getKey();
                     }

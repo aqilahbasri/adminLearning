@@ -29,6 +29,7 @@ import java.util.Collections;
 public class ManageOnlineInterviewFragment extends Fragment implements View.OnClickListener {
 
     ArrayList<OnlineInterviewApplication> newApplicationList;
+    ArrayList<OnlineInterviewApplication> completedInterviewList;
     FirebaseDatabase database;
     DatabaseReference detailsRef;
 
@@ -58,15 +59,15 @@ public class ManageOnlineInterviewFragment extends Fragment implements View.OnCl
 
         final RecyclerView mRecyclerView = view.findViewById(R.id.list_name);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        newApplicationList = new ArrayList<>();
 
         database = FirebaseDatabase.getInstance();
-        detailsRef = database.getReference().child("ManageOnlineInterview").child("ScheduledInterview");
+        detailsRef = database.getReference().child("ManageOnlineInterview");
         detailsRef.keepSynced(true);
 
         //view by sortOrder
 //        Query query = detailsRef.orderByChild("sortOrder");
-        detailsRef.addValueEventListener(new ValueEventListener() {
+        newApplicationList = new ArrayList<>();
+        detailsRef.child("ScheduledInterview").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 newApplicationList.clear();
@@ -88,6 +89,34 @@ public class ManageOnlineInterviewFragment extends Fragment implements View.OnCl
                 Log.e("checkError", "Error: "+error);
             }
         });
+
+        final RecyclerView completeRecyclerView = view.findViewById(R.id.list_name_2);
+        completeRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        completedInterviewList = new ArrayList<>();
+
+        detailsRef.child("CompletedInterview").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    OnlineInterviewApplication interviewApplication;
+                    interviewApplication = ds.getValue(OnlineInterviewApplication.class);
+                    completedInterviewList.add(interviewApplication);
+                }
+
+                GetCompletedInterviewAdapter adapter = new GetCompletedInterviewAdapter(getActivity(), completedInterviewList);
+                completeRecyclerView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        });
+
+
 
         return view;
     }

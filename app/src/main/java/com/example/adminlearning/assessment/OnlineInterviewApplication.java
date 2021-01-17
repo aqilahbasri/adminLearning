@@ -12,6 +12,9 @@ public class OnlineInterviewApplication {
     private String userId;
     private Long interviewTime;
     private String interviewerId;
+    private boolean isCompleteInterview;
+    private Long completedTime;
+    private Long interviewMark;
 
     public OnlineInterviewApplication() {
 
@@ -19,7 +22,7 @@ public class OnlineInterviewApplication {
 
     public OnlineInterviewApplication(String assessmentLevel, Boolean completeAssessment, Boolean completeSubmission, String name,
                                       Long overallMark, Long sortOrder, String interviewerName, String userId, Long interviewTime,
-                                      String interviewerId) {
+                                      String interviewerId, boolean isCompleteInterview, Long completedTime, Long interviewMark) {
         this.assessmentLevel = assessmentLevel;
         this.completeAssessment = completeAssessment;
         this.completeSubmission = completeSubmission;
@@ -30,6 +33,9 @@ public class OnlineInterviewApplication {
         this.interviewTime = interviewTime;
         this.userId = userId;
         this.interviewerId = interviewerId;
+        this.isCompleteInterview = isCompleteInterview;
+        this.completedTime = completedTime;
+        this.interviewMark = interviewMark;
     }
 
     public String getAssessmentLevel() {
@@ -113,5 +119,29 @@ public class OnlineInterviewApplication {
 
     public void setInterviewerId(String interviewerId) {
         this.interviewerId = interviewerId;
+    }
+
+    public boolean isCompleteInterview() {
+        return isCompleteInterview;
+    }
+
+    public void setCompleteInterview(boolean completeInterview) {
+        isCompleteInterview = completeInterview;
+    }
+
+    public Long getCompletedTime() {
+        return completedTime;
+    }
+
+    public void setCompletedTime(Long completedTime) {
+        this.completedTime = completedTime;
+    }
+
+    public Long getInterviewMark() {
+        return interviewMark;
+    }
+
+    public void setInterviewMark(Long interviewMark) {
+        this.interviewMark = interviewMark;
     }
 }

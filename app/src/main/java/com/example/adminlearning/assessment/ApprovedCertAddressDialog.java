@@ -33,7 +33,7 @@ public class ApprovedCertAddressDialog extends AppCompatDialogFragment {
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomMaterialDialog);
         builder.setTitle("View Address");
         builder.setMessage("View address for " + name);
 

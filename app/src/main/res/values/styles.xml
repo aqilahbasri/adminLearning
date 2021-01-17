@@ -15,11 +15,11 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
-    <style name="CustomMaterialDialog" parent="@style/Theme.MaterialComponents.Dialog">
+    <style name="CustomMaterialDialog" parent="Theme.AppCompat.Dialog.Alert">
         <!-- Background Color-->
 <!--        <item name="android:background">#ffffff</item>-->
         <!-- Text Color for title and message -->
-<!--        <item name="colorOnSurface">@color/secondaryColor</item>-->
+        <item name="android:textColorPrimary">@android:color/black</item>
         <!-- Text Color for buttons -->
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         ....

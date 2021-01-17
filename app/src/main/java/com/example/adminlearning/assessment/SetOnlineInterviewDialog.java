@@ -54,7 +54,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomMaterialDialog);
         builder.setTitle("Set Interview Details");
         builder.setMessage("Set interview details for " + applicantName);
 

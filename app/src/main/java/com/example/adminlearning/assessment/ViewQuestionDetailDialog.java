@@ -39,7 +39,7 @@ public class ViewQuestionDetailDialog extends AppCompatDialogFragment {
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomMaterialDialog);
         builder.setTitle("View question details");
         builder.setMessage("View question details for question " + (position+1));
         setCancelable(false);

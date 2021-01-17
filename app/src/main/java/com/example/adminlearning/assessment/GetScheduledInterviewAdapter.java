@@ -67,12 +67,22 @@ public class GetScheduledInterviewAdapter extends RecyclerView.Adapter<GetSchedu
         holder.interviewerName.setText(newApplicationList.get(position).getInterviewerName());
         holder.interviewDate.setText(dateStr);
         holder.interviewTime.setText(timeStr);
+
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewOnlineInterviewDialog viewOnlineInterviewDialog = new ViewOnlineInterviewDialog(newApplicationList.get(position).getName(),
+                        newApplicationList.get(position).getUserId());
+                viewOnlineInterviewDialog.show(((ManageOnlineInterviewActivity) activity)
+                        .getSupportFragmentManager(), "set interview dialog");
+            }
+        });
+
         holder.reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: try to get key? settle later. now get name first
-                //TODO: update dialog instead of erasing
-                UpdateOnlineInterviewDialog updateOnlineInterviewDialog = new UpdateOnlineInterviewDialog(newApplicationList.get(position).getName());
+                UpdateOnlineInterviewDialog updateOnlineInterviewDialog = new UpdateOnlineInterviewDialog(newApplicationList.get(position).getName(),
+                        newApplicationList.get(position).getUserId());
                 updateOnlineInterviewDialog.show(((ManageOnlineInterviewActivity) activity)
                         .getSupportFragmentManager(), "set interview dialog");
             }

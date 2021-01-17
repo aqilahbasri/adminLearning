@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
+public class ViewOnlineInterviewDialog extends AppCompatDialogFragment {
 
     FirebaseDatabase database;
     DatabaseReference detailsRef;
@@ -44,7 +44,7 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
 
     private static final String TAG = "UpdateInterviewDialog";
 
-    public UpdateOnlineInterviewDialog(String applicantName, String applicantId) {
+    public ViewOnlineInterviewDialog(String applicantName, String applicantId) {
         this.applicantName = applicantName;
         this.applicantId = applicantId;
     }
@@ -55,7 +55,7 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
         builder.setMessage("Update interview details for " + applicantName);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View view = inflater.inflate(R.layout.dialog_set_online_interview, null);
+        View view = inflater.inflate(R.layout.dialog_view_online_interview, null);
         calendar = Calendar.getInstance();
 
         interviewerField = view.findViewById(R.id.interviewer_name);

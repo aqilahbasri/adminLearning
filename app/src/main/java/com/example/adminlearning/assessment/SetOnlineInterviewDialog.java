@@ -79,7 +79,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
+//                updateLabel();
             }
         };
         interviewDate.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +97,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
-                updateLabel();
+//                updateLabel();
             }
         };
 
@@ -128,7 +128,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
                     public void run() {
                         setInterviewDetails(interviewerName, successMessage, failMessage);
                     }
-                }, 2000);
+                }, 1000);
             }
         }); //end onClick for positive button
 
@@ -146,25 +146,17 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
         detailsRef.child(applicantId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        for (DataSnapshot ds : snapshot.getChildren()) {
-//                            if (ds.child("name").getValue().equals(applicantName)) {
 
                 Long interviewTime = calendar.getTimeInMillis();
-
-//                                String interviewDateString = interviewDate.getText().toString();
-//                                String interviewTimeString = interviewTime.getText().toString();
 
                 HashMap<String, Object> values = new HashMap<>();
                 values.put("interviewerName", interviewerName);
                 values.put("interviewerId", interviewerId);
-//                                values.put("interviewDate", interviewDateString);
                 values.put("interviewTime", interviewTime);
 
                 snapshot.getRef().updateChildren(values);
 
                 sendValuesAfterReview(snapshot.getRef(), successMessage, failMessage);
-//                            }
-//                        }
             }
 
             @Override

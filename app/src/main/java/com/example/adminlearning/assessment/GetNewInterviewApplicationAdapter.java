@@ -42,7 +42,6 @@ public class GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetN
         holder.reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: try to get key? settle later. now get name first
                 SetOnlineInterviewDialog setOnlineInterviewDialog = new SetOnlineInterviewDialog(
                         newApplicationList.get(position).getUserId(),
                         newApplicationList.get(position).getName());

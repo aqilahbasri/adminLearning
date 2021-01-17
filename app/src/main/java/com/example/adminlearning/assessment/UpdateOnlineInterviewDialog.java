@@ -124,13 +124,16 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
                             if (ds.child("name").getValue().equals(operation)) {
 
                                 String interviewerName = interviewerField.getText().toString();
-                                String interviewDateString = interviewDate.getText().toString();
-                                String interviewTimeString = interviewTime.getText().toString();
+                                Long interviewTime = calendar.getTimeInMillis();
+//                                String interviewDateString = interviewDate.getText().toString();
+//                                String interviewTimeString = interviewTime.getText().toString();
 
                                 HashMap<String, Object> values = new HashMap<>();
                                 values.put("interviewerName", interviewerName);
-                                values.put("interviewDate", interviewDateString);
-                                values.put("interviewTime", interviewTimeString);
+                                values.put("interviewTime", interviewTime);
+                                //TODO: CODE TO UPDATE, SAMA DENGAN SETDIALOG
+//                                values.put("interviewDate", interviewDateString);
+//                                values.put("interviewTime", interviewTimeString);
 
                                 ds.getRef().updateChildren(values)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {

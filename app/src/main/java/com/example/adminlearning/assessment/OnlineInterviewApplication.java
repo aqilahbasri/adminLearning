@@ -8,17 +8,18 @@ public class OnlineInterviewApplication {
     private Long overallMark;
     private Long sortOrder;
     private String interviewerName;
-    private String interviewDate;
-    private String interviewTime;
     private String assessmentLevel;
+    private String userId;
+    private Long interviewTime;
+    private String interviewerId;
 
     public OnlineInterviewApplication() {
 
     }
 
     public OnlineInterviewApplication(String assessmentLevel, Boolean completeAssessment, Boolean completeSubmission, String name,
-                                      Long overallMark, Long sortOrder, String interviewerName, String interviewDate,
-                                      String interviewTime) {
+                                      Long overallMark, Long sortOrder, String interviewerName, String userId, Long interviewTime,
+                                      String interviewerId) {
         this.assessmentLevel = assessmentLevel;
         this.completeAssessment = completeAssessment;
         this.completeSubmission = completeSubmission;
@@ -26,8 +27,9 @@ public class OnlineInterviewApplication {
         this.overallMark = overallMark;
         this.sortOrder = sortOrder;
         this.interviewerName = interviewerName;
-        this.interviewDate = interviewDate;
         this.interviewTime = interviewTime;
+        this.userId = userId;
+        this.interviewerId = interviewerId;
     }
 
     public String getAssessmentLevel() {
@@ -89,19 +91,27 @@ public class OnlineInterviewApplication {
         this.interviewerName = interviewerName;
     }
 
-    public String getInterviewDate() {
-        return interviewDate;
-    }
-
-    public void setInterviewDate(String interviewDate) {
-        this.interviewDate = interviewDate;
-    }
-
-    public String getInterviewTime() {
+    public Long getInterviewTime() {
         return interviewTime;
     }
 
-    public void setInterviewTime(String interviewTime) {
+    public void setInterviewTime(Long interviewTime) {
         this.interviewTime = interviewTime;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getInterviewerId() {
+        return interviewerId;
+    }
+
+    public void setInterviewerId(String interviewerId) {
+        this.interviewerId = interviewerId;
     }
 }

@@ -126,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onStart();
 
+        if(currentUser == null){
+            goToLoginActivity();
+        }
+
         reference.orderByChild("categoryname").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -210,5 +214,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void goToMainCommunicationModule() {
         Intent mainCommunicationModule = new Intent(com.example.adminlearning.MainActivity.this, MainCommunicationActivity.class);
         startActivity(mainCommunicationModule);
+    }
+
+    private void goToLoginActivity() {
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
     }
 }

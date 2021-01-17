@@ -1,5 +1,8 @@
 package com.example.adminlearning.assessment;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adminlearning.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +33,11 @@ public class ManageOnlineInterviewFragment extends Fragment implements View.OnCl
     DatabaseReference detailsRef;
 
     Button viewNewApp;
+
+    private String calledBy = "";
+
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private static final String TAG = "ManageInterviewFgmt";
 
     public ManageOnlineInterviewFragment() {
         // Required empty public constructor
@@ -94,5 +103,40 @@ public class ManageOnlineInterviewFragment extends Fragment implements View.OnCl
     public void onClick(View v) {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new NewOnlineInterviewFragment()).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        checkForReceivingCall();
+    }
+
+    private void checkForReceivingCall() {
+
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = db.getReference().child("Users").child(userId).child("Ringing");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("ringing")) {
+                    calledBy = snapshot.child("ringing").getValue().toString();
+
+                    Intent intent = new Intent(requireActivity(), CallingActivity.class);
+                    intent.putExtra("visit_user_id", calledBy);
+                    getActivity().startActivity(intent);
+//                    getActivity().finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void onAttach(@NonNull Activity activity) {
+        super.onAttach(activity);
     }
 }

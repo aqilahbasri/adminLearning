@@ -106,7 +106,7 @@ public class MainCommunicationActivity extends AppCompatActivity {
     }
 
     private void goToMainAssessmentModule() {
-        Intent mainAssessmentModule = new Intent(this, MainAssessmentActivity.class);
+        Intent mainAssessmentModule = new Intent(this, com.example.adminlearning.assessment.MainActivity.class);
         startActivity(mainAssessmentModule);
     }
 

@@ -43,7 +43,9 @@ public class GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetN
             @Override
             public void onClick(View v) {
                 //TODO: try to get key? settle later. now get name first
-                SetOnlineInterviewDialog setOnlineInterviewDialog = new SetOnlineInterviewDialog(newApplicationList.get(position).getName());
+                SetOnlineInterviewDialog setOnlineInterviewDialog = new SetOnlineInterviewDialog(
+                        newApplicationList.get(position).getUserId(),
+                        newApplicationList.get(position).getName());
                 setOnlineInterviewDialog.show(((ManageOnlineInterviewActivity) activity)
                         .getSupportFragmentManager(), "set interview dialog");
             }

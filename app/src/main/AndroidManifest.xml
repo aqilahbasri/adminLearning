@@ -20,12 +20,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditGIFDetailsActivity" android:parentActivityName=".GIFDetailsActivity"/>
-        <activity android:name=".GIFDetailsActivity" android:parentActivityName=".GIFLibraryActivity"/>
-        <activity android:name=".PendingLibraryActivity" android:parentActivityName=".MainCommunicationActivity"/>
-        <activity android:name=".GIFLibraryActivity" android:parentActivityName=".MainCommunicationActivity"/>
+        <activity android:name=".assessment.VideoCallActivity"></activity>
+        <activity android:name=".assessment.CallingActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".EditGIFDetailsActivity"
+            android:parentActivityName=".GIFDetailsActivity" />
+        <activity
+            android:name=".GIFDetailsActivity"
+            android:parentActivityName=".GIFLibraryActivity" />
+        <activity
+            android:name=".PendingLibraryActivity"
+            android:parentActivityName=".MainCommunicationActivity" />
+        <activity
+            android:name=".GIFLibraryActivity"
+            android:parentActivityName=".MainCommunicationActivity" />
         <activity android:name=".MainCommunicationActivity" />
-        <activity android:name=".MainAssessmentActivity" />
         <activity android:name=".EditCategory" />
         <activity
             android:name=".EditQuestion"
@@ -50,15 +60,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-<!--        Yvonne punya activity-->
+        </activity> <!-- Yvonne punya activity -->
+        <activity android:name=".assessment.MainActivity" /> <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity
-            android:name=".assessment.MainActivity"/>
-<!--            android:theme="@style/AppTheme.NoActionBar" />-->
-        <activity android:name=".assessment.ManageQuestionsActivity"
+            android:name=".assessment.ManageQuestionsActivity"
             android:parentActivityName=".assessment.MainActivity" />
-        <activity android:name=".assessment.ManageCourseworkActivity"
+        <activity
+            android:name=".assessment.ManageCourseworkActivity"
             android:parentActivityName=".assessment.MainActivity" />
         <activity
             android:name=".assessment.ManageOnlineInterviewActivity"
@@ -66,8 +74,10 @@
         <activity
             android:name=".assessment.ManageCertificationActivity"
             android:parentActivityName=".assessment.MainActivity" />
-        <activity android:name=".assessment.ManageTestSettingsActivity"
-            android:parentActivityName=".assessment.MainActivity"/>
+        <activity
+            android:name=".assessment.ManageTestSettingsActivity"
+            android:parentActivityName=".assessment.MainActivity" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.adminlearning.provider"

@@ -35,16 +35,33 @@
         android:id="@+id/textView4"
         android:layout_weight="20"/>
 
-    <Button
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/review_button"
-        android:padding="2dp"
+        android:orientation="horizontal"
         android:layout_weight="15"
-        android:layout_marginLeft="@dimen/default_gap"
-        android:layout_marginVertical="@dimen/default_gap"
-        android:text="Update"
-        android:textColor="@android:color/white"
-        android:background="@drawable/btn_turquoise_rounded"/>
+        android:layout_gravity="center_horizontal|center_vertical">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/review_button"
+            android:padding="2dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/btn_turquoise_rounded"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:tint="@android:color/white"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_call_24"
+            android:background="@drawable/bg_reject_interview"
+            android:padding="2dp"
+            android:id="@+id/callBtn"
+            android:layout_marginStart="2dp"
+            android:tint="@android:color/white"/>
+
+    </LinearLayout>
 
 </LinearLayout>

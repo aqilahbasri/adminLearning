@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,9 +32,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
 
+    private static final String TAG = "SetInterviewDialog";
     FirebaseDatabase database;
     DatabaseReference detailsRef;
     EditText interviewerField;
@@ -41,16 +44,19 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
     EditText interviewTime;
     Calendar calendar;
 
-    String operation;
+    String applicantName;
+    String applicantId;
+    private String interviewerId;
 
-    public SetOnlineInterviewDialog(String operation) {
-        this.operation = operation;
+    public SetOnlineInterviewDialog(String applicantId, String applicantName) {
+        this.applicantId = applicantId;
+        this.applicantName = applicantName;
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Set Interview Details");
-        builder.setMessage("Set interview details for " + operation);
+        builder.setMessage("Set interview details for " + applicantName);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.dialog_set_online_interview, null);
@@ -106,7 +112,6 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
 
         database = FirebaseDatabase.getInstance();
         detailsRef = database.getReference().child("ManageOnlineInterview").child("NewApplication");
-        detailsRef.keepSynced(true);
 
         builder.setView(view);
 
@@ -114,63 +119,100 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                detailsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                final String interviewerName = interviewerField.getText().toString();
+                getInterviewerId(interviewerName);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-
-                            //to update value with interview details
-                            //if name is same w the one received
-                            if (ds.child("name").getValue().equals(operation)) {
-
-                                String interviewerName = interviewerField.getText().toString();
-                                String interviewDateString = interviewDate.getText().toString();
-                                String interviewTimeString = interviewTime.getText().toString();
-
-                                HashMap<String, Object> values = new HashMap<>();
-                                values.put("interviewerName", interviewerName);
-                                values.put("interviewDate", interviewDateString);
-                                values.put("interviewTime", interviewTimeString);
-
-                                ds.getRef().updateChildren(values);
-
-                                sendValuesAfterReview(ds.getRef(), successMessage, failMessage);
-                            }
-                        }
+                    public void run() {
+                        setInterviewDetails(interviewerName, successMessage, failMessage);
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("error", "haha tak jadi!!!");
-                    }
-                });
+                }, 2000);
             }
-
-        });
+        }); //end onClick for positive button
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        });
+        }); //end onClick for negative button
 
         return builder.create();
+    }
+
+    private void setInterviewDetails(final String interviewerName, final Toast successMessage, final Toast failMessage) {
+        detailsRef.child(applicantId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        for (DataSnapshot ds : snapshot.getChildren()) {
+//                            if (ds.child("name").getValue().equals(applicantName)) {
+
+                Long interviewTime = calendar.getTimeInMillis();
+
+//                                String interviewDateString = interviewDate.getText().toString();
+//                                String interviewTimeString = interviewTime.getText().toString();
+
+                HashMap<String, Object> values = new HashMap<>();
+                values.put("interviewerName", interviewerName);
+                values.put("interviewerId", interviewerId);
+//                                values.put("interviewDate", interviewDateString);
+                values.put("interviewTime", interviewTime);
+
+                snapshot.getRef().updateChildren(values);
+
+                sendValuesAfterReview(snapshot.getRef(), successMessage, failMessage);
+//                            }
+//                        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "Error: "+error.getMessage());
+            }
+        });
+    }
+
+    private void getInterviewerId(final String interviewerName) {
+        Log.e(TAG, interviewerName);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+
+                    Log.e(TAG, snapshot.getValue().toString());
+                    if (snapshot1.child("fullName").getValue().equals(interviewerName)) {
+                        interviewerId = snapshot1.getKey();
+                    }
+                    else {
+                        Log.e(TAG, "Error getting interviewerID");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        });
     }
 
     private void sendValuesAfterReview(final DatabaseReference ref, final Toast successMessage, final Toast failMessage) {
         database = FirebaseDatabase.getInstance();
         final DatabaseReference toPath = database.getReference().child("ManageOnlineInterview").child("ScheduledInterview");
 
+        //Ref yang dapat ialah ref with applicant id
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
-                toPath.child(ref.getKey()).setValue(snapshot.getValue())
+                toPath.child(applicantId).setValue(snapshot.getValue())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isComplete()) {
-                                    //delete here?
                                     snapshot.getRef().removeValue();
                                     successMessage.show();
                                 } else {
@@ -191,6 +233,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
         interviewDate.setText(sdf.format(calendar.getTime()));
 
         String timeFormat = "hh:mm aa";

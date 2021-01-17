@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".assessment.CallingActivity"
+    android:background="@drawable/background_meeting_invitation">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calling..."
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/invitation_title"
+        android:layout_marginTop="150dp"/>
+
+    <!--    <ImageView-->
+    <!--        android:layout_width="@dimen/fab_size_normal"-->
+    <!--        android:layout_height="@dimen/fab_size_normal"-->
+    <!--        android:id="@+id/imageMeetingType"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:background="@android:color/white"-->
+    <!--        android:layout_below="@+id/invitation_title" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@id/invitation_title"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/userLayout">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/meetingInitiator"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userName"
+            android:textColor="@android:color/white"
+            android:textSize="25dp"
+            android:text="Username"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/default_gap"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/acceptButton"
+        android:background="@drawable/roundbtn"
+        android:src="@drawable/ic_accept_interview"
+        android:padding="10dp"
+        app:tint="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="100dp"
+        android:elevation="8dp"/>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/rejectButton"
+        android:background="@drawable/bg_reject_interview"
+        android:src="@drawable/ic_reject_interview"
+        android:padding="10dp"
+        app:tint="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="100dp"
+        android:elevation="8dp"/>
+
+</RelativeLayout>

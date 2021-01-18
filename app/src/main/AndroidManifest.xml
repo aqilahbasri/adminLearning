@@ -78,6 +78,8 @@
             android:name=".assessment.ManageTestSettingsActivity"
             android:parentActivityName=".assessment.MainActivity" />
 
+        <service android:name=".assessment.CallRingtoneService" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.adminlearning.provider"

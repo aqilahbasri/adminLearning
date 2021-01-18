@@ -32,7 +32,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class VideoCallActivity extends AppCompatActivity implements Session.SessionListener,
-        PublisherKit.PublisherListener {
+        PublisherKit.PublisherListener, Session.ConnectionListener {
 
     private static String API_KEY = "47084734";
     private static String SESSION_ID = "2_MX40NzA4NDczNH5-MTYxMDg0MDY2OTA0NH5zeXZvdUVGSmxRMGdWdjJPWWwzMWdTZll-fg";
@@ -61,11 +61,12 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ref = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        StopRingtoneService();
+
         closeVideoChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                mSession.disconnect();
+                disconnectFromCall();;
             }
         });
         requestPermissions();
@@ -107,63 +108,7 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
     @Override
     public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
         Log.i(LOG_TAG, "Publisher onStreamDestroyed");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.child(userID).hasChild("Ringing")) {
-                    ref.child(userID).child("Ringing").removeValue();
-
-                    if (mPublisher != null) {
-                        mPublisher.destroy();
-                    }
-
-                    if (mSubscriber != null) {
-                        mSubscriber.destroy();
-                    }
-                }
-
-                if (snapshot.child(userID).hasChild("Calling")) {
-                    ref.child(userID).child("Calling").removeValue();
-
-                    if (mPublisher != null) {
-                        mPublisher.destroy();
-                    }
-
-                    if (mSubscriber != null) {
-                        mSubscriber.destroy();
-                    }
-
-                } else {
-
-                    if (mPublisher != null) {
-                        mPublisher.destroy();
-                    }
-
-                    if (mSubscriber != null) {
-                        mSubscriber.destroy();
-                    }
-
-                }
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(VideoCallActivity.this, com.example.adminlearning.assessment.MainActivity.class));
-                        finish();
-                    }
-                }, 1500);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(LOG_TAG, error.getMessage());
-            }
-        });
-
-
+        disconnectFromCall();
     }
 
     @Override
@@ -190,62 +135,7 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
     @Override
     public void onDisconnected(Session session) {
         Log.i(LOG_TAG, "Session Disconnected");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.child(userID).hasChild("Ringing")) {
-                    ref.child(userID).child("Ringing").removeValue();
-
-                    if (mPublisher != null) {
-                        mPublisher.destroy();
-                    }
-
-                    if (mSubscriber != null) {
-                        mSubscriber.destroy();
-                    }
-                }
-
-                if (snapshot.child(userID).hasChild("Calling")) {
-                    ref.child(userID).child("Calling").removeValue();
-
-                    if (mPublisher != null) {
-                        mPublisher.destroy();
-                    }
-
-                    if (mSubscriber != null) {
-                        mSubscriber.destroy();
-                    }
-
-                } else {
-
-                    if (mPublisher != null) {
-                        mPublisher.destroy();
-                    }
-
-                    if (mSubscriber != null) {
-                        mSubscriber.destroy();
-                    }
-
-                }
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(VideoCallActivity.this, com.example.adminlearning.assessment.MainActivity.class));
-                        finish();
-                    }
-                }, 1500);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(LOG_TAG, error.getMessage());
-            }
-        });
-
+        disconnectFromCall();
     }
 
     @Override
@@ -268,6 +158,7 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
         if (mSubscriber != null) {
             mSubscriber = null;
             mSubViewController.removeAllViews();
+            disconnectFromCall();
         }
     }
 
@@ -280,4 +171,89 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+    @Override
+    public void onConnectionCreated(Session session, Connection connection) {
+
+    }
+
+    @Override
+    public void onConnectionDestroyed(Session session, Connection connection) {
+        Log.i(LOG_TAG, "connection sudah destroy");
+        disconnectFromCall();
+
+    }
+
+    public void disconnectFromCall() {
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.child(userID).hasChild("Ringing")) {
+                    ref.child(userID).child("Ringing").removeValue();
+
+                    if (mPublisher != null) {
+                        mPublisher.destroy();
+                        Log.i(LOG_TAG, "mPublisher destroyed");
+                    }
+
+                    if (mSubscriber != null) {
+                        mSubscriber.destroy();
+                        Log.i(LOG_TAG, "mSubscriber destroyed");
+                    }
+                }
+
+                if (snapshot.child(userID).hasChild("Calling")) {
+                    ref.child(userID).child("Calling").removeValue();
+
+                    if (mPublisher != null) {
+                        mPublisher.destroy();
+                        Log.i(LOG_TAG, "mPublisher destroyed");
+                    }
+
+                    if (mSubscriber != null) {
+                        mSubscriber.destroy();
+                        Log.i(LOG_TAG, "mSubscriber destroyed");
+                    }
+
+                } else {
+
+                    if (mPublisher != null) {
+                        mPublisher.destroy();
+                        Log.i(LOG_TAG, "mPublisher destroyed");
+                    }
+
+                    if (mSubscriber != null) {
+                        mSubscriber.destroy();
+                        Log.i(LOG_TAG, "mSubscriber destroyed");
+                    }
+
+                }
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPublisher.getCapturer().stopCapture();
+                        Log.i(LOG_TAG, "stop capture yeet");
+                        mSession.disconnect();
+                        Log.i(LOG_TAG, "sudah disconnect");
+                        startActivity(new Intent(VideoCallActivity.this, com.example.adminlearning.assessment.MainActivity.class));
+                        finish();
+                    }
+                }, 1500);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(LOG_TAG, error.getMessage());
+            }
+        });
+    }
+
+    private void StopRingtoneService() {
+        Intent intent = new Intent(VideoCallActivity.this, CallRingtoneService.class);
+        stopService(intent);
+    }
+
 }

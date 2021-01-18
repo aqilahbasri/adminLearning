@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -39,8 +38,6 @@ public class CallingActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref;
 
-    private MediaPlayer mediaPlayer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +51,12 @@ public class CallingActivity extends AppCompatActivity {
         senderUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         receiverUserId = getIntent().getExtras().getString("visit_user_id");
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.ringtone);
-
         ref = database.getReference().child("Users");
 
         rejectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mediaPlayer.stop();
+                StopRingtoneService();
                 checker = "clicked";
                 cancelCallingUser();
             }
@@ -71,7 +66,7 @@ public class CallingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                mediaPlayer.stop();
+                StopRingtoneService();
 
                 final HashMap<String, Object> callingPickUpMap = new HashMap<>();
                 callingPickUpMap.put("picked", "picked");
@@ -85,7 +80,6 @@ public class CallingActivity extends AppCompatActivity {
                                     Intent intent = new Intent(CallingActivity.this, VideoCallActivity.class);
                                     startActivity(intent);
                                 }
-
                             }
                         });
             }
@@ -101,7 +95,7 @@ public class CallingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if (snapshot.exists() && snapshot.hasChild(" calling")) {
+                if (snapshot.exists() && snapshot.hasChild("calling")) {
                     callingId = snapshot.child("calling").getValue().toString();
 
                     ref.child(callingId).child("Ringing").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -211,7 +205,7 @@ public class CallingActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        mediaPlayer.start();
+        StartRingtoneService();
 
         ref.child(receiverUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -256,7 +250,7 @@ public class CallingActivity extends AppCompatActivity {
                 }
 
                 if (snapshot.child(receiverUserId).child("Ringing").hasChild("picked")) {
-                    mediaPlayer.stop();
+                    StopRingtoneService();
                     Intent intent = new Intent(CallingActivity.this, VideoCallActivity.class);
                     startActivity(intent);
                 }
@@ -269,6 +263,16 @@ public class CallingActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void StartRingtoneService() {
+        Intent intent = new Intent(CallingActivity.this, CallRingtoneService.class);
+        startService(intent);
+    }
+
+    private void StopRingtoneService() {
+        Intent intent = new Intent(CallingActivity.this, CallRingtoneService.class);
+        stopService(intent);
     }
 
 }

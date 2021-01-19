@@ -25,13 +25,14 @@
 
             <Button
                 android:id="@+id/add_level_btn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="25dp"
-                android:background="@color/colorPrimary"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/roundbtn"
                 android:text="Add Level"
-                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:layout_marginHorizontal="25dp"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>

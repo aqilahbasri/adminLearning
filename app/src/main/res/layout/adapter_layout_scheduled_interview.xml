@@ -52,8 +52,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/review_button"
             android:padding="2dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_turquoise_rounded"
+            android:background="@drawable/bg_accept_interview"
             android:src="@drawable/ic_baseline_edit_24"
             android:tint="@android:color/white"/>
 

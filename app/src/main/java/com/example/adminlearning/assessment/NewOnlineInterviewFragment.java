@@ -1,6 +1,7 @@
 package com.example.adminlearning.assessment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ public class NewOnlineInterviewFragment extends Fragment {
     FirebaseDatabase database;
     DatabaseReference detailsRef;
     int weightage = 0;
+    private static final String TAG = "NewInterviewFragment";
 
     public NewOnlineInterviewFragment() {
         // Required empty public constructor
@@ -60,31 +62,41 @@ public class NewOnlineInterviewFragment extends Fragment {
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
-                    OnlineInterviewApplication interviewApplication;
-                    interviewApplication = ds.getValue(OnlineInterviewApplication.class);
+                    updateAssessmentMarks(ds.getKey(), ds.getRef());    //get latest assessment marks first
+                    updateCourseworkSubmission(ds.getKey(), ds.getRef());//get latest submission details first
 
-                    HashMap<String, Object> values = new HashMap<>();
-                    for (DataSnapshot ds1 : ds.getChildren()) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            OnlineInterviewApplication interviewApplication;
+                            interviewApplication = ds.getValue(OnlineInterviewApplication.class);
 
-                        int sortOrder = 0;
-                        if (interviewApplication != null) {
-                            sortOrder = interviewApplication.getOverallMark().intValue();
+                            HashMap<String, Object> values = new HashMap<>();
+                            for (DataSnapshot ds1 : ds.getChildren()) {
+
+                                int sortOrder = 0;
+                                if (interviewApplication != null) {
+                                    sortOrder = interviewApplication.getOverallMark().intValue();
+                                }
+
+                                if (!ds.child("sortOrder").exists()) {
+                                    if (ds.child("completeAssessment").getValue().equals(true) && ds.child("completeSubmission").getValue().equals(true)) {
+                                        weightage = 4;
+                                    } else if (ds.child("completeAssessment").getValue().equals(true) && ds.child("completeSubmission").getValue().equals(false)) {
+                                        weightage = 2;
+                                    } else if (ds.child("completeAssessment").getValue().equals(false) && ds.child("completeSubmission").getValue().equals(true)) {
+                                        weightage = 2;
+                                    } else weightage = 1;
+                                    int newSortOrder = sortOrder * weightage;
+                                    values.put("sortOrder", newSortOrder);
+                                    ds.getRef().updateChildren(values);
+                                }   //endif
+
+                            }   //endfords1
                         }
+                    }, 3000);
 
-                        if (!ds.child("sortOrder").exists()) {
-                            if (ds.child("completeAssessment").getValue().equals(true) && ds.child("completeSubmission").getValue().equals(true)) {
-                                weightage = 4;
-                            } else if (ds.child("completeAssessment").getValue().equals(true) && ds.child("completeSubmission").getValue().equals(false)) {
-                                weightage = 2;
-                            } else if (ds.child("completeAssessment").getValue().equals(false) && ds.child("completeSubmission").getValue().equals(true)) {
-                                weightage = 2;
-                            } else weightage = 1;
-                            int newSortOrder = sortOrder * weightage;
-                            values.put("sortOrder", newSortOrder);
-                            ds.getRef().updateChildren(values);
-                        }   //endif
-
-                    }   //endfords1
                 } //endfords
             }
 
@@ -120,6 +132,64 @@ public class NewOnlineInterviewFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void updateCourseworkSubmission(String key, DatabaseReference currentRef) {
+        DatabaseReference submissionRef = FirebaseDatabase.getInstance().getReference().child("ManageCoursework")
+                .child("CourseworkSubmissions");
+
+        submissionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                boolean completeSubmission;
+
+                if(snapshot.hasChild(key)) {
+                    completeSubmission = true;
+                }
+                else {
+                    completeSubmission = false;
+                }
+                currentRef.child("completeSubmission").setValue(completeSubmission);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        });
+    }
+
+    //Update latest assessment marks, user may complete it after application
+    public void updateAssessmentMarks(String key, DatabaseReference currentRef) {
+        Log.i(TAG, "key: "+key);
+        DatabaseReference scoreRef = FirebaseDatabase.getInstance().getReference().child("AssessmentMark");
+
+        scoreRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                int marks;
+                boolean completeAssessment;
+
+                if(snapshot.hasChild(key) && snapshot.child(key) != null) {
+                    Log.i(TAG, "has child? "+snapshot.hasChild(key));
+                    marks = Integer.parseInt(snapshot.child(key).child("Score").getValue().toString());
+                    completeAssessment = true;
+                }
+                else {
+                    marks = 0;
+                    completeAssessment = false;
+                }
+                currentRef.child("overallMark").setValue(marks);
+                currentRef.child("completeAssessment").setValue(completeAssessment);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        });
     }
 
 }

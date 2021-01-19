@@ -11,16 +11,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coursework name"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorPrimary"
+        android:text="Coursework name" />
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/coursework_name"
-        android:inputType="text"
-        android:background="@drawable/rectangle_border"
-        android:hint="Enter name..."/>
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Coursework name"
+        android:id="@+id/courseworkName"/>
+
+    <!--    For name-->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/colorPrimary"-->
+<!--        android:layout_marginTop="@dimen/default_gap"-->
+<!--        android:text="Created by" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:text="Coursework created"-->
+<!--        android:id="@+id/createdBy"/>-->
 
     <!--    For question-->
     <TextView
@@ -29,45 +45,31 @@
         android:layout_marginTop="@dimen/default_gap"
         android:text="Coursework question"
         android:textColor="@color/colorPrimary"/>
-    <EditText
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/coursework_question"
-        android:background="@drawable/rectangle_border"
-        android:hint="Enter question..."
-        android:inputType="text"/>
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Coursework question"
+        android:id="@+id/courseworkQuestion"/>
 
     <!--    For upload file-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_gap"
-        android:text="Upload related file"
+        android:text="View related file"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/colorPrimary"/>
 
-    <LinearLayout
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="100">
-        <TextView
-            android:layout_weight="70"
-            android:id="@+id/notification"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/rectangle_border"
-            android:layout_marginEnd="@dimen/default_gap"
-            android:gravity="center_vertical"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/upload_btn"
-            android:background="@drawable/btn_turquoise_rounded"
-            android:text="Upload file"
-            android:textColor="@android:color/white"
-            android:layout_weight="30"
-            android:layout_marginStart="@dimen/default_gap"/>
-
-    </LinearLayout>
+        android:id="@+id/view_btn"
+        android:background="@drawable/btn_turquoise_rounded"
+        android:text="View file"
+        android:textColor="@android:color/white"/>
 
     <!--    For due date-->
     <!--    <TextView-->

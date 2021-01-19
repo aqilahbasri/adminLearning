@@ -120,7 +120,6 @@ public class AddNewCourseworkDialog extends AppCompatDialogFragment {
                 HashMap<String, Object> values = new HashMap<>();
                 values.put("courseworkName", courseworkName);
                 values.put("courseworkQuestion", courseworkQuestion);
-                Log.e(TAG, "key received, line 126: "+getKey());
 
                 myRef.child(getKey()).updateChildren(values);
             }
@@ -208,42 +207,50 @@ public class AddNewCourseworkDialog extends AppCompatDialogFragment {
         //Store file in storage
         final String fileName = System.currentTimeMillis() + "_CourseworkQuestion";
         final StorageReference mStorageRef = storage.getReference().child("ManageCoursework").child("CourseworkQuestions");
-        mStorageRef.child(fileName).putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        mStorageRef.child(fileName).putFile(filepath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                final String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                final DatabaseReference databaseReference = database.getReference().child("ManageCoursework").child("CourseworkQuestions");
-                databaseReference.push().child("courseworkFile").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                Log.i(TAG, "File successfully uploaded");
+
+                mStorageRef.child(fileName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
+                    public void onSuccess(Uri uri) {
+                        DatabaseReference databaseReference = database.getReference().child("ManageCoursework").child("CourseworkQuestions");
+                        databaseReference.push().child("courseworkFile").setValue(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
 //                                        Log.e(TAG, "get from firebase: "+ds.getKey());
 //                                        setKey(ds.getKey());
-                            Toast.makeText(activity, "File submission successful", Toast.LENGTH_SHORT).show();
-                            notification.setText("File uploaded: " + fileName);
-                            progressDialog.dismiss();
-                        }
-                    }
-                });
-
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot ds : snapshot.getChildren()) {
-                            if(ds.child("courseworkFile").getValue().equals(url)) {
-                                setKey(ds.getKey());
-                                Log.e(TAG, ds.getKey());
+                                    Toast.makeText(activity, "File submission successful", Toast.LENGTH_SHORT).show();
+                                    notification.setText("File uploaded: " + fileName);
+                                    progressDialog.dismiss();
+                                }
                             }
-                            else Log.e(TAG, "sum ting wong");
-                        }
-                    }
+                        });
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot ds : snapshot.getChildren()) {
+                                    if(ds.child("courseworkFile").getValue().equals(uri.toString())) {
+                                        setKey(ds.getKey());
+                                        Log.e(TAG, ds.getKey());
+                                    }
+                                    else Log.e(TAG, "sum ting wong");
+                                }
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 });
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

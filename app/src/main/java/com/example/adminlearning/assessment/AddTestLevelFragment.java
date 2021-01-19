@@ -89,7 +89,7 @@ public class AddTestLevelFragment extends Fragment {
         levelIcon = view.findViewById(R.id.level_icon); //imageview, guna picasso
         iconCardView = view.findViewById(R.id.cardview_id);
 
-        iconCardView.setVisibility(View.INVISIBLE);
+        iconCardView.setVisibility(View.GONE);
         selectedPicTxt.setText("No picture selected");
         selectedPicTxt.setTextColor(Color.parseColor("#b20000"));
 

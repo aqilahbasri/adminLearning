@@ -9,16 +9,23 @@ public class ManageCourseworkModalClass {
     String courseworkQuestion;
     String courseworkFile;
     Long createdTimestamp;
+    Long submittedDate;
+    String applicantId;
+    Long courseworkMark;
 
     public ManageCourseworkModalClass() {
 
     }
 
-    ManageCourseworkModalClass(String courseworkName, String courseworkQuestion, String courseworkFile, Long createdTimestamp) {
+    public ManageCourseworkModalClass(String courseworkName, String courseworkQuestion, String courseworkFile,
+                                      Long createdTimestamp, Long submittedDate, String applicantId, Long courseworkMark) {
         this.courseworkName = courseworkName;
         this.courseworkQuestion = courseworkQuestion;
         this.courseworkFile = courseworkFile;
         this.createdTimestamp = createdTimestamp;
+        this.submittedDate = submittedDate;
+        this.applicantId = applicantId;
+        this.courseworkMark = courseworkMark;
     }
 
     public String getCourseworkName() {
@@ -51,6 +58,30 @@ public class ManageCourseworkModalClass {
 
     public void setCreatedTimestamp(Long createdTimestamp) {
         this.createdTimestamp = createdTimestamp;
+    }
+
+    public Long getSubmittedDate() {
+        return submittedDate;
+    }
+
+    public void setSubmittedDate(Long submittedDate) {
+        this.submittedDate = submittedDate;
+    }
+
+    public String getApplicantId() {
+        return applicantId;
+    }
+
+    public void setApplicantId(String applicantId) {
+        this.applicantId = applicantId;
+    }
+
+    public Long getCourseworkMark() {
+        return courseworkMark;
+    }
+
+    public void setCourseworkMark(Long courseworkMark) {
+        this.courseworkMark = courseworkMark;
     }
 
     public String getDateCreated() {

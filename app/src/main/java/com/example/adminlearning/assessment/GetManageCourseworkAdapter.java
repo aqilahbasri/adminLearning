@@ -41,7 +41,9 @@ public class GetManageCourseworkAdapter extends RecyclerView.Adapter<GetManageCo
         holder.courseworkName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ViewCourseworkDialog viewCourseworkDialog = new ViewCourseworkDialog(activity, newApplicationList.get(position).getCourseworkName());
+                viewCourseworkDialog.show(((ManageCourseworkActivity) activity)
+                        .getSupportFragmentManager(), "ViewCourseworkDialog");
             }
         });
 
@@ -51,9 +53,9 @@ public class GetManageCourseworkAdapter extends RecyclerView.Adapter<GetManageCo
             public void onClick(View v) {
                 //TODO: try to get key? settle later. now get name first
                 //TODO: change with submission dialog
-                AddNewCourseworkDialog addNewCourseworkDialog = new AddNewCourseworkDialog(activity);
-                addNewCourseworkDialog.show(((ManageCourseworkActivity) activity)
-                        .getSupportFragmentManager(), "ApplyCertDialog");
+                ((ManageCourseworkActivity) activity).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container,
+                        new ManageCourseworkSubmissionFragment(newApplicationList.get(position).getCourseworkName())).commit();
             }
         });
     }

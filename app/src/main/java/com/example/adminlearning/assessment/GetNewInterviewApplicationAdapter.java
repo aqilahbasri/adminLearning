@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,9 +37,27 @@ public class GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetN
 
         holder.name.setText(newApplicationList.get(position).getName());
         holder.mark.setText(newApplicationList.get(position).getOverallMark().toString());
-        holder.submission.setText(newApplicationList.get(position).getCompleteSubmission().toString());
-        holder.assessment.setText(newApplicationList.get(position).getCompleteAssessment().toString());
-        newApplicationList.get(position);
+
+        boolean completeSubmission = newApplicationList.get(position).getCompleteSubmission();
+        boolean completeAssessment = newApplicationList.get(position).getCompleteAssessment();
+
+        if (completeSubmission == true) {
+            holder.submission.setImageResource(R.drawable.ic_accept_interview);
+            holder.submission.setBackgroundResource(R.drawable.bg_accept_interview);
+        }
+        if (completeSubmission == false) {
+            holder.submission.setImageResource(R.drawable.ic_reject_interview);
+            holder.submission.setBackgroundResource(R.drawable.bg_reject_interview);
+        }
+        if (completeAssessment == true) {
+            holder.assessment.setImageResource(R.drawable.ic_accept_interview);
+            holder.assessment.setBackgroundResource(R.drawable.bg_accept_interview);
+        }
+        if (completeAssessment == false) {
+            holder.assessment.setImageResource(R.drawable.ic_reject_interview);
+            holder.assessment.setBackgroundResource(R.drawable.bg_reject_interview);
+        }
+
         holder.reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,17 +79,17 @@ public class GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetN
 
         TextView name;
         TextView mark;
-        TextView submission;
-        TextView assessment;
-        Button reviewButton;
+        ImageView submission;
+        ImageView assessment;
+        ImageView reviewButton;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.textView1);
             mark = itemView.findViewById(R.id.textView2);
-            submission = itemView.findViewById(R.id.textView3);
-            assessment = itemView.findViewById(R.id.textView4);
+            submission = itemView.findViewById(R.id.imageView1);
+            assessment = itemView.findViewById(R.id.imageView2);
             reviewButton = itemView.findViewById(R.id.review_button);
         }
     }

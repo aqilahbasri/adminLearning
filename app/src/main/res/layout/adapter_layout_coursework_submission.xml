@@ -13,39 +13,36 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:layout_weight="20"/>
+        android:layout_weight="10"/>
 
     <TextView
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:layout_weight="15"/>
+        android:layout_weight="35"/>
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_weight="25"/>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
+        android:layout_weight="15"
         android:gravity="center">
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/downloadButton"
+            android:padding="2dp"
+            android:text="View"
+            android:src="@drawable/ic_baseline_arrow_circle_down_24"
             app:tint="@android:color/white"
-            android:padding="4dp"
-            android:id="@+id/imageView1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="25"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tint="@android:color/white"
-            android:padding="4dp"
-            android:id="@+id/imageView2"/>
+            android:background="@drawable/roundbtn"/>
     </LinearLayout>
 
     <LinearLayout
@@ -53,14 +50,24 @@
         android:layout_height="wrap_content"
         android:layout_weight="15"
         android:gravity="center">
-        <ImageView
+
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/roundbtn"
+            android:id="@+id/review_button"
+            android:padding="1dp"
+            android:text="View"
             android:src="@drawable/ic_baseline_edit_24"
             app:tint="@android:color/white"
-            android:padding="4dp"
-            android:id="@+id/review_button" />
+            android:background="@drawable/roundbtn"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:visibility="gone"/>
     </LinearLayout>
+
 
 </LinearLayout>

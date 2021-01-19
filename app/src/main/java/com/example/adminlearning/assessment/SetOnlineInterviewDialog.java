@@ -1,10 +1,14 @@
 package com.example.adminlearning.assessment;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
@@ -30,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -61,6 +66,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.dialog_set_online_interview, null);
         calendar = Calendar.getInstance();
+//        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Kuala_Lumpur"));
 
         interviewerField = view.findViewById(R.id.interviewer_name);
         interviewDate = view.findViewById(R.id.interview_date);
@@ -69,9 +75,6 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
         final Toast successMessage = Toast.makeText(builder.getContext(), "Interview details saved successfully", Toast.LENGTH_SHORT);
         final Toast failMessage = Toast.makeText(builder.getContext(), "Database update failed", Toast.LENGTH_SHORT);
 
-
-        //TODO: Spinner for interviewer field, find out about Onfocuschangelistener
-
         //Dialog box for date
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -79,32 +82,35 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//                updateLabel();
+                updateLabel();
             }
         };
+
         interviewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(), date,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.TimePickerDialogTheme, date,
                         calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+                datePickerDialog.show();
             }
         });
 
         //Dialog box for time
-        final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                calendar.set(Calendar.MINUTE, minute);
-//                updateLabel();
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                calendar.set(Calendar.HOUR_OF_DAY, i);
+                calendar.set(Calendar.MINUTE, i1);
+                updateLabel();
             }
         };
 
         interviewTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TimePickerDialog(getActivity(), time,
+                new TimePickerDialog(getActivity(), R.style.TimePickerDialogTheme, time,
                         calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
                         DateFormat.is24HourFormat(getActivity())).show();
             }

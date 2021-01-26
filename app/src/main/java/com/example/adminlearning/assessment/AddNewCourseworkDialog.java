@@ -87,8 +87,13 @@ public class AddNewCourseworkDialog extends AppCompatDialogFragment {
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                toDatabase(courseworkNameText, courseworkQuestionText);
-                dialog.dismiss();
+                if (courseworkNameText.getText().length() == 0 || courseworkQuestionText.getText().length() == 0) {
+                    Toast.makeText(getContext(), "Please complete all details", Toast.LENGTH_SHORT);
+                }
+                else {
+                    toDatabase(courseworkNameText, courseworkQuestionText);
+                }
+
             }
 
         });
@@ -107,9 +112,6 @@ public class AddNewCourseworkDialog extends AppCompatDialogFragment {
 
         myRef = database.getReference().child("ManageCoursework").child("CourseworkQuestions");
 
-//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        final String userId = currentUser.getUid();
         final String courseworkName = courseworkNameText.getText().toString();
         final String courseworkQuestion = courseworkQuestionText.getText().toString();
 
@@ -209,50 +211,49 @@ public class AddNewCourseworkDialog extends AppCompatDialogFragment {
         final StorageReference mStorageRef = storage.getReference().child("ManageCoursework").child("CourseworkQuestions");
         mStorageRef.child(fileName).putFile(filepath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                Log.i(TAG, "File successfully uploaded");
-
-                mStorageRef.child(fileName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onSuccess(Uri uri) {
-                        DatabaseReference databaseReference = database.getReference().child("ManageCoursework").child("CourseworkQuestions");
-                        databaseReference.push().child("courseworkFile").setValue(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        Log.i(TAG, "File successfully uploaded");
+
+                        mStorageRef.child(fileName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
+                            public void onSuccess(Uri uri) {
+                                DatabaseReference databaseReference = database.getReference().child("ManageCoursework").child("CourseworkQuestions");
+                                databaseReference.push().child("courseworkFile").setValue(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
 //                                        Log.e(TAG, "get from firebase: "+ds.getKey());
 //                                        setKey(ds.getKey());
-                                    Toast.makeText(activity, "File submission successful", Toast.LENGTH_SHORT).show();
-                                    notification.setText("File uploaded: " + fileName);
-                                    progressDialog.dismiss();
-                                }
-                            }
-                        });
-
-                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for(DataSnapshot ds : snapshot.getChildren()) {
-                                    if(ds.child("courseworkFile").getValue().equals(uri.toString())) {
-                                        setKey(ds.getKey());
-                                        Log.e(TAG, ds.getKey());
+                                            Toast.makeText(activity, "File submission successful", Toast.LENGTH_SHORT).show();
+                                            notification.setText("File uploaded: " + fileName);
+                                            progressDialog.dismiss();
+                                        }
                                     }
-                                    else Log.e(TAG, "sum ting wong");
-                                }
-                            }
+                                });
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot ds : snapshot.getChildren()) {
+                                            if (ds.child("courseworkFile").getValue().equals(uri.toString())) {
+                                                setKey(ds.getKey());
+                                                Log.e(TAG, ds.getKey());
+                                            } else Log.e(TAG, "sum ting wong");
+                                        }
+                                    }
 
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         });
-                    }
-                });
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getContext(), "File submission failed", Toast.LENGTH_SHORT).show();

@@ -36,6 +36,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -66,9 +67,11 @@ public class EditTestLevelFragment extends Fragment {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     private Uri filepath; //Uri = URL for local storage
     ProgressDialog progressDialog;
+    ListenerRegistration registration;
 
     public EditTestLevelFragment(String key) {
         this.key = key;
+        Log.i(TAG, key);
     }
 
     @Override
@@ -138,7 +141,7 @@ public class EditTestLevelFragment extends Fragment {
 
         DocumentReference reference = db.collection("AssessmentLevel").document(key);
 
-        reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        registration = reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -170,6 +173,8 @@ public class EditTestLevelFragment extends Fragment {
     //Send initial info to db
     private void toDatabase() {
 
+        registration.remove();
+
         DocumentReference reference = db.collection("AssessmentLevel").document(key);
 
         Date date = new Date();
@@ -192,8 +197,8 @@ public class EditTestLevelFragment extends Fragment {
         reference.update(question).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                String id = documentReference.getId();
-                uploadFile(filepath, id);
+//                String id = documentReference.getId();
+                uploadFile(filepath, key);
                 Log.d(TAG, "Level details saved successfully");
             }
         })
@@ -283,8 +288,9 @@ public class EditTestLevelFragment extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            progressDialog.dismiss();
                                             Toast.makeText(getActivity(), "File submission successful", Toast.LENGTH_SHORT).show();
+                                            progressDialog.dismiss();
+                                            registration.remove();
                                             getActivity().getSupportFragmentManager().popBackStack();
                                         }
                                     }

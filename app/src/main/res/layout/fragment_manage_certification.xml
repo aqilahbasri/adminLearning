@@ -44,7 +44,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="25"
+            android:layout_weight="28"
             android:text="Name"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -52,16 +52,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="15"
-            android:text="Level"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="22"
             android:text="Approved Date"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -70,7 +61,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="24"
+            android:layout_weight="30"
             android:text="Contact"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -79,7 +70,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="20"
             android:text="Address"
             android:textAlignment="center"
             android:textSize="16sp"

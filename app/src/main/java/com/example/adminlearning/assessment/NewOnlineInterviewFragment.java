@@ -169,12 +169,12 @@ public class NewOnlineInterviewFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                int marks;
+                double marks;
                 boolean completeAssessment;
 
                 if(snapshot.hasChild(key) && snapshot.child(key) != null) {
                     Log.i(TAG, "has child? "+snapshot.hasChild(key));
-                    marks = Integer.parseInt(snapshot.child(key).child("Score").getValue().toString());
+                    marks = Double.parseDouble(snapshot.child(key).child("Score").getValue().toString());
                     completeAssessment = true;
                 }
                 else {

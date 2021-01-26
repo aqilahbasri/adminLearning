@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,14 +13,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:layout_weight="25"/>
+        android:layout_weight="20"/>
 
     <TextView
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:layout_weight="20"/>
+        android:layout_weight="25"/>
 
     <TextView
         android:gravity="center"
@@ -28,28 +29,37 @@
         android:id="@+id/textView3"
         android:layout_weight="25"/>
 
-    <Button
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/receipt_button"
-        android:padding="1dp"
         android:layout_weight="15"
-        android:layout_marginLeft="@dimen/default_gap"
-        android:layout_marginVertical="@dimen/default_gap"
-        android:text="View"
-        android:textColor="@android:color/white"
-        android:background="@drawable/btn_turquoise_rounded"/>
+        android:gravity="center">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/receipt_button"
+            android:padding="2dp"
+            android:text="View"
+            android:src="@drawable/ic_baseline_arrow_circle_down_24"
+            app:tint="@android:color/white"
+            android:background="@drawable/roundbtn"/>
+    </LinearLayout>
 
-    <Button
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/review_button"
-        android:padding="1dp"
         android:layout_weight="15"
-        android:layout_marginLeft="@dimen/default_gap"
-        android:layout_marginVertical="@dimen/default_gap"
-        android:text="Approve"
-        android:textColor="@android:color/white"
-        android:background="@drawable/btn_turquoise_rounded"/>
+        android:gravity="center">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/review_button"
+            android:padding="1dp"
+            android:text="View"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:tint="@android:color/white"
+            android:background="@drawable/roundbtn"/>
+    </LinearLayout>
 
 </LinearLayout>

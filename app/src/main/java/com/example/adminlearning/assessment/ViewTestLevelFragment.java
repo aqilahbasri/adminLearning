@@ -1,13 +1,18 @@
 package com.example.adminlearning.assessment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -17,12 +22,15 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import com.example.adminlearning.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -31,12 +39,14 @@ public class ViewTestLevelFragment extends Fragment {
 
     private static final String TAG = "ViewTestLevelFragment";
     private TextView levelNameTxt, durationTxt, overallMarkTxt;
-    private Button addSectionBtn, editBtn;
+    private Button addSectionBtn, editBtn, deleteBtn;
     private ImageView levelIcon;
 
     private RecyclerView recyclerView;
+    private ListenerRegistration registration;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference docRef;
     private TestSectionSettingsAdapter adapter;
     private String key;
 
@@ -61,6 +71,7 @@ public class ViewTestLevelFragment extends Fragment {
 
         addSectionBtn = view.findViewById(R.id.addSection_button);
         editBtn = view.findViewById(R.id.editLevel_button);
+        deleteBtn = view.findViewById(R.id.delete_button);
         levelIcon = view.findViewById(R.id.level_icon);
 
         recyclerView = view.findViewById(R.id.list_item);
@@ -82,6 +93,13 @@ public class ViewTestLevelFragment extends Fragment {
             }
         });
 
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDeleteDialog();
+            }
+        });
+
         getInfoFromDatabase();
 
         return view;
@@ -90,9 +108,9 @@ public class ViewTestLevelFragment extends Fragment {
     //Get initial info from db
     private void getInfoFromDatabase() {
 
-        DocumentReference reference = db.collection("AssessmentLevel").document(key);
+        docRef = db.collection("AssessmentLevel").document(key);
 
-        reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        registration = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String levelName = value.get("levelName").toString();
@@ -103,9 +121,9 @@ public class ViewTestLevelFragment extends Fragment {
                 String durationStr = String.format(
                         Locale.getDefault(), "%02d hr, %02d mins",
                         TimeUnit.MILLISECONDS.toHours(duration),
-                        TimeUnit.MILLISECONDS.toMinutes(duration)-
+                        TimeUnit.MILLISECONDS.toMinutes(duration) -
                                 TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration)
-                ));
+                                ));
 
                 levelNameTxt.setText(levelName);
                 overallMarkTxt.setText(overallPassingMark);
@@ -115,7 +133,7 @@ public class ViewTestLevelFragment extends Fragment {
         });
 
         //To display sections
-        CollectionReference collection = reference.collection("Sections");
+        CollectionReference collection = docRef.collection("Sections");
 
         FirestoreRecyclerOptions<TestSectionSettingsModel> options = new FirestoreRecyclerOptions.Builder<TestSectionSettingsModel>()
                 .setQuery(collection, TestSectionSettingsModel.class).build();
@@ -124,6 +142,36 @@ public class ViewTestLevelFragment extends Fragment {
         adapter.setActivity(getActivity());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    private void showDeleteDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext(), R.style.CustomMaterialDialog);
+        dialog.setTitle("Confirm deletion level");
+        dialog.setMessage("All test questions associated with this level will also be deleted.");
+
+        dialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onStop();
+                DocumentReference reference = db.collection("AssessmentLevel").document(key);
+                reference.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                            new DeleteLevelSuccessFragment()).commit();
+                                }
+                            }
+                        });
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     //Set action bar title
@@ -142,6 +190,8 @@ public class ViewTestLevelFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+        registration.remove();
         adapter.stopListening();
     }
+
 }

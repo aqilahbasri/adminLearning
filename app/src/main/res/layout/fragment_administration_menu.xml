@@ -51,7 +51,7 @@ android:orientation="vertical">
                 android:src="@drawable/ic_viewresults" />
 
             <TextView
-                android:layout_width="160dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Manage Test Questions"
                 android:textAlignment="center"
@@ -99,8 +99,8 @@ android:orientation="vertical">
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_baseline_settings_24" />
 
@@ -137,13 +137,13 @@ android:orientation="vertical">
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_viewresults" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Manage Certification"
                 android:textAlignment="center"
@@ -175,13 +175,13 @@ android:orientation="vertical">
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_submitcoursework" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Manage Coursework"
                 android:textAlignment="center"
@@ -212,8 +212,8 @@ android:orientation="vertical">
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_joinonlineinterview" />
 

@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adminlearning.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetNewInterviewApplicationAdapter.MyViewHolder> {
+public class
+GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetNewInterviewApplicationAdapter.MyViewHolder> {
 
     ArrayList<OnlineInterviewApplication> newApplicationList;
     private final Activity activity;
+    private static DecimalFormat REAL_FORMATTER = new DecimalFormat("0.##");
 
     GetNewInterviewApplicationAdapter(Activity activity, ArrayList<OnlineInterviewApplication> newApplicationList) {
         this.activity = activity;
@@ -36,7 +39,8 @@ public class GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetN
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
         holder.name.setText(newApplicationList.get(position).getName());
-        holder.mark.setText(newApplicationList.get(position).getOverallMark().toString());
+        Double overallMark = Double.valueOf(newApplicationList.get(position).getOverallMark().toString());
+        holder.mark.setText(REAL_FORMATTER.format(overallMark));
 
         boolean completeSubmission = newApplicationList.get(position).getCompleteSubmission();
         boolean completeAssessment = newApplicationList.get(position).getCompleteAssessment();

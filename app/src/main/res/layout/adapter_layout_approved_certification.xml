@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,35 +13,28 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:layout_weight="25"/>
+        android:layout_weight="28"/>
 
     <TextView
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:layout_weight="15"/>
+        android:layout_weight="22"/>
 
     <TextView
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
-        android:layout_weight="20"/>
-
-    <TextView
-        android:gravity="center"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:layout_weight="24"/>
+        android:layout_weight="30"/>
 
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/review_button"
-        android:padding="1dp"
-        android:layout_weight="16"
+        android:padding="0dp"
+        android:layout_weight="20"
         android:layout_marginLeft="@dimen/default_gap"
         android:layout_marginVertical="@dimen/default_gap"
         android:text="View"

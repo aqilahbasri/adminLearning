@@ -47,7 +47,7 @@ public class Level1QuestionsAdapter extends FirestoreRecyclerAdapter<Level1Quest
             }
         });
 
-        holder.questionType.setText(model.getQuestionType());
+        holder.questionType.setText(model.getCorrectAnswer());
 
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,8 +39,7 @@ public class GetApprovedCertificationAdapter extends RecyclerView.Adapter<GetApp
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
         holder.name.setText(newApplicationList.get(position).getName());
-        holder.assessmentLevel.setText("1");
-//        holder.assessmentLevel.setText(newApplicationList.get(position).getApprovedDate());
+//        holder.assessmentLevel.setText("1");
         holder.appliedDate.setText(newApplicationList.get(position).getApprovedDate());
         holder.phoneNumber.setText(newApplicationList.get(position).getPhoneNumber());
         holder.viewAddress.setOnClickListener(new View.OnClickListener() {
@@ -71,9 +71,9 @@ public class GetApprovedCertificationAdapter extends RecyclerView.Adapter<GetApp
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.textView1);
-            assessmentLevel = itemView.findViewById(R.id.textView2);
-            appliedDate = itemView.findViewById(R.id.textView3);
-            phoneNumber = itemView.findViewById(R.id.textView4);
+//            assessmentLevel = itemView.findViewById(R.id.textView2);
+            appliedDate = itemView.findViewById(R.id.textView2);
+            phoneNumber = itemView.findViewById(R.id.textView3);
             viewAddress = itemView.findViewById(R.id.review_button);
         }
     }

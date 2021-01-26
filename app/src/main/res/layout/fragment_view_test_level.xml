@@ -152,21 +152,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:weightSum="100">
 
                 <Button
                     android:id="@+id/addSection_button"
-                    android:layout_width="100dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_gap"
+                    android:layout_weight="33"
                     android:background="@drawable/btn_turquoise_rounded"
                     android:text="Add Section"
                     android:textColor="@android:color/white" />
 
                 <Button
                     android:id="@+id/editLevel_button"
-                    android:layout_width="100dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="33"
                     android:layout_marginStart="16dp"
                     android:background="@drawable/btn_turquoise_rounded"
                     android:text="Edit Level"
@@ -174,9 +176,10 @@
 
                 <Button
                     android:id="@+id/delete_button"
-                    android:layout_width="100dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_gap"
+                    android:layout_weight="33"
+                    android:layout_marginStart="16dp"
                     android:background="@drawable/btn_turquoise_rounded"
                     android:text="Delete level"
                     android:textColor="@android:color/white" />

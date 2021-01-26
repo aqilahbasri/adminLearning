@@ -28,8 +28,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
 
@@ -74,14 +77,17 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
             }
         };
         interviewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(), date,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.TimePickerDialogTheme, date,
                         calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+                datePickerDialog.show();
             }
         });
 
@@ -91,13 +97,14 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
+                updateLabel();
             }
         };
 
         interviewTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TimePickerDialog(getActivity(), time,
+                new TimePickerDialog(getActivity(), R.style.TimePickerDialogTheme, time,
                         calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
                         DateFormat.is24HourFormat(getActivity())).show();
             }
@@ -192,5 +199,17 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
                 Log.e(TAG, error.getMessage());
             }
         });
+    }
+
+    //Set the interview time and date string
+    private void updateLabel() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+//        sdf.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        interviewDate.setText(sdf.format(calendar.getTime()));
+
+        String timeFormat = "hh:mm aa";
+        SimpleDateFormat sdf2 = new SimpleDateFormat(timeFormat, Locale.getDefault());
+        interviewTime.setText(sdf2.format(calendar.getTime()));
     }
 }

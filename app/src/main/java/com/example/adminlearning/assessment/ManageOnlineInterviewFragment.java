@@ -150,7 +150,7 @@ public class ManageOnlineInterviewFragment extends Fragment implements View.OnCl
                 if (snapshot.hasChild("ringing")) {
                     calledBy = snapshot.child("ringing").getValue().toString();
 
-                    Intent intent = new Intent((ManageOnlineInterviewActivity) getActivity(), CallingActivity.class);
+                    Intent intent = new Intent(getActivity(), CallingActivity.class);
                     intent.putExtra("visit_user_id", calledBy);
                     getActivity().startActivity(intent);
 //                    getActivity().finish();

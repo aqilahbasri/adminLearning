@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -95,8 +96,8 @@ public class GetNewCertApplicationAdapter extends RecyclerView.Adapter<GetNewCer
         TextView name;
         TextView phoneNumber;
         TextView appliedDate;
-        Button viewReceipt;
-        Button reviewButton;
+        ImageButton viewReceipt;
+        ImageButton reviewButton;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {

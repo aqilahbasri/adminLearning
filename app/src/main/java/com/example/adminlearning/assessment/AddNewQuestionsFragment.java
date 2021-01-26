@@ -36,7 +36,7 @@ public class AddNewQuestionsFragment extends Fragment {
 
     private EditText questionDetail, questionAnswer;
     TextView selectedGifTxt;
-    private Spinner questionType;
+//    private Spinner questionType;
     private Button cancelBtn, confirmBtn;
     private Button searchGifButton;
     CardView gifView;
@@ -58,7 +58,7 @@ public class AddNewQuestionsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_new_questions, container, false);
 
         questionDetail = view.findViewById(R.id.question_detail);
-        questionType = view.findViewById(R.id.question_type);
+//        questionType = view.findViewById(R.id.question_type);
         questionAnswer = view.findViewById(R.id.question_answer);
         cancelBtn = view.findViewById(R.id.cancel_button);
         confirmBtn = view.findViewById(R.id.confirm_button);
@@ -69,8 +69,8 @@ public class AddNewQuestionsFragment extends Fragment {
         malayCaption = view.findViewById(R.id.malayCaption);
         gifPicture = view.findViewById(R.id.gifPicture);
 
-        final QuestionTypeSpinner spinner = new QuestionTypeSpinner(getContext(), questionType);
-        spinner.spinnerActivity();
+//        final QuestionTypeSpinner spinner = new QuestionTypeSpinner(getContext(), questionType);
+//        spinner.spinnerActivity();
 
         final SearchGIFDialog dialog = SearchGIFDialog.getInstance();
         dialog.setFragContext(getContext());
@@ -98,7 +98,7 @@ public class AddNewQuestionsFragment extends Fragment {
             public void onClick(View v) {
                 if (questionDetail.getText().length() != 0 && questionAnswer.getText().length() != 0 &&
                         !GIFAdapter.getInstance().getGifUrl().equals(null)) {
-                    toDatabase(spinner);
+                    toDatabase();
                 } else {
                     Toast.makeText(getContext(), "Please complete all details", Toast.LENGTH_SHORT).show();
                 }
@@ -108,16 +108,14 @@ public class AddNewQuestionsFragment extends Fragment {
         return view;
     }
 
-    private void toDatabase(QuestionTypeSpinner spinner) {
-
-//        CollectionReference reference = db.collection("Level1TestQuestions");
+    private void toDatabase() {
 
         Date date = new Date();
         Long time = date.getTime();
 
         final String questionIDStr = "L1Q" + time;
         final String questionDetailStr = this.questionDetail.getText().toString();
-        final String questionTypeStr = spinner.getItem();
+//        final String questionTypeStr = spinner.getItem();
         final String questionAnswerStr = this.questionAnswer.getText().toString();
         GIFAdapter adapter = GIFAdapter.getInstance();
 
@@ -126,7 +124,7 @@ public class AddNewQuestionsFragment extends Fragment {
         question.put("dateModified", time);
         question.put("questionID", questionIDStr);
         question.put("questionDetail", questionDetailStr);
-        question.put("questionType", questionTypeStr);
+//        question.put("questionType", questionTypeStr);
         question.put("correctAnswer", questionAnswerStr);
         question.put("gifUrl", adapter.getGifUrl());
         question.put("malayCaption", adapter.getMalayCaption());

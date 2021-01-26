@@ -110,15 +110,23 @@ public class AddTestLevelFragment extends Fragment {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (levelNameTxt.getText().length() != 0 && hourTxt.getText().length() != 0 &&
-                        minuteTxt.getText().length() != 0 && overallMarkTxt.getText().length() != 0 &&
-                        !filepath.equals(null)) {
-                    toDatabase();
-                } else if (filepath == null)
-                    Toast.makeText(getContext(), "Please select a file", Toast.LENGTH_SHORT).show();
-                else {
+                if (levelNameTxt.getText().length() != 0 && overallMarkTxt.getText().length() != 0 &&
+                        hourTxt.getText().length() != 0 && minuteTxt.getText().length() != 0
+                        && overallMarkTxt.getText().length() != 0 && !filepath.equals(null)) {      //TODO: fix bug in this line
+                    if (Integer.parseInt(hourTxt.getText().toString()) >= 0 && Integer.parseInt(hourTxt.getText().toString()) <= 12
+                            && Integer.parseInt(minuteTxt.getText().toString()) >= 0 && Integer.parseInt(minuteTxt.getText().toString()) <= 59
+                            && Integer.parseInt(overallMarkTxt.getText().toString()) >= 0)
+                        toDatabase();
+                    else if (Integer.parseInt(minuteTxt.getText().toString()) < 0)
+                        Toast.makeText(getContext(), "Invalid overall mark", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getContext(), "Invalid duration", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(getContext(), "Please complete all details", Toast.LENGTH_SHORT).show();
+                    if (filepath == null)
+                        Toast.makeText(getContext(), "Please select a file", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -137,9 +145,9 @@ public class AddTestLevelFragment extends Fragment {
         long overallPassingMark = Long.parseLong(overallMarkTxt.getText().toString());
 
         //convert time to milliseconds
-        int hourToMs = Integer.parseInt(hourTxt.getText().toString())*60*60*1000;
-        int minToMs = Integer.parseInt(minuteTxt.getText().toString())*60*1000;
-        long duration = hourToMs+minToMs;
+        int hourToMs = Integer.parseInt(hourTxt.getText().toString()) * 60 * 60 * 1000;
+        int minToMs = Integer.parseInt(minuteTxt.getText().toString()) * 60 * 1000;
+        long duration = hourToMs + minToMs;
 
         Map question = new HashMap<>();
         question.put("dateAdded", time);
@@ -154,6 +162,7 @@ public class AddTestLevelFragment extends Fragment {
                 String id = documentReference.getId();
                 uploadFile(filepath, id);
                 Log.d(TAG, "Level details saved successfully");
+                Toast.makeText(getContext(), "Level details saved successfully", Toast.LENGTH_SHORT).show();
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -227,31 +236,31 @@ public class AddTestLevelFragment extends Fragment {
 
         mStorageRef.child(fileName).putFile(filepath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                Log.e(TAG, "File successfully uploaded");
-
-                mStorageRef.child(fileName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onSuccess(Uri uri) {
-                        final DocumentReference reference = db.collection("AssessmentLevel").document(id);
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        reference.update("levelIconUrl", uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        Log.e(TAG, "File successfully uploaded");
+
+                        mStorageRef.child(fileName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getActivity(), "File submission successful", Toast.LENGTH_SHORT).show();
-                                    getActivity().getSupportFragmentManager().popBackStack();
-                                }
+                            public void onSuccess(Uri uri) {
+                                final DocumentReference reference = db.collection("AssessmentLevel").document(id);
+
+                                reference.update("levelIconUrl", uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(getActivity(), "File submission successful", Toast.LENGTH_SHORT).show();
+                                            getActivity().getSupportFragmentManager().popBackStack();
+                                        }
+                                    }
+                                });
                             }
                         });
-                    }
-                });
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getContext(), "File submission failed", Toast.LENGTH_SHORT).show();

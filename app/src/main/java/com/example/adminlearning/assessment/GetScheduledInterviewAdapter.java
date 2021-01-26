@@ -53,11 +53,11 @@ public class GetScheduledInterviewAdapter extends RecyclerView.Adapter<GetSchedu
 
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+//        sdf.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
 
         String timeFormat = "hh.mm aa"; //In which you need put here
         SimpleDateFormat sdf2 = new SimpleDateFormat(timeFormat, Locale.getDefault());
-        sdf2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+//        sdf2.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
 
         String dateStr = sdf.format(interviewTime);
         String timeStr = sdf2.format(interviewTime);

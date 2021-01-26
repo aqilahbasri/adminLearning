@@ -31,7 +31,7 @@ public class ViewQuestionDetailDialog extends AppCompatDialogFragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference reference;
 
-    private TextView questionID, dateAdded, dateModified, questionDetail, questionType, questionAnswer;
+    private TextView questionID, dateAdded, dateModified, questionDetail, questionAnswer;
 
     public ViewQuestionDetailDialog(DocumentReference reference, int position) {
         this.reference = reference;
@@ -51,7 +51,7 @@ public class ViewQuestionDetailDialog extends AppCompatDialogFragment {
         dateAdded = view.findViewById(R.id.date_added);
         dateModified = view.findViewById(R.id.date_modified);
         questionDetail = view.findViewById(R.id.question_detail);
-        questionType = view.findViewById(R.id.question_type);
+//        questionType = view.findViewById(R.id.question_type);
         questionAnswer = view.findViewById(R.id.question_answer);
         engCaption = view.findViewById(R.id.engCaption);
         malayCaption = view.findViewById(R.id.malayCaption);
@@ -65,7 +65,7 @@ public class ViewQuestionDetailDialog extends AppCompatDialogFragment {
                 Long dateAddedLong = documentSnapshot.getLong("dateAdded");
                 Long dateModifiedLong = documentSnapshot.getLong("dateModified");
                 String questionDetailStr = documentSnapshot.getString("questionDetail");
-                String questionTypeStr = documentSnapshot.getString("questionType");
+//                String questionTypeStr = documentSnapshot.getString("questionType");
                 String questionAnswerStr = documentSnapshot.getString("correctAnswer");
 
                 String myFormat = "dd/MM/yyyy HH:mm"; //In which you need put here
@@ -78,7 +78,7 @@ public class ViewQuestionDetailDialog extends AppCompatDialogFragment {
                 dateAdded.setText(addedDate);
                 dateModified.setText(modifiedDate);
                 questionDetail.setText(questionDetailStr);
-                questionType.setText(questionTypeStr);
+//                questionType.setText(questionTypeStr);
                 questionAnswer.setText(questionAnswerStr);
 
                 gifPicture.loadUrl(documentSnapshot.getString("gifUrl"));

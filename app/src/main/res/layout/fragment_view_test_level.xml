@@ -104,7 +104,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="10"
                     android:text="No"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:layout_marginHorizontal="2dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -112,7 +113,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
                     android:text="Section name"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:layout_marginHorizontal="2dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -120,7 +122,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20"
                     android:text="Passing mark"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:layout_marginHorizontal="2dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -128,7 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20"
                     android:text="No of questions"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
+                    android:layout_marginHorizontal="2dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -137,7 +141,8 @@
                     android:layout_weight="15"
                     android:gravity="center"
                     android:text="Action"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:layout_marginHorizontal="2dp"
                     android:textStyle="bold" />
 
             </LinearLayout>

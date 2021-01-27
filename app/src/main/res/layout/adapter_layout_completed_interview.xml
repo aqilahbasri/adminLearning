@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:layout_weight="20"/>
+        android:layout_weight="22"/>
 
     <TextView
         android:gravity="center"
@@ -26,20 +26,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
-        android:layout_weight="20"/>
+        android:textSize="12sp"
+        android:layout_weight="25"/>
 
     <TextView
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
-        android:layout_weight="20"/>
+        android:layout_weight="18"/>
 
     <TextView
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView5"
-        android:layout_weight="20"/>
+        android:layout_weight="15"/>
 
 </LinearLayout>

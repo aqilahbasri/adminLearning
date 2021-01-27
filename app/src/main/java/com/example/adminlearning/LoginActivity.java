@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void InitializeFields() {
         LoginButton = (Button) findViewById(R.id.login_button);
-        RegisterButton = (Button) findViewById(R.id.createAccount_button);
+//        RegisterButton = (Button) findViewById(R.id.createAccount_button);
         UserEmail = (EditText) findViewById(R.id.login_email);
         UserPassword = (EditText) findViewById(R.id.login_password);
         ForgetPasswordLink = (TextView) findViewById(R.id.forget_password_link);

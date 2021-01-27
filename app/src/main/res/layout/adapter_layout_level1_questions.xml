@@ -21,7 +21,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:layout_weight="40"
+        android:layout_weight="45"
         android:background="@drawable/table_right_border"/>
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
-        android:layout_weight="35"
+        android:layout_weight="30"
         android:background="@drawable/table_right_border"/>
 
     <LinearLayout

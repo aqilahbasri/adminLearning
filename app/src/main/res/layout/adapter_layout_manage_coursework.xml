@@ -19,7 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:layout_weight="35"/>
+        android:layout_weight="37"/>
 
     <TextView
         android:gravity="center"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/review_button"
         android:padding="1dp"
-        android:layout_weight="30"
+        android:layout_weight="28"
         android:layout_marginStart="@dimen/default_gap"
         android:layout_marginVertical="@dimen/default_gap"
         android:text="View"

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adminlearning.R;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +46,8 @@ public class ManageCourseworkFragment extends Fragment {
 
     FloatingActionButton addCourseworkBtn;
     RecyclerView mRecyclerView;
+
+    private GetManageCourseworkAdapter adapter;
 
     public ManageCourseworkFragment() {
         // Required empty public constructor
@@ -91,6 +94,16 @@ public class ManageCourseworkFragment extends Fragment {
         detailsRef = database.getReference().child("ManageCoursework").child("CourseworkQuestions"); //TODO: Later set by level
         detailsRef.keepSynced(true);
 
+        FirebaseRecyclerOptions<ManageCourseworkModalClass> options =
+                new FirebaseRecyclerOptions.Builder<ManageCourseworkModalClass>()
+                        .setQuery(detailsRef, ManageCourseworkModalClass.class)
+                        .build();
+
+        adapter = new GetManageCourseworkAdapter(options);
+        adapter.setActivity(getActivity());
+        mRecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        /*
         detailsRef.orderByChild("createdTimestamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -116,6 +129,8 @@ public class ManageCourseworkFragment extends Fragment {
             }
         });
 
+         */
+
         //get questions first, then from question view submission
         addCourseworkBtn = view.findViewById(R.id.add_coursework_btn);
         addCourseworkBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,5 +150,17 @@ public class ManageCourseworkFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("Manage Coursework");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

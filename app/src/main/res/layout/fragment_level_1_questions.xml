@@ -41,7 +41,7 @@ android:padding="16dp">
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="40"
+        android:layout_weight="45"
         android:text="Question ID"
         android:textSize="16sp"
         android:textStyle="bold"/>
@@ -49,7 +49,7 @@ android:padding="16dp">
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="35"
+        android:layout_weight="30"
         android:text="Answer"
         android:textSize="16sp"
         android:textStyle="bold"/>

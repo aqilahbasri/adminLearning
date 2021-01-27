@@ -33,10 +33,10 @@ public class ManageCourseworkSubmissionFragment extends Fragment {
 
     RecyclerView mRecyclerView;
 
-    private String courseWorkName;
+    private DatabaseReference courseworkRef;
 
-    public ManageCourseworkSubmissionFragment(String courseWorkName) {
-        this.courseWorkName = courseWorkName;
+    public ManageCourseworkSubmissionFragment(DatabaseReference courseworkRef) {
+        this.courseworkRef = courseworkRef;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ManageCourseworkSubmissionFragment extends Fragment {
         detailsRef = database.getReference().child("ManageCoursework").child("CourseworkSubmissions");
         detailsRef.keepSynced(true);
 
-        detailsRef.addValueEventListener(new ValueEventListener() {
+        courseworkRef.child("CourseworkSubmissions").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 newApplicationList.clear();

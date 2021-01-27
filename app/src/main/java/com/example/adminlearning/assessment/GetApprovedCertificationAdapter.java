@@ -65,7 +65,7 @@ public class GetApprovedCertificationAdapter extends RecyclerView.Adapter<GetApp
         TextView assessmentLevel;   //TODO: Set assessment level for interviewee
         TextView appliedDate;
         TextView phoneNumber;
-        Button viewAddress;
+        ImageButton viewAddress;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {

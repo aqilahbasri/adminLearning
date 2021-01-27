@@ -1,5 +1,6 @@
 package com.example.adminlearning.assessment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class DeleteSectionDialog extends AppCompatDialogFragment {
 
@@ -22,10 +24,12 @@ public class DeleteSectionDialog extends AppCompatDialogFragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference reference;
     private String sectionName;
+    Activity activity;
 
-    public DeleteSectionDialog(DocumentReference reference, String sectionName) {
+    public DeleteSectionDialog(DocumentReference reference, String sectionName, Activity activity) {
         this.reference = reference;
         this.sectionName = sectionName;
+        this.activity = activity;
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {

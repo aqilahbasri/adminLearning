@@ -162,7 +162,7 @@ public class AddTestLevelFragment extends Fragment {
                 String id = documentReference.getId();
                 uploadFile(filepath, id);
                 Log.d(TAG, "Level details saved successfully");
-                Toast.makeText(getContext(), "Level details saved successfully", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Level details saved successfully", Toast.LENGTH_SHORT).show();
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -251,7 +251,7 @@ public class AddTestLevelFragment extends Fragment {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             progressDialog.dismiss();
-                                            Toast.makeText(getActivity(), "File submission successful", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Level details saved successfully", Toast.LENGTH_SHORT).show();
                                             getActivity().getSupportFragmentManager().popBackStack();
                                         }
                                     }

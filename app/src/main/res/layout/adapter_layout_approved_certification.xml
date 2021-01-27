@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,32 +12,39 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:layout_weight="28"/>
+        android:layout_weight="32"/>
 
     <TextView
-        android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:layout_weight="22"/>
+        android:layout_weight="25"/>
 
     <TextView
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
-        android:layout_weight="30"/>
-
-    <Button
+        android:layout_weight="26"/>
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/review_button"
-        android:padding="0dp"
-        android:layout_weight="20"
-        android:layout_marginLeft="@dimen/default_gap"
-        android:layout_marginVertical="@dimen/default_gap"
-        android:text="View"
-        android:textColor="@android:color/white"
-        android:background="@drawable/btn_turquoise_rounded"/>
+        android:layout_weight="17"
+        android:gravity="center">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:id="@+id/review_button"
+            android:padding="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginVertical="2dp"
+            android:text="View"
+            android:src="@drawable/ic_baseline_remove_red_eye_24"
+            android:tint="@android:color/white"
+            android:background="@drawable/roundbtn"/>
+    </LinearLayout>
 
 </LinearLayout>

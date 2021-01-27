@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:text="Name"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -54,34 +54,34 @@
             android:layout_weight="20"
             android:text="Facilitator"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="25"
+            android:layout_weight="23"
             android:text="Date"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="18"
             android:text="Time"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="15"
+            android:layout_weight="19"
             android:text="Action"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -117,9 +117,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="22"
             android:text="Name"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -128,7 +128,7 @@
             android:layout_weight="20"
             android:text="Facilitator"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -137,16 +137,16 @@
             android:layout_weight="25"
             android:text="Date"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="18"
             android:text="Time"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -155,7 +155,7 @@
             android:layout_weight="15"
             android:text="Marks"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
     </LinearLayout>

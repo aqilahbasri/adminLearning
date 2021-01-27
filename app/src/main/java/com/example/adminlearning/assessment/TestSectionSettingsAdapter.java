@@ -62,7 +62,7 @@ public class TestSectionSettingsAdapter extends FirestoreRecyclerAdapter<TestSec
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeleteSectionDialog deleteSectionDialog = new DeleteSectionDialog(reference, model.getSectionName());
+                DeleteSectionDialog deleteSectionDialog = new DeleteSectionDialog(reference, model.getSectionName(), activity);
                 deleteSectionDialog.show(((ManageTestSettingsActivity) getActivity())
                         .getSupportFragmentManager(), TAG);
             }

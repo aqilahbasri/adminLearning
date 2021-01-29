@@ -128,9 +128,15 @@ public class EditGIFDetailsActivity extends AppCompatActivity {
 
         final String messagePushID = messageDetails.get("messageID");
 
+        Map messageTextBody1 = messageDetails;
+        Map messageTextBody2 = messageDetails;
+
+        messageTextBody1.put("readStatus", "read");
+        messageTextBody2.put("readStatus", "unread");
+
         Map messageBodyDetails = new HashMap();
-        messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageDetails);
-        messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageDetails);
+        messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody1);
+        messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageTextBody2);
 
         RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
             @Override
@@ -191,6 +197,7 @@ public class EditGIFDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HashMap<String, String> messageDetails = (HashMap<String, String>) getIntent().getSerializableExtra("messageDetails");
+                messageDetails.put("message", getIntent().getStringExtra("gifurl"));
                 deleteDataFromPending(messageDetails);
             }
         });

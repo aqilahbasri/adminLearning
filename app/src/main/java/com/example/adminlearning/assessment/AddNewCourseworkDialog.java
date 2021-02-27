@@ -54,8 +54,9 @@ public class AddNewCourseworkDialog extends AppCompatDialogFragment {
     EditText courseworkQuestionText;
     TextView notification;
     Button uploadButton;
+    private Button negativeButton, positiveButton;
 
-    private Uri filepath; //Uri = URL for local storage
+    private Uri filepath = null; //Uri = URL for local storage
     ProgressDialog progressDialog;
     private final Activity activity;
 
@@ -77,6 +78,8 @@ public class AddNewCourseworkDialog extends AppCompatDialogFragment {
         courseworkQuestionText = view.findViewById(R.id.coursework_question);
         notification = view.findViewById(R.id.notification);
         uploadButton = view.findViewById(R.id.upload_btn);
+        positiveButton = view.findViewById(R.id.positiveButton);
+        negativeButton = view.findViewById(R.id.negativeButton);
 
         final Toast successMessage = Toast.makeText(builder.getContext(), "Details saved successfully", Toast.LENGTH_SHORT);
         final Toast failMessage = Toast.makeText(builder.getContext(), "Details update failed", Toast.LENGTH_SHORT);
@@ -84,28 +87,29 @@ public class AddNewCourseworkDialog extends AppCompatDialogFragment {
         initButton(notification, uploadButton);
         builder.setView(view);
 
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (courseworkNameText.getText().length() == 0 || courseworkQuestionText.getText().length() == 0) {
-                    Toast.makeText(getContext(), "Please complete all details", Toast.LENGTH_SHORT);
-                }
-                else {
+            public void onClick(View view) {
+                if (courseworkNameText.getText().length() == 0 || courseworkQuestionText.getText().length() == 0
+                        && filepath != null) {
+                    Toast.makeText(getContext(), "Please complete all details", Toast.LENGTH_SHORT).show();
+                } else {
                     toDatabase(courseworkNameText, courseworkQuestionText);
                 }
-
             }
-
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
                 dialog.dismiss();
             }
         });
 
-        return builder.create();
+        return dialog;
     }
 
     private void toDatabase(final EditText courseworkNameText, final EditText courseworkQuestionText) {

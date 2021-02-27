@@ -15,6 +15,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -49,6 +50,8 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
     EditText interviewTime;
     Calendar calendar;
 
+    private Button positiveButton, negativeButton;
+
     String applicantName;
     String applicantId;
     private String interviewerId;
@@ -62,6 +65,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomMaterialDialog);
         builder.setTitle("Set Interview Details");
         builder.setMessage("Set interview details for " + applicantName);
+        builder.setCancelable(false);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.dialog_set_online_interview, null);
@@ -71,9 +75,12 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
         interviewerField = view.findViewById(R.id.interviewer_name);
         interviewDate = view.findViewById(R.id.interview_date);
         interviewTime = view.findViewById(R.id.interview_time);
+        positiveButton = view.findViewById(R.id.positiveButton);
+        negativeButton = view.findViewById(R.id.negativeButton);
 
         final Toast successMessage = Toast.makeText(builder.getContext(), "Interview details saved successfully", Toast.LENGTH_SHORT);
         final Toast failMessage = Toast.makeText(builder.getContext(), "Database update failed", Toast.LENGTH_SHORT);
+        final Toast incompleteMessage = Toast.makeText(getContext(), "Please complete all details", Toast.LENGTH_SHORT);
 
         //Dialog box for date
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -121,10 +128,12 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
 
         builder.setView(view);
 
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 final String interviewerName = interviewerField.getText().toString();
                 getInterviewerId(interviewerName);
 
@@ -132,20 +141,22 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        setInterviewDetails(interviewerName, successMessage, failMessage);
+                        if (!interviewerName.equals("") && !String.valueOf(calendar.getTimeInMillis()).equals(null))
+                            setInterviewDetails(interviewerName, successMessage, failMessage);
+                        else incompleteMessage.show();
                     }
                 }, 1000);
             }
-        }); //end onClick for positive button
+        });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
                 dialog.dismiss();
             }
-        }); //end onClick for negative button
+        });
 
-        return builder.create();
+        return dialog;
     }
 
     private void setInterviewDetails(final String interviewerName, final Toast successMessage, final Toast failMessage) {

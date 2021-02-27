@@ -80,7 +80,7 @@ public class NewOnlineInterviewFragment extends Fragment {
                                     sortOrder = interviewApplication.getOverallMark().intValue();
                                 }
 
-                                if (!ds.child("sortOrder").exists()) {
+//                                if (!ds.child("sortOrder").exists()) {
                                     if (ds.child("completeAssessment").getValue().equals(true) && ds.child("completeSubmission").getValue().equals(true)) {
                                         weightage = 4;
                                     } else if (ds.child("completeAssessment").getValue().equals(true) && ds.child("completeSubmission").getValue().equals(false)) {
@@ -88,10 +88,10 @@ public class NewOnlineInterviewFragment extends Fragment {
                                     } else if (ds.child("completeAssessment").getValue().equals(false) && ds.child("completeSubmission").getValue().equals(true)) {
                                         weightage = 2;
                                     } else weightage = 1;
-                                    int newSortOrder = sortOrder * weightage;
+                                    int newSortOrder = (sortOrder+1) * weightage;
                                     values.put("sortOrder", newSortOrder);
                                     ds.getRef().updateChildren(values);
-                                }   //endif
+//                                }   //endif
 
                             }   //endfords1
                         }
@@ -136,20 +136,28 @@ public class NewOnlineInterviewFragment extends Fragment {
 
     private void updateCourseworkSubmission(String key, DatabaseReference currentRef) {
         DatabaseReference submissionRef = FirebaseDatabase.getInstance().getReference().child("ManageCoursework")
-                .child("CourseworkSubmissions");
+                .child("CourseworkQuestions");
 
         submissionRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                boolean completeSubmission;
+                boolean completeSubmission = false;
 
-                if(snapshot.hasChild(key)) {
-                    completeSubmission = true;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    for (DataSnapshot ds1 : ds.getChildren()) {
+                        if (ds.child("CourseworkSubmissions").hasChild(key)) {
+                            completeSubmission = true;
+                        }
+                    }
                 }
-                else {
-                    completeSubmission = false;
-                }
+
+//                if(snapshot.hasChild(key)) {
+//                    completeSubmission = true;
+//                }
+//                else {
+//                    completeSubmission = false;
+//                }
                 currentRef.child("completeSubmission").setValue(completeSubmission);
             }
 

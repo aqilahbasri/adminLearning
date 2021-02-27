@@ -57,4 +57,30 @@
         android:longClickable="false"
         android:focusable="false"/> <!--must have focusable=false to prevent user entering data -->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/negativeButton"
+            android:background="@android:color/transparent"
+            android:textColor="@color/red"
+            android:minWidth="0dp"
+            android:layout_marginEnd="36dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/positiveButton"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorPrimaryDark"
+            android:minWidth="0dp" />
+    </LinearLayout>
+
 </LinearLayout>

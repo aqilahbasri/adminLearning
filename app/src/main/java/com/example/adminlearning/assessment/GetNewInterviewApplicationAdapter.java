@@ -23,6 +23,9 @@ GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetNewInterviewAp
     ArrayList<OnlineInterviewApplication> newApplicationList;
     private final Activity activity;
     private static DecimalFormat REAL_FORMATTER = new DecimalFormat("0.##");
+    private Double overallMark = 0.0;
+    private boolean completeSubmission = false;
+    private boolean completeAssessment = false;
 
     GetNewInterviewApplicationAdapter(Activity activity, ArrayList<OnlineInterviewApplication> newApplicationList) {
         this.activity = activity;
@@ -39,7 +42,9 @@ GetNewInterviewApplicationAdapter extends RecyclerView.Adapter<GetNewInterviewAp
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
         holder.name.setText(newApplicationList.get(position).getName());
-        Double overallMark = Double.valueOf(newApplicationList.get(position).getOverallMark().toString());
+
+        if (!newApplicationList.get(position).getOverallMark().equals(null))
+            overallMark = Double.valueOf(newApplicationList.get(position).getOverallMark().toString());
         holder.mark.setText(REAL_FORMATTER.format(overallMark));
 
         boolean completeSubmission = newApplicationList.get(position).getCompleteSubmission();

@@ -48,6 +48,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
     EditText interviewerField;
     EditText interviewDate;
     EditText interviewTime;
+    EditText meetingLink;
     Calendar calendar;
 
     private Button positiveButton, negativeButton;
@@ -63,8 +64,8 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomMaterialDialog);
-        builder.setTitle("Set Interview Details");
-        builder.setMessage("Set interview details for " + applicantName);
+        builder.setTitle("Set Interview Details for "+applicantName);
+//        builder.setMessage("Set interview details for " + applicantName);
         builder.setCancelable(false);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -73,6 +74,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
 //        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Kuala_Lumpur"));
 
         interviewerField = view.findViewById(R.id.interviewer_name);
+        meetingLink = view.findViewById(R.id.meting_link);
         interviewDate = view.findViewById(R.id.interview_date);
         interviewTime = view.findViewById(R.id.interview_time);
         positiveButton = view.findViewById(R.id.positiveButton);
@@ -135,14 +137,17 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View view) {
                 final String interviewerName = interviewerField.getText().toString();
+                String meetingLinkStr = meetingLink.getText().toString();
                 getInterviewerId(interviewerName);
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (!interviewerName.equals("") && !String.valueOf(calendar.getTimeInMillis()).equals(null))
-                            setInterviewDetails(interviewerName, successMessage, failMessage);
+                        if (!interviewerName.equals("") && !String.valueOf(calendar.getTimeInMillis()).equals(null)
+                        && !meetingLinkStr.equals("") && !meetingLinkStr.equals("")) {
+                            setInterviewDetails(interviewerName, meetingLinkStr, successMessage, failMessage);
+                        }
                         else incompleteMessage.show();
                     }
                 }, 1000);
@@ -159,7 +164,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
         return dialog;
     }
 
-    private void setInterviewDetails(final String interviewerName, final Toast successMessage, final Toast failMessage) {
+    private void setInterviewDetails(final String interviewerName, String meetingLinkStr, final Toast successMessage, final Toast failMessage) {
         detailsRef.child(applicantId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -170,6 +175,7 @@ public class SetOnlineInterviewDialog extends AppCompatDialogFragment {
                 values.put("interviewerName", interviewerName);
                 values.put("interviewerId", interviewerId);
                 values.put("interviewTime", interviewTime);
+                values.put("meetingLink", meetingLinkStr);
 
                 snapshot.getRef().updateChildren(values);
 

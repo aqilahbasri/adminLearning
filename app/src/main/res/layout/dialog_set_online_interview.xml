@@ -57,6 +57,21 @@
         android:longClickable="false"
         android:focusable="false"/> <!--must have focusable=false to prevent user entering data -->
 
+    <!--    For meeting link-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Meeting Link"
+        android:textColor="@color/colorPrimary"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/meting_link"
+        android:inputType="text"
+        android:background="@drawable/rectangle_border"
+        android:hint="Set meeting link..."/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -87,12 +87,12 @@ public class GetScheduledInterviewAdapter extends RecyclerView.Adapter<GetSchedu
             }
         });
 
-        holder.callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initiateVideoMeeting(newApplicationList.get(position).getUserId());
-            }
-        });
+//        holder.callButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                initiateVideoMeeting(newApplicationList.get(position).getUserId());
+//            }
+//        });
     }
 
     @Override
@@ -108,7 +108,7 @@ public class GetScheduledInterviewAdapter extends RecyclerView.Adapter<GetSchedu
         TextView interviewDate;
         TextView interviewTime;
         ImageButton reviewButton;
-        ImageButton callButton;
+//        ImageButton callButton;
 
         @SuppressLint("WrongViewCast")
         public MyViewHolder(@NonNull View itemView) {
@@ -118,7 +118,7 @@ public class GetScheduledInterviewAdapter extends RecyclerView.Adapter<GetSchedu
             interviewDate = itemView.findViewById(R.id.textView3);
             interviewTime = itemView.findViewById(R.id.textView4);
             reviewButton = itemView.findViewById(R.id.review_button);
-            callButton = itemView.findViewById(R.id.callBtn);
+//            callButton = itemView.findViewById(R.id.callBtn);
         }
     }
 

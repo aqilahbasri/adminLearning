@@ -11,6 +11,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -41,9 +42,11 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
     EditText interviewerField;
     EditText interviewDate;
     EditText interviewTime;
+    EditText meetingLink;
     Calendar calendar;
 
     String applicantName, applicantId, interviewerId;
+    private Button positiveButton, negativeButton;
 
     private static final String TAG = "UpdateInterviewDialog";
 
@@ -54,19 +57,24 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomMaterialDialog);
-        builder.setTitle("Set Interview Details");
-        builder.setMessage("Update interview details for " + applicantName);
+        builder.setTitle("Update Interview Details for "+applicantName);
+//        builder.setMessage("Update interview details for " + applicantName);
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.dialog_set_online_interview, null);
         calendar = Calendar.getInstance();
 
+        positiveButton = view.findViewById(R.id.positiveButton);
+        negativeButton = view.findViewById(R.id.negativeButton);
+
         interviewerField = view.findViewById(R.id.interviewer_name);
         interviewDate = view.findViewById(R.id.interview_date);
         interviewTime = view.findViewById(R.id.interview_time);
+        meetingLink = view.findViewById(R.id.meting_link);
 
         final Toast successMessage = Toast.makeText(builder.getContext(), "Interview details updated successfully", Toast.LENGTH_SHORT);
         final Toast failMessage = Toast.makeText(builder.getContext(), "Database update failed", Toast.LENGTH_SHORT);
+        Toast incompleteMessage = Toast.makeText(builder.getContext(), "Please complete all fields", Toast.LENGTH_SHORT);
 
         //TODO: Spinner for interviewer field, find out about Onfocuschangelistener
 
@@ -116,60 +124,69 @@ public class UpdateOnlineInterviewDialog extends AppCompatDialogFragment {
 
         builder.setView(view);
 
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
 
-                detailsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild(applicantId)) {
+                if (!meetingLink.getText().toString().equals("") && !interviewerField.getText().toString().equals("")) {
 
-                            String interviewerName = interviewerField.getText().toString();
-                            Long interviewTime = calendar.getTimeInMillis();
+                    detailsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild(applicantId)) {
 
-                            getInterviewerId(interviewerName);
+                                String interviewerName = interviewerField.getText().toString();
+                                String meetingLinkStr = meetingLink.getText().toString();
+                                Long interviewTime = calendar.getTimeInMillis();
 
-                            HashMap<String, Object> values = new HashMap<>();
-                            values.put("interviewerName", interviewerName);
-                            values.put("interviewTime", interviewTime);
-                            values.put("interviewerId", interviewerId);
+                                getInterviewerId(interviewerName);
 
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
+                                HashMap<String, Object> values = new HashMap<>();
+                                values.put("meetingLink", meetingLinkStr);
+                                values.put("interviewerName", interviewerName);
+                                values.put("interviewTime", interviewTime);
+                                values.put("interviewerId", interviewerId);
 
-                                    snapshot.child(applicantId).getRef().updateChildren(values)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isComplete()) {
-                                                        successMessage.show();
-                                                    } else {
-                                                        failMessage.show();
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        snapshot.child(applicantId).getRef().updateChildren(values)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isComplete()) {
+                                                            successMessage.show();
+                                                        } else {
+                                                            failMessage.show();
+                                                        }
                                                     }
-                                                }
-                                            });
+                                                });
+                                    }
+                                }, 800);
+//                            }
 
-                                }
-                            }, 800);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("error", error.getMessage());
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("error", error.getMessage());
+                        }
+                    });
+                }
+                else {
+                    incompleteMessage.show();
+                }
             }
-
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+        negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            public void onClick(View view) {
+                dismiss();
             }
         });
 

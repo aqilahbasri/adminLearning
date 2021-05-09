@@ -57,7 +57,7 @@
             android:src="@drawable/ic_baseline_edit_24"
             android:tint="@android:color/white"/>
 
-        <ImageButton
+        <!-- ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_call_24"
@@ -65,7 +65,7 @@
             android:padding="2dp"
             android:id="@+id/callBtn"
             android:layout_marginStart="2dp"
-            android:tint="@android:color/white"/>
+            android:tint="@android:color/white"/ -->
 
     </LinearLayout>
 

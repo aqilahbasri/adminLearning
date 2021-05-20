@@ -35,7 +35,7 @@
         android:textSize="20sp"
         android:textStyle="bold"/>
 
-    <!--    For mark-->
+    <!--    For time-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,6 +49,21 @@
         android:textSize="20sp"
         android:textStyle="bold"/>
 
+    <!--    For meeting link-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_gap"
+        android:text="Meeting Link"
+        android:textColor="@color/colorPrimary"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/meetingLinkTxt"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:autoLink="web"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <!--    For mark-->
     <TextView

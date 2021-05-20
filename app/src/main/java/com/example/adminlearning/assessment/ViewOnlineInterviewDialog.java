@@ -5,9 +5,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +39,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import io.perfmark.Link;
+
 public class ViewOnlineInterviewDialog extends AppCompatDialogFragment {
 
     FirebaseDatabase database;
     DatabaseReference detailsRef;
-    TextView interviewerTxt, dateTxt, timeTxt;
+    TextView interviewerTxt, dateTxt, timeTxt, meetingLinkTxt;
     EditText markTxt;
     CheckBox isCompleteBox;
 
@@ -67,6 +71,7 @@ public class ViewOnlineInterviewDialog extends AppCompatDialogFragment {
         dateTxt = view.findViewById(R.id.interviewDateTxt);
         timeTxt = view.findViewById(R.id.interviewTimeTxt);
         markTxt = view.findViewById(R.id.interviewMarkTxt);
+        meetingLinkTxt = view.findViewById(R.id.meetingLinkTxt);
         isCompleteBox = view.findViewById(R.id.isCompleteBox);
 
         successMessage = Toast.makeText(builder.getContext(), "Interview has been completed", Toast.LENGTH_SHORT);
@@ -130,10 +135,17 @@ public class ViewOnlineInterviewDialog extends AppCompatDialogFragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String interviewerName = snapshot.child("interviewerName").getValue().toString();
+                String meetingLinkStr = "";
+
+                if (!snapshot.child("meetingLink").getValue().equals(null))
+                    meetingLinkStr = snapshot.child("meetingLink").getValue().toString();
                 Long interviewDate = Long.valueOf(snapshot.child("interviewTime").getValue().toString());
                 updateDateTimeLabel(interviewDate);
 
                 interviewerTxt.setText(interviewerName);
+                meetingLinkTxt.setText(meetingLinkStr);
+                meetingLinkTxt.setLinkTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                Linkify.addLinks(meetingLinkTxt, Linkify.WEB_URLS);
             }
 
             @Override
